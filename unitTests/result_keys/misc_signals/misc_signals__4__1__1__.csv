@@ -1,0 +1,12 @@
+Time,0,1,2,3,4,5,6,7,8,9,10
+FINAL_TIME,10
+forecast_test,4,4,4,4,4,4,4,4,4,4,4
+INITIAL_TIME,0
+Input_value_1,4
+Input_value_2,1
+Input_value_3,1
+pulse_test,0,0,0,0,1,0,0,0,0,0,0
+SAVEPER,1,1,1,1,1,1,1,1,1,1,1
+step_test,0,4,4,4,4,4,4,4,4,4,4
+TIME_STEP,1
+trend_test,1,0,0,0,0,0,0,0,0,0,0

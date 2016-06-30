@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{679593D0-D363-4BD2-9DBC-9B51239A14D3}</ProjectGuid>
+    <RootNamespace>OMEDraw</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LUA_COMPAT_5_1;_HAS_ITERATOR_DEBUGGING=0;__EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\external_src\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows\OMEDraw;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>.\OMEDraw.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\..\..\extern_support\lua\src;$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>"..\..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib";OMERuntime.lib</AdditionalDependencies>
+      <AssemblyDebug>false</AssemblyDebug>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>__EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;NDEBUG;_USRDLL;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\external_src\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows\OMEDraw;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>.\OMEDraw.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>"$(SolutionDir)..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib";OMERuntime.lib</AdditionalDependencies>
+      <Profile>true</Profile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\OMEDraw.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\Windows\OMEDraw\OMEDraw.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="..\..\..\include\Windows\stdafx.h" />
+    <ClInclude Include="..\..\..\extern_support\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\..\include\OMEDraw\BaseResultsDetails.h" />
+    <ClInclude Include="..\..\..\include\OMEDraw\DrawDetails.h" />
+    <ClInclude Include="..\..\..\include\OMEDraw\MultiValResultsDetails.h" />
+    <ClInclude Include="..\..\..\include\OMEDraw\ResultsDetailsMgr.h" />
+    <ClInclude Include="..\..\..\include\OMEDraw\TableResultsDetails.h" />
+    <ClInclude Include="..\..\..\include\OMEDraw\TreeResultsDetails.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OMEDraw.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Windows\OMEDraw\OMEDraw.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\stdafx.cpp" />
+    <ClCompile Include="..\..\..\extern_support\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\src\OMEDraw\BaseResultsDetails.cpp" />
+    <ClCompile Include="..\..\..\src\OMEDraw\DrawDetails.cpp" />
+    <ClCompile Include="..\..\..\src\OMEDraw\MultiValResultsDetails.cpp" />
+    <ClCompile Include="..\..\..\src\OMEDraw\ResultsDetailsMgr.cpp" />
+    <ClCompile Include="..\..\..\src\OMEDraw\TableResultsDetails.cpp" />
+    <ClCompile Include="..\..\..\src\OMEDraw\TreeResultsDetails.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

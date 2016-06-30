@@ -1,0 +1,11 @@
+@INCLUDE_PATH = ../../
+@INCLUDE = Master.doxygen
+
+#extend exclude to hide non-mac code
+#as well as Windows glue code (namely stuff needed for DLL generation)
+EXCLUDE                += ../../src/Linux \
+						  ../../include/Linux \
+						  ../../include/Windows \
+						  ../../src/Windows 
+						  
+                          

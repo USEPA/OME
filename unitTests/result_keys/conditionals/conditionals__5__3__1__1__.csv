@@ -1,0 +1,12 @@
+variable,value
+FINAL_TIME,1
+if_then_else_test,3,3
+INITIAL_TIME,0
+Input_value_1,1
+Input_value_2,1
+SAVEPER,1,1
+Static_Input_value_1,5
+Static_Input_value_2,3
+TIME_STEP,1
+xidz_test,1,1
+zidz_test,1,1

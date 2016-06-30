@@ -1,0 +1,37 @@
+@INCLUDE_PATH = ../../
+@INCLUDE = Master.doxygen
+
+# The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
+# into which the generated documentation will be written. If a relative path is
+# entered, it will be relative to the location where doxygen was started. If
+# left blank the current directory will be used.
+
+OUTPUT_DIRECTORY       = "Doxy Docs"
+
+
+# If you set the HAVE_DOT tag to YES then doxygen will assume the dot tool is
+# available from the path. This tool is part of Graphviz (see:
+# http://www.graphviz.org/), a graph visualization toolkit from AT&T and Lucent
+# Bell Labs. The other options in this section have no effect if this option is
+# set to NO
+# The default value is: NO.
+
+HAVE_DOT               = NO
+
+# The DOT_PATH tag can be used to specify the path where the dot tool can be
+# found. If left blank, it is assumed the dot tool can be found in the path.
+# This tag requires that the tag HAVE_DOT is set to YES.
+
+DOT_PATH               = ../../graphviz/bin/
+
+#extend exclude to hide non-windows code
+#as well as Windows glue code (namely stuff needed for DLL generation)
+EXCLUDE                += ../../include/OS_X \
+                          ../../src/OS_X \
+                          ../../src/Linux \
+						  ../../include/Linux \
+						  ../../include/Windows/OMEDraw/OMEDraw.h \
+						  ../../src/Windows/OMEDraw/OMEDraw.cpp \
+						  ../../include/Windows/CSVSpatialDataProvider/SDPDLL.h \
+                          ../../src/Windows/CSVSpatialDataProvider/SDPDLL.cpp \
+						  ../../src/Windows/OMEWizard/Form1.Designer.cs

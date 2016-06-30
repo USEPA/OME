@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <!--
+Version: PreRelesase
+Last Revised: June 17, 2016
+Author: Patrick Wingo 
+  -->
+  <xs:include schemaLocation="commonTypes.xsd" />
+  <xs:attribute name="path" type="pathtype">
+    <xs:annotation>
+      <xs:documentation>Path to file to load.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  
+  <!-- debug element and attribute types -->
+  <xs:complexType name="dbg_batch_dump">
+    <xs:attribute ref="path" />
+  </xs:complexType>
+  <xs:complexType name="break_points">
+    <xs:annotation>
+      <xs:documentation>A collection of breakpoint entries for use with debugging lua scripts.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="bp" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A breakpoint entry.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="line" type="xs:integer" use="required">
+            <xs:annotation>
+              <xs:documentation>The line to break on.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="enabled" type="xs:boolean" use="required">
+            <xs:annotation>
+              <xs:documentation>If true, break on the associated line; otherwise, do nothing.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute ref="path">
+      <xs:annotation>
+        <xs:documentation>Path to text file with whitespace-delimited list of lines at which to break at.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <!--solver element and attribute types-->
+  <xs:simpleType name="solvemethodtype">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="euler">
+        <xs:annotation>
+          <xs:documentation>Euler's method.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="rk4">
+        <xs:annotation>
+          <xs:documentation>Runge-Kutta 4th order method.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="solvertype">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="default">
+        <xs:annotation>
+          <xs:documentation>The default integration solver</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hires">
+        <xs:annotation>
+          <xs:documentation>An integration solver that uses the Kahan error correction method for floating point numbers.
+          More accurrate, but requires more time and memory.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- SDP direction types-->
+  <xs:simpleType name="sdpdirtype">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="none">
+        <xs:annotation>
+          <xs:documentation>No initialization in any direction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sdp_to_component">
+        <xs:annotation>
+          <xs:documentation>Initialize model component from initial SDP column value.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="component_to_sdp">
+        <xs:annotation>
+          <xs:documentation>Initialize SDP column value from model component.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    <xs:enumeration value="bidirectional">
+        <xs:annotation>
+          <xs:documentation>Components synchronize in both directions.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- results_views element and attribute types -->
+  <xs:complexType name="rviewtype">
+    <xs:annotation>
+      <xs:documentation>Base information for result view types.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fields" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The fields to apply to a results view.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="field" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>A specific field to include in the view.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="id" type="idtype" use="required">
+                  <xs:annotation>
+                    <xs:documentation>The ID of the model component to include.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="color" type="colortype" use="required">
+                  <xs:annotation>
+                    <xs:documentation>RGB channel triplet defining the field's color; each channel value falls in [0,1].</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>      
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Name of the field instance.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- SDP grid types-->
+  <xs:simpleType name="sdpgridtype">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="grid4">
+        <xs:annotation>
+          <xs:documentation>Square grid where only edge neighbors are considered.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="grid8">
+        <xs:annotation>
+          <xs:documentation>Square grid where edge and corner neighbors are considered.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hex">
+        <xs:annotation>
+          <xs:documentation>Hexagon grid where all edge neighbors are considered.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- schema body-->
+  <xs:element name="ome_ctrl">
+    <xs:annotation>
+      <xs:documentation>Root element for .omec file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="debug" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>A collection of debugging objects.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="dump_init_batch" type="dbg_batch_dump" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Dump init batch statements.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="dump_eval_batch" type="dbg_batch_dump" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Dump evaluation/update statements.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="init_break" type="break_points" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>A collection of breakpoints for the initialization lua script.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="eval_break" type="break_points" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>A collection of breakpoints for the update lua script.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="spatial_provider" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Entry information pertaining to the specific spatial data provider (SDP).</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any minOccurs="0" processContents="skip" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="library_path" type="pathtype" use="required">
+              <xs:annotation>
+                <xs:documentation>Path to dynamic library storing the SDP.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+ <!--           <xs:attribute name="grid_type" type="sdpgridtype">
+              <xs:annotation>
+                <xs:documentation>Optional designation of grid type for how neighbors should be handled.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>-->
+            <xs:anyAttribute processContents="lax"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="coverage_mapping" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The mapping between the spatial data provider (SDP) and submodels.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="submodel" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Submodel where a relationship exists with SDP</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="var" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation>Mapping between SDP field and Submodel component.</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="inst_map" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                              <xs:documentation>Mappings for different instances to SDP columns.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:attribute name="index" type="xs:int" use="required">
+                                <xs:annotation>
+                                  <xs:documentation>The 1-based instance to take value from.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="sdp_name" type="xs:string" use="required">
+                                <xs:annotation>
+                                  <xs:documentation>The name of the field in SDP to map to specific index.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="sdp_name" type="xs:string" use="required">
+                          <xs:annotation>
+                            <xs:documentation>The name of the field in SDP.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="mapto_id" type="idtype">
+                          <xs:annotation>
+                            <xs:documentation>ID of submodel component; the mapto_id attribute can be used instead.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="mapto_name" type="xs:string">
+                          <xs:annotation>
+                            <xs:documentation>The name of the submodel component; the mapto_name attribute can be used instead.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="update_dir" type="sdpdirtype">
+                          <xs:annotation>
+                            <xs:documentation>If true, the model component updates from SDP at the synchronization point if it has changed.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="init_dir" type="sdpdirtype">
+                          <xs:annotation>
+                            <xs:documentation>Enumerated type that determines the direction of initialization, if any. Value 'bidirectional' will default to 'none' for this attribute.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="idtype">
+                    <xs:annotation>
+                      <xs:documentation>The id of the model. The name attribute can be used instead.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="name" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>The name of the model. The id attribute can be used instead.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="instance_per_unit" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>If true the submodel is initialized with the number of instances matching the total number of SDP records.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="solver">
+          <xs:annotation>
+            <xs:documentation>Details on which integration solver to use.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="method" type="solvemethodtype" use="required">
+              <xs:annotation>
+                <xs:documentation>Integration solving method.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="type" type="solvertype">
+              <xs:annotation>
+                <xs:documentation>Which variation of the solver to use.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element ref="param_file" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="ome_model">
+          <xs:annotation>
+            <xs:documentation>The model file to run.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="filepath" type="pathtype" use="required">
+              <xs:annotation>
+                <xs:documentation>Path to the .omem model definition file.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="compiled_name" type="pathtype">
+              <xs:annotation>
+                <xs:documentation>Path to a compiled version of the model. Leave off extension (.dll or .dynlib).</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="start_time" type="xs:double">
+              <xs:annotation>
+                <xs:documentation>Override Model's start time.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="stop_time" type="xs:double">
+              <xs:annotation>
+                <xs:documentation>Override Model's stop time.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="interval" type="xs:double">
+              <xs:annotation>
+                <xs:documentation>Override Model's step interval.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="report_interval" type="xs:double" >
+              <xs:annotation>
+                <xs:documentation>Override Model's report interval.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="step_size" type="xs:double">
+              <xs:annotation>
+                <xs:documentation>Override Model's step size.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="relative_step_size" type="xs:double">
+              <xs:annotation>
+                <xs:documentation>Override Model's relative step size.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="time_units" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>Temporal units to apply to model.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="results_views" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Settings for viewing outputs of a simulation.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <!-- workaround for unordered list-->
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="tree_view">
+                <xs:annotation>
+                  <xs:documentation>Details for an instance of a tree results view.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="rviewtype">
+                      <xs:attribute name="selected_only" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>If true, only display selected fields.</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="sort_dir" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Sort direction; 0=ascending, 1=descending.</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="sort_mode" type="xs:unsignedInt">
+                        <xs:annotation>
+                          <xs:documentation>Sorting components and submodels; 0=components first, 1=models first, 2=mixed.</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="multival_view">
+                <xs:annotation>
+                  <xs:documentation>View type which shows all values for a single component.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="rviewtype">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+	      <xs:element name="table_view">
+		<xs:annotation>
+		  <xs:documentation>View type which shows specific values in a table setup.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+		  <xs:complexContent>
+		    <xs:extension base="rviewtype">
+		      <xs:attribute name="show_change" type="xs:boolean">
+			<xs:annotation>
+			  <xs:documentation>Show which variables have recently changed (may be unimplemented)</xs:documentation>
+			</xs:annotation>
+		      </xs:attribute>
+		    </xs:extension>
+		  </xs:complexContent>
+		</xs:complexType>
+	      </xs:element>
+              <!--Allow for custom views in the future-->
+              <!--<xs:any/>-->
+            </xs:choice>
+            <xs:attribute name="selected" type="xs:unsignedInt">
+              <xs:annotation>
+                <xs:documentation>Index to the currently selected view.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

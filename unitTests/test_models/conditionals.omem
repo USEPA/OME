@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome>
+<model init_instances='1' id='root' name='root' step_size='-6.27744e+066' int_method='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
+    <variables>
+        <variable id='v_0' name='if then else test' expr=' if root.Input_value_1&lt;root.Input_value_2 then root.Static_Input_value_1 else  root.Static_Input_value_2 end ' origin='0,0' extents='0,0' />
+        <variable id='v_1' name='Input_value_1' expr='1.0' origin='0,0' extents='0,0' />
+        <variable id='v_2' name='Input_value_2' expr='0.0' origin='0,0' extents='0,0' />
+        <variable id='v_3' name='Static_Input_value 1' expr='5.0' origin='0,0' extents='0,0' />
+        <variable id='v_4' name='Static_Input_value_2' expr='3.0' origin='0,0' extents='0,0' />
+        <variable id='v_5' name='xidz test' expr='if abs(root.Input_value_2)&lt;1e-6 then  root.Static_Input_value_1 else (root.Input_value_1)/(root.Input_value_2) end' origin='0,0' extents='0,0' />
+        <variable id='v_6' name='zidz test' expr='if abs( root.Input_value_2)&lt;1e-6 then 0.0 else (root.Input_value_1)/( root.Input_value_2) end' origin='0,0' extents='0,0' />
+    </variables>
+    <influences>
+        <influence id='i_7' name='i_7' expr='' use_curr_val='0' source='v_1' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_8' name='i_8' expr='' use_curr_val='0' source='v_1' target='v_5' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_9' name='i_9' expr='' use_curr_val='0' source='v_1' target='v_6' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_10' name='i_10' expr='' use_curr_val='0' source='v_2' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_11' name='i_11' expr='' use_curr_val='0' source='v_2' target='v_5' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_12' name='i_12' expr='' use_curr_val='0' source='v_2' target='v_6' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_13' name='i_13' expr='' use_curr_val='0' source='v_3' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_14' name='i_14' expr='' use_curr_val='0' source='v_3' target='v_5' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_15' name='i_15' expr='' use_curr_val='0' source='v_4' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </influences>
+</model>
+</ome>

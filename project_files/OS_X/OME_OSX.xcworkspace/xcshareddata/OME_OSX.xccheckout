@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8760AB9B-63F0-47F7-AF13-13536D7A110D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>OME_OSX</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7c524f08-fcb2-7a4c-a43e-4e2009643912++1929</key>
+		<string>https://envision.bioe.orst.edu/svn/ome/branches/macWork</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OS_X/OME_OSX.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7c524f08-fcb2-7a4c-a43e-4e2009643912++1929</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>7c524f08-fcb2-7a4c-a43e-4e2009643912++1929</key>
+		<string>https://envision.bioe.orst.edu/svn/ome</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://envision.bioe.orst.edu/svn/ome/branches/macWork/OS_X/OME_OSX.xcworkspace</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7c524f08-fcb2-7a4c-a43e-4e2009643912++1929</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7c524f08-fcb2-7a4c-a43e-4e2009643912++1929</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ome-test</string>
+		</dict>
+	</array>
+</dict>
+</plist>

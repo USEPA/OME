@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome>
+<model init_instances='1' id='root' name='root' step_size='-6.27744e+066' int_method='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
+    <variables>
+        <variable id='v_0' name='delay1 test' expr='delay1(root.Input_value_1, root.Input_value_2)' origin='0,0' extents='0,0' />
+        <variable id='v_1' name='delay3 test' expr='delay3(root.Input_value_1, root.Input_value_2)' origin='0,0' extents='0,0' />
+        <variable id='v_2' name='delayN test_disabled' expr='delayn(root.Input_value_1,root.Input_value_2, root.Input_value_3,0.0 )' origin='0,0' extents='0,0' />
+        <variable id='v_3' name='Input 1' expr='1.0' origin='0,0' extents='0,0' />
+        <variable id='v_4' name='Input 2' expr='1.0' origin='0,0' extents='0,0' />
+        <variable id='v_5' name='Input 3' expr='4.0' origin='0,0' extents='0,0' />
+    </variables>
+    <influences>
+        <influence id='i_6' name='i_6' expr='' use_curr_val='0' source='v_3' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_7' name='i_7' expr='' use_curr_val='0' source='v_3' target='v_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_8' name='i_8' expr='' use_curr_val='0' source='v_3' target='v_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_9' name='i_9' expr='' use_curr_val='0' source='v_4' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_10' name='i_10' expr='' use_curr_val='0' source='v_4' target='v_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_11' name='i_11' expr='' use_curr_val='0' source='v_4' target='v_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_12' name='i_12' expr='' use_curr_val='0' source='v_5' target='v_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </influences>
+</model>
+</ome>

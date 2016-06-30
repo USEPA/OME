@@ -1,0 +1,175 @@
+Unit Testing begun on June 17, 2016 at 10:54AM
+
+>>>>> Basic Math operations - Compiled <<<<<
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__-0_1__1_9__2_2__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Key mismatch: gamma_ln_test
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_4__2_4__1_7__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_5__2_5__1_6__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_6__2_6__1_5__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_7__2_7__1_4__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_8__2_8__1_3__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_9__2_9__1_2__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__1__3__1_1__.csv
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__1__3__1_1__.csv
+
+################################
+################################
+
+>>>>> Conditional functions - Compiled <<<<<
+
+Input values:
+	Input_value_1=1.0
+	Input_value_2=0.0
+	Static_Input_value_1=5.0
+	Static_Input_value_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : pass
+	if_then_else : pass
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_value_1=1.0
+	Input_value_2=1.0
+	Static_Input_value_1=5.0
+	Static_Input_value_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : pass
+	if_then_else : pass
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_value_1=0.0
+	Input_value_2=1.0
+	Static_Input_value_1=5.0
+	Static_Input_value_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : pass
+	if_then_else : pass
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_value_1=0.0
+	Input_value_2=0.0
+	Static_Input_value_1=5.0
+	Static_Input_value_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : pass
+	if_then_else : pass

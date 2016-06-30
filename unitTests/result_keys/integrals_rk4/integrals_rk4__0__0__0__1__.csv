@@ -1,0 +1,11 @@
+Time,0,1,2,3,4,5,6,7,8,9,10
+Conveyor_test,0,0,0,0,0,0,0,0,0,0,0
+FINAL_TIME,10
+INITIAL_TIME,0
+Input_value_1,0
+Input_value_2,0
+Input_value_3,0
+Input_value_4,1
+SAVEPER,1,1,1,1,1,1,1,1,1,1,1
+StateVar_test,0,0,0,0,0,0,0,0,0,0,0
+TIME_STEP,1

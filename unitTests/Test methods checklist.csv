@@ -1,0 +1,18 @@
+function,Keys Implmented,Test built,Test considerations,Suggested test model group,NOTES
+gamma_ln,YES,YES,should be added to basic_math,basic_math (already exists),presently fails; Vensim may be wrong.
+active_initial,YES,NO,test at initial time and one other time,initial_condition,
+initial,YES,NO,test at initial time and one other time,initial_condition,
+random_normal,,NO,,random_distributions,
+random_poisson,,NO,,random_distributions,
+delay_n,,NO,will need to test over multiple timesteps,delays,Cannot easily be tested with current setup
+delay1,YES,NO,will need to test over multiple timesteps,delays,
+delay3,YES,NO,will need to test over multiple timesteps,delays,
+smooth,YES,NO,will need to test over multiple timesteps,smooths,
+smooth3,YES,NO,will need to test over multiple timesteps,smooths,
+smooth_n,,NO,will need to test over multiple timesteps,smooths,Cannot easily be tested with current setup
+forecast,YES,NO,will need to test over multiple timesteps,misc_signals,
+trend,YES,NO,will need to test over multiple timesteps,misc_signals,
+pulse,YES,NO,will need to test over multiple timesteps,misc_signals,
+step,YES,NO,will need to test at least before and after step,misc_signals,
+delay_fixed,YES,NO,translates to Conveyor object in OME; will need to be tested for both euler and rk4 over multiple timesteps.,integrals,
+integ,YES,NO,translates to StateVar object in OME; will need to be tested for both euler and rk4 over multiple timesteps.,integrals,

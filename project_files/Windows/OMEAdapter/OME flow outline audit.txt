@@ -1,0 +1,101 @@
+Init
+	Create new instance
+	Load data from xml spec
+	Initialize SimManager
+		Load Model spec
+		Load Optional Param file
+		Apply spec to RootModel
+	Initialize spatial provider
+	Register spatial provider with manager
+	Register submodels that rely on spatial data
+	Tell SimManager to Forward errors to OMEAdapter
+	Optionally override default integration method
+	Optionally override default time units
+	Load visibility rules
+	Preload submodels																										[PreSub]
+		For Each submodel:
+			initialize record structure
+				Find Evaluables in model
+				if(instance of MC)
+					copy MC record structure and permissions
+				else
+					allocate space for Evaluables in submodel (plus time in slot zero)
+					mark visible variables in flag array according to vis rules
+			Preload Instances for any enclosed MCs
+				Load data files for MC (optional)
+				Calculate the number of instances
+				Initialize Records (to be used as template for instance records; see above)
+				Clear Validations of fields
+				Spawn instances from MC
+					resize array storing instances
+					For Each Instance:
+						Assign index
+						Copy spec from MC into new instance, add instance to array
+						Register submodel with MC's submodelPorts
+						Perform run initialization																			[InitRun]
+							Register Record Event listener								
+							Grab EvalParser
+							Register Submodel with SimManager (necessary for mangling.)											
+							Register variables, parameters, and submodels with eval parser
+							Initialize Records (finds evaluables, copies from parent mc)				
+							Perform submodel run initialization.															[^InitRun]
+				Refresh collections /array references (obsolete once lua stuff is rewritten)								<<<<<
+				Register collections as arrays (obsolete once lua stuff is rewritten)										<<<<<
+			Initialize From Data Sources
+			Initialize From Spatial Sources
+			Configure Submodel Assocs (needs work?)																			<<<<<
+			For each instance:
+				(InitializeRecords -- called and skipped)
+				Perform process above																						[^PreSub]
+	Create space for data object reporting
+	Register potential levers
+
+InitRun
+	Initialize Sim Manager
+		Clear Event Queue
+		Clear any errors
+		Prepare Simulation
+			Grab external parameters (currently unused)
+			Apply initialization values declared in Init()
+			Post Model initialization event
+		Post pause event
+		Current time set to start time
+		Run dispatch
+			Dispatch inc event (no one picks up... is that correct?)														<<<<<
+			Dispatch Call to initialize root model
+				Initialize Run (may be redundant with preload, unless reseting is possible)										[^InitRun]
+				Initialize sub MCs
+					InitRun instances (redundant with preload; remove)															[^InitRun]
+					GetAllEvals (redundant?)																					<<<<<
+					GetStateVars
+			Post Inc Event
+				
+	Load Lever values, if any
+	
+Run
+	Get/convert time
+	if simulation is in run window:
+		post Pause event for end of Envision step
+	RunSimulation
+		Resume Event loop
+			Dispatch inc event																									[IncEv]
+				manager:
+					update root model time
+					Update Support objects
+						Evaluate State Vars (could do in one swoop by compiling all statements into a single scipt)				<<<<<<<
+						Kill Marked models (for dynamic stuff, ignore for now)
+					Perform integration
+					Dispatch record event
+				CED:
+					increment time
+			Dispatch pause event
+				CED:
+					Suspends event loop																									[^IncEv]
+				Continue until Pause event, end event, or empty queue are found
+	SyncCoverage (to update map)
+		Grabs everything by name; may want to use precached indices instead.
+	Repeat until end of simulation
+	
+EndRun
+	Export Records to envision
+	Sync Coverage

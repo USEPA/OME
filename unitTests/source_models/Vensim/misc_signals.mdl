@@ -1,0 +1,113 @@
+{UTF-8}
+forecast test=
+	FORECAST( Input 1 , Input 2 , Input 3 )
+	~	
+	~		|
+
+Input 1=
+	1
+	~	 [1,4,1]
+	~		|
+
+Input 2=
+	1
+	~	 [1,4,1]
+	~		|
+
+Input 3=
+	1
+	~	 [1,4,1]
+	~		|
+
+pulse test=
+	PULSE(Input 1, Input 2 )
+	~	
+	~		|
+
+step test=
+	step(Input 1, Input 2)
+	~	
+	~		|
+
+trend test=
+	TREND(Input 1, Input 2 , Input 3 )
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 10
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,forecast test,333,84,39,11,8,3,0,0,0,0,0,0
+10,2,pulse test,315,193,30,11,8,3,0,0,0,0,0,0
+10,3,step test,333,303,27,11,8,3,0,0,0,0,0,0
+10,4,trend test,337,423,30,11,8,3,0,0,0,0,0,0
+10,5,Input 1,79,87,24,11,8,3,0,0,0,0,0,0
+10,6,Input 2,97,196,24,11,8,3,0,0,0,0,0,0
+10,7,Input 3,89,305,24,11,8,3,0,0,0,0,0,0
+1,8,5,1,0,0,0,0,0,64,0,-1--1--1,,1|(191,85)|
+1,9,6,1,0,0,0,0,0,64,0,-1--1--1,,1|(208,143)|
+1,10,7,1,0,0,0,0,0,64,0,-1--1--1,,1|(205,199)|
+1,11,5,2,0,0,0,0,0,64,0,-1--1--1,,1|(190,136)|
+1,12,6,2,0,0,0,0,0,64,0,-1--1--1,,1|(196,194)|
+1,13,5,3,0,0,0,0,0,64,0,-1--1--1,,1|(200,190)|
+1,14,6,3,0,0,0,0,0,64,0,-1--1--1,,1|(208,246)|
+1,15,5,4,0,0,0,0,0,64,0,-1--1--1,,1|(203,249)|
+1,16,6,4,0,0,0,0,0,64,0,-1--1--1,,1|(211,304)|
+1,17,7,4,0,0,0,0,0,64,0,-1--1--1,,1|(206,360)|
+///---\\\
+:L<%^E!@
+1:Current.vdf
+1:misc_signals__1__1__1__.vdf
+1:misc_signals__1__1__4__.vdf
+1:misc_signals__1__4__1__.vdf
+1:misc_signals__1__4__4__.vdf
+1:misc_signals__4__1__1__.vdf
+1:misc_signals__4__1__4__.vdf
+1:misc_signals__4__4__1__.vdf
+1:misc_signals__4__4__4__.vdf
+9:Current
+15:0,0,0,0,0,0
+19:100,0
+27:2,
+34:0,
+4:Time
+5:Input 3
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+42:1
+24:0
+25:10
+26:10

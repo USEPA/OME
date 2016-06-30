@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome>
+<model init_instances='1' id='root' name='root' step_size='-6.27744e+066' int_method='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
+    <variables>
+        <variable id='v_5' name='Input 1' expr='0.0' origin='0,0' extents='0,0' />
+        <variable id='v_6' name='Input 2' expr='0.0' origin='0,0' extents='0,0' />
+        <variable id='v_7' name='Input 3' expr='0.0' origin='0,0' extents='0,0' />
+        <variable id='v_8' name='Input 4' expr='2.0' origin='0,0' extents='0,0' />
+    </variables>
+    <states>
+        <conveyor id='cv_0' name='Conveyor test' expr=' 0.0' transit_expr='root.Input_value_4' origin='0,0' extents='0,0' />
+        <state id='sv_2' name='StateVar test' expr='  0.0' origin='0,0' extents='0,0' />
+    </states>
+    <flows>
+        <flow id='cif_1' name='cif_1' expr='root.Input_value_3' target='cv_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_3' name='sv_2_inflow' expr='root.Input_value_1' target='sv_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_4' name='sv_2_outflow' expr='root.Input_value_2' source='sv_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </flows>
+    <influences>
+        <influence id='i_9' name='i_9' expr='' use_curr_val='0' source='v_5' target='f_3' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_10' name='i_10' expr='' use_curr_val='0' source='v_6' target='f_4' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_11' name='i_11' expr='' use_curr_val='0' source='v_7' target='cif_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </influences>
+</model>
+</ome>

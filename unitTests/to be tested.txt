@@ -1,0 +1,60 @@
+//have tests
+        {"abs",                         "abs"                               },
+        {"arccos",						"acos"								},
+        {"arcsin",						"asin"								},
+        {"arctan",						"atan"								},
+        {"cos",							"cos"								},
+        {"cosh",						"cosh"								},
+        {"exp",							"exp"								},
+		{"integer",						"int"								},
+        {"ln",							"log"								},
+        {"log",							"log"								},
+        {"max",							"max"								},
+        {"min",							"min"								},
+        {"modulo",						"fmod"								},
+        {"power",						"pow"								},
+        {"sin",							"sin"								},
+        {"sinh",						"sinh"								},
+        {"sqrt",						"sqrt"								},
+        {"tan",							"tan"								},
+        {"tanh",						"tanh"								},
+		{"if_then_else",				" if $1 then $2 else $3 end "		},
+		 {"xidz",						"if abs($2)<1e-6 then $3 else ($1)/($2) end"	},
+        {"zidz",						"if abs($2)<1e-6 then 0.0 else ($1)/($2) end"	}
+		
+		
+//need tests
+		{"active_initial",              "@activeInit"  /*untested*/         },
+		{"cumulate",					"subtotals"							},
+        {"cumulatef",					"sum"								},
+        {"delay_fixed",					"@ignore"      						}, 
+        {"delay_n",						"delayn($1,$2,$4,$3)"				}, 
+        {"delay1",						"delay1"							}, 
+        {"delay1i",						"delay1"							}, 
+        {"delay3",						"delay3"							}, 
+        {"delay3i",						"delay3"							}, 
+        {"elmcount",					"count"								},
+
+        {"forecast",					"forcst"							},
+        {"game",						"$1"								},
+        {"gamma_ln",					""	/* implement*/					},
+        
+        {"initial",						"initOnly"							},	//!!
+        {"integ",						"@ignore"							},
+        
+        
+        {"pulse",						"pulse($2,$1)"						}, //arguments need to be flipped
+		{"random_normal",				"gaussian_var($3,$4,$1,$2)"			},
+        {"random_poisson",				""	/* implement */					},
+        {"smooth",						"smth1"								},
+        {"smoothi",						"smth1"								},
+        {"smooth_n",					"smthn"								},
+        {"smooth3",						"smth3"								},
+        {"smooth3i",					"smth3"								},
+
+        {"step",						"step"								},//!!
+		        {"prod",						"product"							},
+
+        {"sum",							"sum"								},
+        {"trend",						"trend"								}, //!!
+       

@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="commonTypes.xsd" />
+
+  <!--
+Version: PreRelesase
+Last Revised: June 17, 2016
+Author: Patrick Wingo 
+  -->
+  
+  <!-- common attribute groups-->
+  <xs:attributeGroup name="drawboxgrp">
+    <xs:attribute name="origin" type="pointtype">
+      <xs:annotation>
+        <xs:documentation>Origin in OME drawing system.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="extents" type="pointtype">
+      <xs:annotation>
+        <xs:documentation>The width and height in graphical units of the element.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="linkgrp">
+    <xs:attribute name="source" type="idtype">
+      <xs:annotation>
+        <xs:documentation>ID of link's source object.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="target" type="idtype">
+      <xs:annotation>
+        <xs:documentation>ID of link's target object.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <!--The following is for draw details-->
+    <xs:attribute name="ctrl_pt1" type="pointtype">
+      <xs:annotation>
+        <xs:documentation>Control point influencing shape of curve.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ctrl_pt2" type="pointtype">
+      <xs:annotation>
+        <xs:documentation>Control point influencing shape of curve.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <!-- itermediate elements-->
+  <xs:complexType name="srctype">
+    <xs:attribute name="name" type="idtype">
+      <xs:annotation>
+        <xs:documentation>ID of referenced object.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="src" type="srctype">
+  </xs:element>
+  <xs:element name="trg" type="srctype">
+  </xs:element>
+  
+  <!--Model component types-->
+  
+  <!-- Table ID type ==-->
+  <xs:complexType name="tableidtype">
+    <xs:attribute name="id" use="required">
+      <xs:annotation>
+        <xs:documentation>ID of a specific table.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <!--OMEObject type-->
+  <xs:complexType name="omeobjtype">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Human readable annotation of model object.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="idtype" use="required">
+      <xs:annotation>
+        <xs:documentation>Universally unique identifier of model element.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="internal" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Denotes element's visibility to external tools; if true, element is hidden from outside tools.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <!--The following are for use with DrawDetails-->
+    <xs:attribute name="last_modified" type="xs:date">
+      <xs:annotation>
+        <xs:documentation>Informational; date of element's last modification.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="version" type="xs:double">
+      <xs:annotation>
+        <xs:documentation>Informational; the current revision number for the element.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="units" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Units of measure associated with element.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="label_origin" type="pointtype">
+      <xs:annotation>
+        <xs:documentation>Origin of label in OME drawing system.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!--Evaluable type-->
+  <xs:complexType name="evaltype">
+    <xs:complexContent>
+      <xs:extension base="omeobjtype">
+        <xs:sequence maxOccurs="unbounded">
+          <xs:element name="tables" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Table IDs associated with Evaluable object.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="table" type="tableidtype"/>
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+	<xs:attribute name="name" type="xs:string" use="required">
+	  <xs:annotation>
+            <xs:documentation>Human-readable label of object.</xs:documentation>
+	  </xs:annotation>
+	</xs:attribute>
+        <xs:attribute name="exec_group" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>Execution group number.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="as_int" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>If true, value is to be treated as an integer instead of a floating point number.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ask_val" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>If true, element will request a parameter value before constructing its own.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attributeGroup ref="drawboxgrp"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--multiport type-->
+  <xs:complexType name="mptype">
+    <xs:complexContent>
+      <xs:extension base="evaltype">
+        <xs:sequence>
+          <xs:element name="subsources" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Source objects linked from within a submodel.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence maxOccurs="unbounded">
+                <xs:element ref="src"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="subtargets" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Target objects linked from within a submodel.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence maxOccurs="unbounded">
+                <xs:element ref="trg"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="outsources" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Source objects linked from outside a submodel.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence maxOccurs="unbounded">
+                <xs:element ref="src"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="outtargets" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Target objects linked from outside a submodel.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence maxOccurs="unbounded">
+                <xs:element ref="trg"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="expr" type="xs:string"> <!--use="required">-->
+          <xs:annotation>
+            <xs:documentation>Expression used to update element value.</xs:documentation>
+          </xs:annotation>
+	</xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--Variable type-->
+  <xs:complexType name="vartype">
+    <xs:complexContent>
+      <xs:extension base="evaltype">
+        <xs:attribute name="min_value" type="xs:double">
+          <xs:annotation>
+            <xs:documentation>Minimum expected value of element.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="max_value" type="xs:double">
+          <xs:annotation>
+            <xs:documentation>Maximum expected value of element.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="external_init" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>If true, element expect an initial value from an external source (such as a parameter file).</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="init_only" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>If true, element is only evaluated during the initialization processes.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="expr" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>Expression used to update element value.</xs:documentation>
+          </xs:annotation>
+	</xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--StateVar type-->
+  <xs:complexType name="svtype">
+    <xs:complexContent>
+      <xs:extension base="evaltype">
+        <xs:attribute name="init_condition" type="xs:double">
+          <xs:annotation>
+            <xs:documentation>The starting value of the State Variable.This is necessary if no influence is used to retrieve an initialization value.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="expr" type="xs:string"> <!--use="required">-->
+          <xs:annotation>
+            <xs:documentation>Expression used to update element value.</xs:documentation>
+          </xs:annotation>
+	</xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--Table type-->
+  <xs:complexType name="tabletype">
+    <xs:attribute name="id" type="idtype" use="required">
+      <xs:annotation>
+        <xs:documentation>Unique identifier of table within parent submodel.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="filename" type="pathtype">
+      <xs:annotation>
+        <xs:documentation>The name or path to the file used to populate the table.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="column" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The column from source CSV file to pull values from.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="dimensions" type="multivaltype" use="required">
+      <xs:annotation>
+        <xs:documentation>The dimensions of the table; either 1D or 2D.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="data" type="multivaltype" use="required">
+      <xs:annotation>
+        <xs:documentation>Cached values to use to populate table in case source file cannot be located.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!--InterpTable type-->
+  <xs:complexType name="interptabletype">
+      <xs:complexContent>
+        <xs:extension base="tabletype">
+          <xs:attribute name="lower_bound" type="xs:double" use="required">
+            <xs:annotation>
+              <xs:documentation>Lower bound of the range of values encapsulated by table.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="upper_bound" type="xs:double" use="required">
+            <xs:annotation>
+              <xs:documentation>Upper bound of the range of values encapsulated by table.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="interp_mode" type="xs:unsignedInt" use="required">
+            <xs:annotation>
+              <xs:documentation>Flag denoting method of interpolation between anchored values (Document flags?).</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="bound_mode" type="xs:unsignedInt" use="required">
+            <xs:annotation>
+              <xs:documentation>Flag denoting how to deal with values that lie outside of the table's bounds (Document flags?).</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+  
+  <!--Model component analogues-->
+  <!--Simple Label-->
+  <xs:element name="label">
+    <xs:annotation>
+      <xs:documentation>Simple label object to annotate visual representations of model.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="omeobjtype">
+	  <xs:attribute name="name" type="xs:string">
+	    <xs:annotation>
+              <xs:documentation>Human-readable label of object.</xs:documentation>
+	    </xs:annotation>
+	  </xs:attribute>
+          <xs:attribute name="text" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Text to apply to label (Deprecate and move from attribute to element?).</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attributeGroup ref="drawboxgrp"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Submodel Assoc-->
+  <xs:element name="assoc">
+    <xs:annotation>
+      <xs:documentation>Link which defines the intersecting relationship between two submodels; analogous to Simile's Role arrow.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="omeobjtype">
+	  <xs:attribute name="name" type="xs:string">
+	    <xs:annotation>
+              <xs:documentation>Human-readable label of object.</xs:documentation>
+	    </xs:annotation>
+	  </xs:attribute>
+          <xs:attribute name="in_object" type="idtype" use="required">
+            <xs:annotation>
+              <xs:documentation>Source object of the submodel association.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="out_object" type="idtype" use="required">
+            <xs:annotation>
+              <xs:documentation>Target object of the submodel association.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attributeGroup ref="linkgrp"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Flow-->
+  <xs:element name="flow">
+    <xs:annotation>
+      <xs:documentation>Element representing a Flow arrow.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="evaltype">
+          <xs:attributeGroup ref="linkgrp"/>
+          <xs:attribute name="expr" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>Expression used to update element value.</xs:documentation>
+            </xs:annotation>
+	  </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--Influence-->
+  <xs:element name="influence">
+    <xs:annotation>
+      <xs:documentation>Element representing an influence arrow.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="evaltype">
+          <xs:attribute name="use_curr_val" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>If true, retrieve the value from the source object before it updates, rather than after.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="expr" type="xs:string"> <!--use="required">-->
+            <xs:annotation>
+              <xs:documentation>Expression used to update element value.</xs:documentation>
+            </xs:annotation>
+	  </xs:attribute>
+          <xs:attributeGroup ref="linkgrp"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--Spawner-->
+  <xs:element name="spawner">
+    <xs:annotation>
+      <xs:documentation>Model element used to spawn or kill submodel instances; analogous to Simile's channel model components.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="evaltype">
+          <xs:attribute name="init_only" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>If true, only evaluated on initialization.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="stochastic" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>If true, a degree of randomness is applied to the Spawner's value accumulation process.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="per_instance" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>If true, Spawner is evaluated for each submodel instance; otherwise it is only evaluated once per update.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="is_loss" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>If true, Spawner subtracts instances rather than adding them.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="is_conditional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>If true, Spawner is evaluated to determine whether a given submodel instance should be evaluated at a given timestep.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="expr" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>Expression used to update element value.</xs:documentation>
+            </xs:annotation>
+	  </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--StateVar-->
+  <xs:element name="state" type="svtype">
+    <xs:annotation>
+      <xs:documentation>Represents a State Variable/Compartment/Stock in a model; analogous to Simile's Compartment.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <!--Conveyor-->
+  <xs:element name="conveyor" >
+    <xs:annotation>
+      <xs:documentation>Represents a special type of State Variable that simulates a conveyor belt.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="svtype">
+          <xs:attribute name="transit_expr" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>The expression desribing how values enter transit.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="capacity" type="xs:double">
+            <xs:annotation>
+              <xs:documentation>The optional maximum value capacity for the conveyor.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--SubmodelPort-->
+  <xs:element name="port">
+    <xs:annotation>
+      <xs:documentation>Interface between model components that exist on either side of a submodel boundary.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="mptype">
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--AssocPort-->
+  <xs:element name="assoc_port" type="mptype">
+    <xs:annotation>
+      <xs:documentation>Point at which a Submodel association links to a submodel. Used for when a submodel association links two submodels that are seperated by several nested submodels.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+  <!--Variable-->
+  <xs:element name="variable" type="vartype">
+    <xs:annotation>
+      <xs:documentation>Represents an intermediate value which affects model dynamics.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+  <!--IterConditional-->
+  <xs:element name="iterator" type="vartype">
+    <xs:annotation>
+      <xs:documentation>Stand in for Simile's Alarm component.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+  <!--TimeSeriesVar-->
+  <xs:element name="varts">
+    <xs:annotation>
+      <xs:documentation>Special variable that updates its value over time instead of using an equation.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="vartype">
+          <xs:attribute name="interval" type="xs:double">
+            <xs:annotation>
+              <xs:documentation>The time series update interval.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="mode">
+            <xs:annotation>
+              <xs:documentation>Method by which to resolve values between interval steps.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="nearest">
+                  <xs:annotation>
+                    <xs:documentation>Use the nearest time series value.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="interpolate">
+                  <xs:annotation>
+                    <xs:documentation>Linearly interpolate between the two nearest time series values.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="last">
+                  <xs:annotation>
+                    <xs:documentation>The lower-bound nearest time series value.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="fixed">
+                  <xs:annotation>
+                    <xs:documentation>Use an assigned value; equivalent to a constant variable.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="fixed_val" type="xs:double">
+            <xs:annotation>
+              <xs:documentation>Value to use with the "fixed" mode.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--VarArray-->
+  <xs:element name="vararray">
+    <xs:annotation>
+      <xs:documentation>Special variable that defines an n-dimensional array of values across a single instance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="vartype">
+          <xs:attribute name="value" type="multivaltype">
+            <xs:annotation>
+              <xs:documentation>Whitespace-delimited string of values to assign to Vararray. An empty string is acceptable.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="dimensions" type="multivaltype">
+            <xs:annotation>
+              <xs:documentation>List of dimensions defining how to access the VarArray's values.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--EvalAlias-->
+  <xs:element name="alias">
+    <xs:annotation>
+      <xs:documentation>An alias or "ghost" of an active model component.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="description" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Human readable annotation of model object.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="id" type="idtype" use="required">
+        <xs:annotation>
+          <xs:documentation>Universally unique identifier of model element.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="alias" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The alternate name to apply to alias. This name can be the same as the source object.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="source" type="idtype" use="required">
+        <xs:annotation>
+          <xs:documentation>The unique id of the model component being represented.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="internal" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Denotes element's visibility to external tools; if true, element is hidden from outside tools.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <!--The following are for use with DrawDetails-->
+      <xs:attribute name="last_modified" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Informational; date of element's last modification.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="version" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>Informational; the current revision number for the element.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="units" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Units of measure associated with element.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="label_origin" type="pointtype">
+        <xs:annotation>
+          <xs:documentation>Origin of label in OME drawing system.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attributeGroup ref="drawboxgrp"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--EvalTable-->
+  <xs:element name="table_data" type="tabletype">
+    <xs:annotation>
+      <xs:documentation>Instance of table data to be linked with an Evaluable model element.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+  <!--EvalInterpTable-->
+  <xs:element name="interp_table_data" type="interptabletype">
+    <xs:annotation>
+      <xs:documentation>Instance of table data which defines range for interpolation along y axis; analogous to Simile's graph construct.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <!--EvalXSetInterpTable-->
+<xs:element name="interp_xs_table_data">
+    <xs:annotation>
+      <xs:documentation>Instance of table data which defines ranges for interpolation along both x and y axis.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="interptabletype">
+	  <xs:attribute name="xPts" type="multivaltype" use="required">
+	    <xs:annotation>
+              <xs:documentation>x-coords to apply to interpolation.</xs:documentation>
+	    </xs:annotation>
+	  </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <!--Model-->
+  <xs:element name="model">
+    <xs:annotation>
+      <xs:documentation>Component that represents a discrete unit of encapsulation of model components. Models can optionally represent multiple instances.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="omeobjtype">
+          <xs:sequence>
+            <!--TODO: add data_sources tag when ready-->
+            <xs:element name="tables" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Tables associated with submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="table_data"/>
+                  <xs:element ref="interp_table_data"/>
+                  <xs:element ref="interp_xs_table_data"/>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="enumerations" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Enumerated types and values associated with submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="enum">
+                    <xs:annotation>
+                      <xs:documentation>An enumerated collection type.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="val">
+                          <xs:annotation>
+                            <xs:documentation>A value for an enumerated type.</xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:attribute name="name" type="xs:string">
+                              <xs:annotation>
+                                <xs:documentation>The name/value for an enumerated value.</xs:documentation>
+                              </xs:annotation>
+                            </xs:attribute>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="name" type="xs:string" use="required">
+                  <xs:annotation>
+                    <xs:documentation>The name of the enumerated class.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="variables" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of variable types in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="variable"/>
+                  <xs:element ref="varts"/>
+                  <xs:element ref="vararray"/>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="states" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of state variables in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="state"/>
+                  <xs:element ref="conveyor"/>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="flows" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of Flows in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="flow"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="influences" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of Influences in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="influence"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="labels" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of Labels in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="label"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="iterators" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of IterConditionals in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="iterator"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="modelports" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of SubmodelPorts in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="port"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="assocports" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of AssocPorts in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="assoc_port"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="assocs" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of SubmodelAssociations in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="assoc"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="spawners" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of Spawners in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="spawner"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="aliases" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of EvalAliases in submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="alias"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="submodels" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection of submodels nested within the current submodel.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="model"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+	  <xs:attribute name="name" type="xs:string">
+	    <xs:annotation>
+              <xs:documentation>Human-readable label of object.</xs:documentation>
+	    </xs:annotation>
+	  </xs:attribute>
+          <xs:attribute name="step_size" type="xs:double" use="required">
+            <xs:annotation>
+              <xs:documentation>The submodel's preferred temporal step size.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="int_method" type="xs:unsignedInt">
+            <xs:annotation>
+              <xs:documentation>The submodel's preferred integration method.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="init_instances" type="xs:unsignedInt">
+            <xs:annotation>
+              <xs:documentation>The submodel's initial number of instances.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="expects_spatial" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Hint implying that the Model expects to be linked against a SDP.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="inner_box" type="boxtype">
+            <xs:annotation>
+              <xs:documentation>The boundaries for scaling the drawing on the interior of a submodel.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attributeGroup ref="drawboxgrp"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--schema body-->
+  <xs:element name="ome">
+    <xs:annotation>
+      <xs:documentation>Root node for .omem file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="param_file" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="model">
+          <xs:annotation>
+            <xs:documentation>Root model for model hierarchy.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

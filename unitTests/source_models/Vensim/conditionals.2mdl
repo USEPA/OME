@@ -1,0 +1,105 @@
+{UTF-8}
+if then else test=
+	IF THEN ELSE(Input 1<Input 2, static input 1 , static input 2 )
+	~	
+	~		|
+
+Input 1=
+	1
+	~	
+	~		|
+
+Input 2=
+	0
+	~	
+	~		|
+
+static input 1=
+	5
+	~	
+	~		|
+
+static input 2=
+	3
+	~	
+	~		|
+
+xidz test=
+	XIDZ(Input 1, Input 2 , static input 1 )
+	~	
+	~		|
+
+zidz test=
+	ZIDZ(Input 1, Input 2 )
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 1
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,if then else test,512,234,46,11,8,3,0,0,0,0,0,0
+10,2,xidz test,489,292,27,11,8,3,0,0,0,0,0,0
+10,3,zidz test,486,344,26,11,8,3,0,0,0,0,0,0
+10,4,Input 1,193,252,24,11,8,3,0,0,0,0,0,0
+10,5,Input 2,199,337,24,11,8,3,0,0,0,0,0,0
+10,9,static input 1,742,257,40,11,8,3,0,0,0,0,0,0
+10,10,static input 2,714,199,40,11,8,3,0,0,0,0,0,0
+1,11,9,1,0,0,0,0,0,128,0,-1--1--1,,1|(636,246)|
+1,12,10,1,0,0,0,0,0,128,0,-1--1--1,,1|(622,214)|
+1,13,4,1,0,0,0,0,0,128,0,-1--1--1,,1|(334,243)|
+1,14,5,1,0,0,0,0,0,128,0,-1--1--1,,1|(343,289)|
+1,15,5,2,0,0,0,0,0,128,0,-1--1--1,,1|(335,316)|
+1,16,4,2,0,0,0,0,0,128,0,-1--1--1,,1|(332,270)|
+1,17,9,2,0,0,0,0,0,128,0,-1--1--1,,1|(615,274)|
+1,18,4,3,0,0,0,0,0,128,0,-1--1--1,,1|(331,294)|
+1,19,4,3,0,0,0,0,0,128,0,-1--1--1,,1|(331,294)|
+1,20,5,3,0,0,0,0,0,128,0,-1--1--1,,1|(334,339)|
+///---\\\
+:L<%^E!@
+1:Current.vdf
+9:Current
+15:0,0,0,0,0,0
+19:100,0
+27:2,
+34:0,
+4:Time
+5:Input 2
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+42:1
+24:0
+25:1
+26:1

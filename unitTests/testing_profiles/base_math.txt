@@ -1,0 +1,31 @@
+# parameters for base_math unit tests
+#
+# The '#' symbol at the beginning of a line is used to denote a comment
+#
+
+#display title
+Basic Math operations - Compiled
+
+#base name for key/solution files
+base_math
+
+#governing control file (relative to test_models directory - extension omitted)
+compiled_tests/base_math_dbg
+
+#solution comparator to use (presently only simpleFloat is defined)
+#the idea here is that the first value should contain the type of comparator, and then a list of options specific to it
+#in the case of simpleFloat, the only argument would be the acceptable deviation
+# Current options:
+# 	 simpleFloat,<% deviation>
+
+simpleFloat,0.025
+
+#parameter sets to build
+# Current options:
+#	 single,<field label>,<value>
+#	 uniRange,<field label>,<start value>,<end value>,<increment>
+#	 simpleSet,<field_label>,<val 1>,<val 2>,...,<val n>
+
+uniRange,Input_value_1,-1,1,.1
+uniRange,Input_value_2,1,3,.1
+uniRange,Input_value_3,3.1,1.1,-.1

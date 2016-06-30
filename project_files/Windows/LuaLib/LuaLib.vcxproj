@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B0624803-D79C-4855-85E6-C44F8677B26B}</ProjectGuid>
+    <RootNamespace>LuaLib</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LUA_COMPAT_5_1;WIN32;_WINDOWS;_DEBUG;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\extern_support\lua\src;$(SolutionDir)..\..\include\Windows\LuaLib;$(SolutionDir)..\..\include\Windows</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>.\LuaLib.def</ModuleDefinitionFile>
+      <Profile>false</Profile>
+      <AdditionalDependencies>mfcs120ud.lib;MSVCRTD.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRTD.lib;mfcs120ud.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>LUA_COMPAT_5_1;WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\extern_support\lua\src;$(SolutionDir)..\..\include\Windows\LuaLib;$(SolutionDir)..\..\include\Windows</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>.\LuaLib.def</ModuleDefinitionFile>
+      <AdditionalDependencies>mfcs120ud.lib;MSVCRTD.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRTD.lib;mfcs120ud.lib</IgnoreSpecificDefaultLibraries>
+      <Profile>true</Profile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="LuaLib.def" />
+    <None Include="ReadMe.txt" />
+    <None Include="res\LuaLib.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\extern_support\lua\src\lapi.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lauxlib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lbaselib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lbitlib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lcode.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lcorolib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lctype.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ldblib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ldebug.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ldo.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ldump.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lfunc.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lgc.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\linit.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\liolib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\llex.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lmathlib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lmem.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\loadlib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lobject.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lopcodes.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\loslib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lparser.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lstate.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lstring.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lstrlib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ltable.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ltablib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\ltm.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lundump.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lutf8lib.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lvm.c" />
+    <ClCompile Include="..\..\..\extern_support\lua\src\lzio.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\lua\src\lua.h" />
+    <ClInclude Include="..\..\..\include\Windows\LuaLib\LuaLib.h" />
+    <ClInclude Include="..\..\..\include\Windows\LuaLib\Resource.h" />
+    <ClInclude Include="..\..\..\include\Windows\stdafx.h" />
+    <ClInclude Include="..\..\..\include\Windows\targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LuaLib.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
