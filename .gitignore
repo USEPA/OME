@@ -1,0 +1,13 @@
+#Windows
+*.sdf
+*.suo
+*.user
+*.sln.docstates
+x64/
+Debug/
+Release/
+
+#Mac
+*.DS_Store
+*.xcuserstate
+xcuserdata/
