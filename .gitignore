@@ -11,3 +11,9 @@ Release/
 *.DS_Store
 *.xcuserstate
 xcuserdata/
+
+#other
+Doxy Docs/
+local.doxygen
+extern_support/lua/*
+extern_support/tinyxml2/*
