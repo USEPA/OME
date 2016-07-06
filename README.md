@@ -17,7 +17,7 @@ The Open Modeling Environment (OME) is a cross-platform, open source System Dyna
 | OMEAdapter             | Library    | OME plugin for Envision [Envision homepage](https://envision.bioe.orst.edu).                  | **Yes**    | No         | No         |
 
 
-##3rd Party Libraries Used:
+##3rd Party Libraries and Tools Used:
 
 * [Lua](https://www.lua.org/) -- Scripting language and runtime. Used to customize aspects of user input.
 * [TinyXML-2](http://www.grinninglizard.com/tinyxml2/) -- Lightweight XML reader and writer.

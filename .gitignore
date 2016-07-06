@@ -3,6 +3,7 @@
 *.suo
 *.user
 *.sln.docstates
+*.opensdf
 x64/
 Debug/
 Release/
