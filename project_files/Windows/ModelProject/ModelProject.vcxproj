@@ -55,14 +55,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>__EXPORT__=__declspec( dllimport );__MDL_EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;_DEBUG;_USRDLL;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\OMERuntime;\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include\OMERuntime;\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>.\ModelProject.def</ModuleDefinitionFile>
-      <AdditionalDependencies>$(SolutionDir)..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib;OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\external_src\lua\src;$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -83,7 +83,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>OME_SHOW_DEBUG;__EXPORT__=__declspec( dllimport );__MDL_EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;_NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\OMERuntime;\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include\OMERuntime;\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <StringPooling>true</StringPooling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -99,7 +99,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\ModelProject.def</ModuleDefinitionFile>
-      <AdditionalDependencies>$(SolutionDir)..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib;OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\extern_support\lua\src;$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <Profile>true</Profile>

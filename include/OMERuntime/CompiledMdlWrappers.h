@@ -92,8 +92,6 @@ namespace OMECFuncs
 	void __EXPORT__ ResetLine();
 	__EXPORT__ std::vector<std::pair<size_t, size_t> >* GetPositionStack();
 
-	__EXPORT__ void DumpProfile(const char* file);
-
 	__EXPORT__ Listable* NewTempList(const size_t & len, Evaluable* pEval = NULL);
 	__EXPORT__ Listable* NewTempList(const size_t & len, const size_t & fill, Evaluable* pEval = NULL);
 	__EXPORT__ Listable* NewTempList(const ListDims & dims, const size_t & lvl, Evaluable* pEval = NULL);

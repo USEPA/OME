@@ -26,7 +26,6 @@ namespace DefaultLuaFuncs
 #define OME_LUASCALARFUNC1(FUNC_NAME,FUNC_SOURCE)								   \
 	static int FUNC_NAME(lua_State *pState)										   \
 			{																		   \
-		PROFILE_FUNC();                                                            \
 		int ret = 1;															   \
 		OMECFuncs::BaseWrap* pRep;												   \
 		if ((pRep = checkOMEWrap(pState, 1)))									   \
@@ -44,7 +43,6 @@ namespace DefaultLuaFuncs
 #define OME_LUASCALARFUNC2(FUNC_NAME,FUNC_SOURCE)								       \
 	static int FUNC_NAME(lua_State *pState)										       \
 		{                                                                              \
-		PROFILE_FUNC();															       \
                                                                 					   \
 		lua_pushnumber(pState, FUNC_SOURCE(GetDouble(pState,1),GetDouble(pState,2)));  \
 		return 1;																       \
@@ -131,7 +129,6 @@ public:
 
 	static int luaAtan2(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep;
 		if (lua_gettop(pState) >= 2)
 		{
@@ -158,7 +155,6 @@ public:
 
 	static int luaBinom(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		if (lua_gettop(pState) >= 2)
 		{
@@ -199,7 +195,6 @@ public:
 
 	static int luaChannelIs(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		Spawner* pSpwn = (Spawner*)CheckWrapEval(pState, OME_SPAWNER,1);
 		if (pSpwn)
@@ -222,7 +217,6 @@ public:
 
 	static int luaConstDelay(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		if (lua_gettop(pState) >= 2)
 		{
@@ -275,7 +269,6 @@ public:
 
 	static int luaDiesOf(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		Spawner* pSpwn = (Spawner*)CheckWrapEval(pState, OME_SPAWNER,1);
 		if (pSpwn)
 			lua_pushboolean(pState, OMECFuncs::dies_of(*LuaDefines::GetCaller(pState), *pSpwn));
@@ -298,7 +291,6 @@ public:
 
 	static int luaDt(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep=checkOMEWrap(pState,1);
 		if (pRep)
 		{
@@ -392,7 +384,6 @@ public:
 
 	static int luaFollowing(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		union
 		{
 			EnumEntry* pEe;
@@ -444,7 +435,6 @@ public:
 
 	static int luaInterpTable(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		try
 		{
@@ -472,7 +462,6 @@ public:
 
 	static int luaHyperGeom(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		lua_pushinteger(pState, OMECFuncs::hypergeom(GetDouble(pState, 1), GetDouble(pState, 2), GetDouble(pState, 3)));
 		return 1;
@@ -503,7 +492,6 @@ public:
 
 	static int luaInitTime(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
@@ -533,7 +521,6 @@ public:
 	static int luaInPreceding(lua_State *pState)
 	{
 		/// @todo update once OMECFuncs::in_preceding is implemented.
-		PROFILE_FUNC();
 		luaL_error(pState,"InPreceding: Disabled for now");
 		return 0;
 	}
@@ -551,9 +538,7 @@ public:
 
 	static int luaInProgenitor(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		/// @todo update once OMECFuncs::in_progenitor is implemented.
-		PROFILE_FUNC();
 		luaL_error(pState, "InProgenitor: Disabled for now");
 		return 0;
 	}
@@ -570,7 +555,6 @@ public:
 
 	static int luaIndex(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
 		{
@@ -611,7 +595,6 @@ public:
 	static int luaLast(lua_State *pState)
 	{
 		//add time argument, call const_delay.
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep=checkOMEWrap(pState,1);
 		if (pRep)
 			lua_pushnumber(pState, OMECFuncs::last(GetManager(pState), *pRep));
@@ -681,7 +664,6 @@ public:
 
 	static int luaParent(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		lua_pushnumber(pState, OMECFuncs::parent(*GetCaller(pState)));
 		return 1;
 	}
@@ -698,7 +680,6 @@ public:
 
 	static int luaPoidev(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		lua_pushnumber(pState, OMECFuncs::poidev(GetDouble(pState,1)));
 		return 1;
 	}
@@ -715,7 +696,6 @@ public:
 
 	static int luaPow(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		enum { SS = 0, LS, SL, LL };
 		unsigned short mode = 0;
 		OME_SCALAR x, y;
@@ -809,7 +789,6 @@ public:
 
 	static int luaPrev(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		Evaluable* pCaller = GetCaller(pState);
 
 		OME_SCALAR x=GetDouble(pState,1);
@@ -839,7 +818,6 @@ public:
 
 	static int luaPulse(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		OME_SCALAR mag = GetDouble(pState, 1);
 		OME_SCALAR start = GetDouble(pState, 2);
@@ -869,7 +847,6 @@ public:
 
 	static int luaRamp(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OME_SCALAR slope = GetDouble(pState, 1);
 		OME_SCALAR start = GetDouble(pState, 2);
@@ -997,7 +974,6 @@ public:
 
 	static int luaStep(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OME_SCALAR height = GetDouble(pState, 1);
 		OME_SCALAR start = GetDouble(pState, 2);
@@ -1018,7 +994,6 @@ public:
 
 	static int luaStop(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OME_SCALAR errCode = GetDouble(pState, 1);
 		
@@ -1041,7 +1016,6 @@ public:
 
 	static int luaValTable(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OME_SCALAR arg1 = GetDouble(pState, 1);
 
@@ -1093,7 +1067,6 @@ public:
 
 	static int luaTime(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		if (!lua_gettop(pState))
 			lua_pushnumber(pState, OMECFuncs::currenttime(GetManager(pState)));
 		else
@@ -1115,7 +1088,6 @@ public:
 
 	static int luaVarDelay(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep=checkOMEWrap(pState,1);
 		if (pRep)
 			lua_pushnumber(pState, OMECFuncs::var_delay(*pRep, GetDouble(pState, 2)));
@@ -1149,7 +1121,6 @@ public:
 #define OME_LUASIMPLELISTFUNC1(FUNC_NAME,SOURCE_FUNC,STACK_CALL)		\
 static int FUNC_NAME(lua_State *pState)									\
 {																		\
-	PROFILE_FUNC();														\
 	OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);				\
 	if (pRep)															\
 		STACK_CALL(pState, OMECFuncs::SOURCE_FUNC(*pRep));				\
@@ -1161,7 +1132,6 @@ static int FUNC_NAME(lua_State *pState)									\
 #define OME_LUASIMPLELISTFUNC2(FUNC_NAME,SOURCE_FUNC,STACK_CALL)		\
 static int FUNC_NAME(lua_State *pState)									\
 {																		\
-	PROFILE_FUNC();														\
 	OMECFuncs::BaseWrap* pRep1 = checkOMEWrap(pState, 1);				\
 	OMECFuncs::BaseWrap* pRep2 = checkOMEWrap(pState, 2);				\
 	if (pRep1 && pRep2)													\
@@ -1174,7 +1144,6 @@ static int FUNC_NAME(lua_State *pState)									\
 #define OME_LUALISTAGGFUNC(FUNC_NAME,SRC_FUNC,AGG_FUNC,INIT_VAL)						 \
 static int FUNC_NAME(lua_State *pState)													 \
 {																						 \
-	PROFILE_FUNC();																		 \
 																						 \
 	Listable* pList = CheckList(pState, 1);												 \
 	if (pList)																			 \
@@ -1254,7 +1223,6 @@ public:
 
 	static int luaElement(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		OME_SCALAR idx = -1;
 		Listable* pList = CheckList(pState, 1);
 
@@ -1356,7 +1324,6 @@ public:
 		BaseManager* bm = LuaDefines::GetManager(pState);
 		if (bm->GetExecMode() == "Init")
 		{
-			PROFILE_FUNC();
 			size_t offset=0;
 			Evaluable* pEv = GetCaller(pState);
 			if (!pEv->IsOMEType(OME_VARARRAY))
@@ -1414,7 +1381,6 @@ public:
 
 	static int luaPlaceIn(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret=0;
 		int depth=lua_tointeger(pState,-1);
 		lua_pop(pState,1);
@@ -1442,7 +1408,6 @@ public:
 
 	static int luaPosGreatest(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
@@ -1464,7 +1429,6 @@ public:
 
 	static int luaPosLeast(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
@@ -1514,7 +1478,6 @@ public:
 
 	static int luaSize(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		Model** hMdl = checkModelPtr(pState, 1);
 
@@ -1555,8 +1518,7 @@ public:
 
 	//OME_LUALISTAGGFUNC(luaSum, sumSclr, { (*pDest)[dInd] += (*pSrc)[sInd]; }, 0.0)
 	static int luaSum(lua_State *pState)									
-	{																		
-	PROFILE_FUNC();															
+	{
 	\
 	Listable* pList = CheckList(pState, 1);									
 	if (pList)																
@@ -1633,7 +1595,6 @@ public:
 
 	static int luaDefault(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		EnumEntry* pEe = CheckWrapEnumEntry(pState, 1);
 		if (pEe)
 		{
@@ -1659,7 +1620,6 @@ public:
 
 	static int luaForMembers(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		luaL_error(pState, "for_members_of_type: Disabled");
 		return 0;
 
@@ -1677,7 +1637,6 @@ public:
 
 	static int luaInterpolate(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		OME_SCALAR x = GetDouble(pState, 1);
 		OMECFuncs::BaseWrap* pRepY = checkOMEWrap(pState, 2);
@@ -1703,7 +1662,6 @@ public:
 
 	static int luaIterations(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		IterConditional* pIc = (IterConditional*)CheckWrapEval(pState, OME_ITERCOND, 1);
 		if (pIc)
@@ -1727,7 +1685,6 @@ public:
 
 	static int luaOrdinals(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		ModelEnum* pMe = CheckWrapModelEnumColl(pState, 1);
 		if (pMe)
@@ -1772,7 +1729,6 @@ public:
 
 	static int luaProd3(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		luaL_error(pState, "product3: disabled.");
 		return 1;
@@ -1789,7 +1745,6 @@ class OMELuaTrans3 : public OMELuaFunc
 
 	static int luaTrans3(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		luaL_error(pState, "transform3: disabled.");
 		return 1;
@@ -1814,7 +1769,6 @@ public:
 
 	static int luaValueFromInstance(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		if (lua_gettop(pState)<2)
 			luaL_error(pState, "valueFromInstance: too few arguments.");
@@ -1843,7 +1797,6 @@ public:
 
 	static int luaValuesFromSubs(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OMECFuncs::BaseWrap* pRep1 = checkOMEWrap(pState, 1);
 		OMECFuncs::BaseWrap* pRep2 = checkOMEWrap(pState, 2);
@@ -1870,7 +1823,6 @@ public:
 
 	static int luaSetEvalVal(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OMECFuncs::BaseWrap* pRep1 = checkOMEWrap(pState, 1);
 		OMECFuncs::BaseWrap* pRep2 = checkOMEWrap(pState, 2);
@@ -1909,7 +1861,6 @@ public:
 
 	static int luaSetVarArrayVal(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		OMECFuncs::BaseWrap* pRep1 = checkOMEWrap(pState, 1);
 		OMECFuncs::BaseWrap* pRep2 = checkOMEWrap(pState, 2);
@@ -1986,7 +1937,6 @@ public:
 
 	static int luaInitEval(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret = 0;
 
 		Evaluable* pEval = (Evaluable*)(*checkOMEWrap(pState, 1));
@@ -2013,7 +1963,6 @@ public:
 
 	static int luaIsInitialized(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		bool isInitialized = false;
 		Evaluable* pEval = (Evaluable*)(*checkOMEWrap(pState, 1));
@@ -2068,7 +2017,6 @@ public:
 
 	static int luaUpdateTS(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret=0;
 
 		Evaluable* pEval=(Evaluable*)(*checkOMEWrap(pState,1));
@@ -2102,7 +2050,6 @@ public:
 
 	static int luaUpdatePort(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret=0;
 
 		SubmodelPort* pPort = (SubmodelPort*)CheckWrapEval(pState, OME_SUBPORT, 1);
@@ -2128,7 +2075,6 @@ public:
 
 	static int luaUpdateSpawner(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		if (lua_gettop(pState) >= 2)
 		{
@@ -2159,7 +2105,6 @@ public:
 
 	static int luaKillMarked(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret = 0;
 
 		if (lua_type(pState, -1) == LUA_TTABLE)
@@ -2186,7 +2131,6 @@ public:
 
 	static int luaToTable(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		size_t count = lua_gettop(pState);
 		if (count == 1 && lua_istable(pState, 1))
 		{
@@ -2244,7 +2188,6 @@ public:
 
 	static int luaGetInstCount(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		Model** hM=checkModelPtr(pState,1);
 		
 		int count=0;
@@ -2268,7 +2211,6 @@ public:
 
 	static int luaIsModelDead(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret = 1;
 
 		if (lua_type(pState, -1) == LUA_TTABLE)
@@ -2297,7 +2239,6 @@ public:
 
 	static int luaIsModelActive(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		int ret = 1;
 
 		if (lua_type(pState, -1) == LUA_TTABLE)
@@ -2326,7 +2267,6 @@ public:
 
 	static int luaSetActive(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		//swap arg places.
 		
 		Model** hM = checkModelPtr(pState, 1);
@@ -2354,7 +2294,6 @@ public:
 
 	static int luaConstDelay(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		if (lua_gettop(pState) >= 2)
 		{
@@ -2382,7 +2321,6 @@ public:
 	static int luaLast(lua_State *pState)
 	{
 		//add time argument, call const_delay.
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
 			lua_pushnumber(pState, OMECFuncs::lookupInit_last(GetManager(pState), *(Evaluable*)(*pRep)));
@@ -2404,7 +2342,6 @@ public:
 
 	static int luaPrev(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		Evaluable* pCaller = GetCaller(pState);
 
 		OME_SCALAR x = GetDouble(pState, 1);
@@ -2425,7 +2362,6 @@ public:
 
 	static int luaVarDelay(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
 			lua_pushnumber(pState, OMECFuncs::lookupInit_var_delay(GetManager(pState), *(Evaluable*)(*pRep), 0.0));
@@ -2448,7 +2384,6 @@ public:
 
 	static int luaOMEBreak(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		static lua_State *pLastState=NULL;
 		static BreakSet *pBreakCache=NULL;
 		static unsigned int skipStep=0;
@@ -2527,7 +2462,6 @@ public:
 
 	static int luaOMEUpGroup(lua_State *pState)
 	{
-		PROFILE_FUNC();
 		
 		OMECFuncs::BaseWrap* pRep = checkOMEWrap(pState, 1);
 		if (pRep)
@@ -2563,7 +2497,6 @@ public:
 
 	static int luaOMEStaticList(lua_State *pState)
 	{
-		PROFILE_FUNC();
 
 		//get parser, swap memory mode to non-pool
 		lua_getfield(pState, LUA_REGISTRYINDEX, LuaDefines::PARSER_ID);

@@ -7,14 +7,6 @@
 #include "ValCache.h"
 #include "OMEException.h"
 
-#ifndef OME_MDL_BUILD
-#ifndef SHINY_PROFILER
-#define SHINY_PROFILER  FALSE
-#endif
-#include "Shiny.h"
-#else
-#define PROFILE_FUNC()
-#endif
 //useful info: http://molecularmusings.wordpress.com/2012/09/17/memory-allocation-strategies-a-pool-allocator/
 
 /** Represents an object the size of a standard 8-bit byte.*/
@@ -160,7 +152,6 @@ MemPool<bkSize>::~MemPool()
 template<size_t bkSize>
 void* MemPool<bkSize>::NewPtr()
 {
-	PROFILE_FUNC();
 	void* ret=NULL;
 	//DebugWalk();
 
@@ -197,7 +188,6 @@ void* MemPool<bkSize>::NewPtr()
 template<size_t bkSize>
 void MemPool<bkSize>::ReleasePtr(void* ptr)
 {
-	PROFILE_FUNC();
 	//DebugWalk();
 
 	if(ptr>=m_pool && ptr<m_last)
@@ -237,7 +227,6 @@ void MemPool<bkSize>::ReleasePtr(void* ptr)
 template<size_t bkSize>
 void MemPool<bkSize>::ClearPool()
 {
-	PROFILE_FUNC();
 	//set all active flags to false
 	if (m_maxItems && m_slotSize)
 	{

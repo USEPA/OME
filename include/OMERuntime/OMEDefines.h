@@ -1,6 +1,6 @@
 #pragma once
 #if defined WIN32 || defined _WIN64
-#include "..\..\..\include\Windows\stdafx.h"
+#include "..\include\Windows\stdafx.h"
 //#include<vld.h>
 //disable sign mismatch warnings;
 #pragma warning(push)
@@ -41,11 +41,6 @@
 
 #ifndef OME_MDL_BUILD
 #include "tinyxml2.h"
-#ifndef SHINY_PROFILER
-#define SHINY_PROFILER  FALSE
-#endif
-#include "Shiny.h"
-
 
 //typedefs for simplification
 //tinyxml2 typedefs

@@ -172,7 +172,6 @@ namespace OMECFuncs
 	inline BaseWrap& FUNC(BaseWrap & bw)		   \
 	{											   \
 		BaseWrap* ret;							   \
-		PROFILE_FUNC();							   \
 		if (bw.m_type == BaseWrap::LIST)		   \
 			ret = &Wrap(FUNC((Listable&)(bw)));    \
 		else									   \
@@ -185,7 +184,6 @@ namespace OMECFuncs
 	inline BaseWrap& FUNC(Evaluable& caller,BaseWrap & bw)		 \
 		{											   			 \
 		BaseWrap* ret;							   				 \
-		PROFILE_FUNC();							   				 \
 		if (bw.m_type == BaseWrap::LIST)		   				 \
 			ret = &Wrap(FUNC(caller,(Listable&)(bw)));   		 \
 				else									   		 \
@@ -258,7 +256,6 @@ inline Listable& at_init(Listable& arg)
 inline BaseWrap& at_init(BaseWrap & bw)
 {
 	BaseWrap* ret;
-	PROFILE_FUNC();
 	if (bw.m_type == BaseWrap::LIST)
 		ret = &Wrap(at_init((Listable&)(bw)));
 	else
@@ -559,14 +556,12 @@ inline Listable& following(Listable& arg)
 //FunctionSignatures["gaussian_var"]={"gaussian_var","@SI,@SI",false};
 inline OME_SCALAR gaussian_var(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
 {
-	PROFILE_FUNC();
 	std::normal_distribution<OME_SCALAR> distrib(arg1,arg2);
 	return distrib(sGen);
 }
 
 inline OME_SCALAR gaussian_var(const OME_SCALAR & shift, const OME_SCALAR & stretch, const OME_SCALAR & minVal, const OME_SCALAR & maxVal)
 {
-	PROFILE_FUNC();
 	OME_SCALAR rawVal;
 	do
 	{
@@ -580,7 +575,6 @@ inline OME_SCALAR gaussian_var(const OME_SCALAR & shift, const OME_SCALAR & stre
 //FunctionSignatures["graph"]={"interpTable","@CI,@BM,@SI",false};
 inline OME_SCALAR interpTable(Evaluable& caller, BaseManager* pBm, const OME_SCALAR & inVal,const size_t & index=0)
 {
-	PROFILE_FUNC();
 	OME_SCALAR out = 0.0;
 	if (!caller.GetInterpTableValue(inVal, out,index))
 		throw OMEFuncOpException("graph", (caller.GetName() + ": No graph data").c_str());
@@ -600,8 +594,6 @@ inline OME_SCALAR interpTable(Evaluable& caller, BaseManager* pBm, Evaluable& pE
 inline OME_SCALAR HGChoose(const unsigned int & n, const unsigned int & k)
 {
 	/// \optimization use more efficient binomial coefficient function
-
-	PROFILE_FUNC();
 	OME_SCALAR ret=1.0;
 
 	if(k>0)
@@ -1297,7 +1289,6 @@ inline OME_SCALAR count(Listable & list)
 
 inline OME_SCALAR& elementSclr(VarArray & list, const size_t & ind)
 {
-	PROFILE_FUNC();
 
 	return list[ind-1];
 }
@@ -1321,7 +1312,6 @@ inline const OME_SCALAR& elementSclr(const OME_SCALAR* arr, const size_t & ind)
 
 inline Listable& element(Listable & list, const size_t & ind)
 {
-	PROFILE_FUNC();
 
 	return list.RefSubsetFromStep(ind-1);
 
@@ -1334,7 +1324,6 @@ inline Listable& element(Listable & list, Evaluable& eval)
 
 inline Listable& element(Listable & list, Listable & inds)
 {
-	PROFILE_FUNC();
 	return *NewTempCopyList(list,inds);	
 }
 
@@ -1381,7 +1370,6 @@ inline void firsttrueAccum(Listable & list, const unsigned int & ind, int & accu
 
 inline OME_SCALAR firsttrueSclr(Listable & list)
 {
-	PROFILE_FUNC();
 	size_t ret = 0;
 	for (auto itr = list.SclrBegin(); itr.IsValid() && !ret; ++itr)
 	{
@@ -1489,7 +1477,6 @@ inline Listable& least(Listable & list)
 //FunctionSignatures["makearray"]={"makearray","@CI,@FI,@SI,@BM,@SD",false};
 inline OME_SCALAR makearray(Evaluable& caller, MADimFunc dimFunc, const OME_SCALAR & count, BaseManager* pBm, ISpatialDataProvider* pSdp)
 {
-	PROFILE_FUNC();
 	if (pBm->GetExecMode() == "Init")
 	{
 		std::vector<pair<size_t, size_t> >* pPosStack = GetPositionStack();
@@ -2038,7 +2025,6 @@ inline void getAsTable(VarArray& caller,Listable& lst)
 
 inline Listable& upgroup(VarArray& va, size_t lvl)
 {
-	PROFILE_FUNC();
 
 	if (lvl == 0)
 	{
@@ -2056,7 +2042,6 @@ inline Listable& upgroup(VarArray& va, size_t lvl)
 
 inline Listable& upgroup(Evaluable& eval, size_t lvl)
 {
-	PROFILE_FUNC();
 	//fix for absolute instance indexes
 	
 	
@@ -2109,7 +2094,6 @@ inline void omecleanup()
 //================= setvararray(x,y) =================
 inline void setvararray(VarArray& va, Listable & wrap)
 {
-	PROFILE_FUNC();
 	
 	if (va.GetSize() < wrap.GetSize())
 		va.Allocate(wrap.GetSize());
@@ -2119,7 +2103,6 @@ inline void setvararray(VarArray& va, Listable & wrap)
 
 inline void setvararray(VarArray& va, const OME_SCALAR & val)
 {
-	PROFILE_FUNC();
 	if(val != OME_NOVAL)		//noval indicates makeArray was called as argument; ignore.
 		va.SetValues(val);
 }
@@ -2136,20 +2119,17 @@ inline void setvararray(VarArray& va, AliasWrap & alias)
 
 inline void setvararray(VarArray& va, ModelEnum* val)
 {
-	PROFILE_FUNC();
 	va.SetValues(val);
 }
 
 inline void setvararray(VarArray& va, EnumEntry* val)
 {
-	PROFILE_FUNC();
 	va.SetValues(val);
 }
 
 
 inline void setvararray(VarArray& va, BaseWrap & bw)
 {
-	PROFILE_FUNC();
 	switch (bw.m_type)
 	{
 	case BaseWrap::LIST:
