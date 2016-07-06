@@ -6,6 +6,27 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		171591971D2C8B5C009CB4CF /* Build All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1715919A1D2C8B5C009CB4CF /* Build configuration list for PBXAggregateTarget "Build All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				1715919C1D2C8B6E009CB4CF /* PBXTargetDependency */,
+				1715919E1D2C8B70009CB4CF /* PBXTargetDependency */,
+				171591A01D2C8B74009CB4CF /* PBXTargetDependency */,
+				171591A21D2C8B78009CB4CF /* PBXTargetDependency */,
+				171591A41D2C8B79009CB4CF /* PBXTargetDependency */,
+				171591AA1D2C8B80009CB4CF /* PBXTargetDependency */,
+				171591A61D2C8B7C009CB4CF /* PBXTargetDependency */,
+				171591A81D2C8B7E009CB4CF /* PBXTargetDependency */,
+			);
+			name = "Build All";
+			productName = "Build All";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		170B01451D00A0F6009637F5 /* OMEEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 170B01431D00A0EC009637F5 /* OMEEngine.cpp */; };
 		170B01481D00A141009637F5 /* ModelClassBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 170B01461D00A137009637F5 /* ModelClassBuilder.cpp */; };
@@ -436,6 +457,62 @@
 			proxyType = 1;
 			remoteGlobalIDString = 17E7C2251C7A812C0044FD64;
 			remoteInfo = OMEDraw;
+		};
+		1715919B1D2C8B6E009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C0781C7A7D100044FD64;
+			remoteInfo = LuaLib;
+		};
+		1715919D1D2C8B70009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C0D51C7A7EA10044FD64;
+			remoteInfo = OMERuntime;
+		};
+		1715919F1D2C8B74009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C2251C7A812C0044FD64;
+			remoteInfo = OMEDraw;
+		};
+		171591A11D2C8B78009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C24B1C7A83A30044FD64;
+			remoteInfo = OMEEngine;
+		};
+		171591A31D2C8B79009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C2B21C7A8C490044FD64;
+			remoteInfo = ModelClassBuilder;
+		};
+		171591A51D2C8B7C009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C2C61C7ACF6A0044FD64;
+			remoteInfo = OMESimRunner;
+		};
+		171591A71D2C8B7E009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17E7C3241C7AD2F50044FD64;
+			remoteInfo = OMEWizard;
+		};
+		171591A91D2C8B80009CB4CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 170FAE561CE16D8A00E36BB2;
+			remoteInfo = UniversalConverter;
 		};
 		17E7C30F1C7AD2550044FD64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2179,6 +2256,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Wingo;
 				TargetAttributes = {
+					171591971D2C8B5C009CB4CF = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					17E7C0781C7A7D100044FD64 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -2223,6 +2303,7 @@
 				17E7C2C61C7ACF6A0044FD64 /* OMESimRunner */,
 				17E7C3241C7AD2F50044FD64 /* OMEWizard */,
 				170FAE561CE16D8A00E36BB2 /* UniversalConverter */,
+				171591971D2C8B5C009CB4CF /* Build All */,
 			);
 		};
 /* End PBXProject section */
@@ -2481,6 +2562,46 @@
 			target = 17E7C2251C7A812C0044FD64 /* OMEDraw */;
 			targetProxy = 170FAE5A1CE16D8A00E36BB2 /* PBXContainerItemProxy */;
 		};
+		1715919C1D2C8B6E009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C0781C7A7D100044FD64 /* LuaLib */;
+			targetProxy = 1715919B1D2C8B6E009CB4CF /* PBXContainerItemProxy */;
+		};
+		1715919E1D2C8B70009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C0D51C7A7EA10044FD64 /* OMERuntime */;
+			targetProxy = 1715919D1D2C8B70009CB4CF /* PBXContainerItemProxy */;
+		};
+		171591A01D2C8B74009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C2251C7A812C0044FD64 /* OMEDraw */;
+			targetProxy = 1715919F1D2C8B74009CB4CF /* PBXContainerItemProxy */;
+		};
+		171591A21D2C8B78009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C24B1C7A83A30044FD64 /* OMEEngine */;
+			targetProxy = 171591A11D2C8B78009CB4CF /* PBXContainerItemProxy */;
+		};
+		171591A41D2C8B79009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C2B21C7A8C490044FD64 /* ModelClassBuilder */;
+			targetProxy = 171591A31D2C8B79009CB4CF /* PBXContainerItemProxy */;
+		};
+		171591A61D2C8B7C009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C2C61C7ACF6A0044FD64 /* OMESimRunner */;
+			targetProxy = 171591A51D2C8B7C009CB4CF /* PBXContainerItemProxy */;
+		};
+		171591A81D2C8B7E009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17E7C3241C7AD2F50044FD64 /* OMEWizard */;
+			targetProxy = 171591A71D2C8B7E009CB4CF /* PBXContainerItemProxy */;
+		};
+		171591AA1D2C8B80009CB4CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 170FAE561CE16D8A00E36BB2 /* UniversalConverter */;
+			targetProxy = 171591A91D2C8B80009CB4CF /* PBXContainerItemProxy */;
+		};
 		17E7C3101C7AD2550044FD64 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 17E7C0781C7A7D100044FD64 /* LuaLib */;
@@ -2570,6 +2691,20 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		171591981D2C8B5C009CB4CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		171591991D2C8B5C009CB4CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2903,6 +3038,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1715919A1D2C8B5C009CB4CF /* Build configuration list for PBXAggregateTarget "Build All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				171591981D2C8B5C009CB4CF /* Debug */,
+				171591991D2C8B5C009CB4CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		17E7C02A1C7A7C620044FD64 /* Build configuration list for PBXProject "OME" */ = {
 			isa = XCConfigurationList;
