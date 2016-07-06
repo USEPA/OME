@@ -1,0 +1,9 @@
+; SDPDLL.def : Declares the module parameters for the DLL.
+
+LIBRARY
+
+EXPORTS
+    ; Explicit exports can go here
+	GenSDP		@1
+	DisposeSDP	@2
+	GetSDPLabel	@3

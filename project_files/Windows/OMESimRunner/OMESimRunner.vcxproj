@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{156B4482-5754-4E5E-9FDB-F54A597FAFB8}</ProjectGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>OMESimRunner</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>__EXPORT__=__declspec( dllimport );WIN32;_DEBUG;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;$(SolutionDir)..\..\include\Windows\OMESimRunner;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CallingConvention>Cdecl</CallingConvention>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>"$(SolutionDir)..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib";OMERuntime.lib;OMEDraw.lib</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <ShowProgress>NotSet</ShowProgress>
+      <ForceSymbolReferences>
+      </ForceSymbolReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>__EXPORT__=__declspec( dllimport );WIN32;%(PreprocessorDefinitions);OME_SHOW_DEBUG</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;$(SolutionDir)..\..\include\Windows\OMESimRunner;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>"$(SolutionDir)..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib";OMERuntime.lib;OMEDraw.lib</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <Profile>true</Profile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\OMERuntime\ReadMe.txt" />
+    <None Include="app.ico" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\extern_support\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\ArrayBrowser.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\AssemblyInfo.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\FieldSelector.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\FieldSelectRep.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\MultiValBrowserPrefs.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\MultiValBrowserView.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\OMESimRunner.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\ParamDialog.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\RepNode.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\ScopeSelector.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\SimpleTableView.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\SimpleTreeView.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\SimpleViewPrefPanel.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\SimWrapper.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\TblRepNode.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\TreeRepNode.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\TreeViewPrefPanel.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\OMESimRunner\VisualControls.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\ArrayBrowser.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\ArrNode.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\FieldSelector.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\FieldSelectRep.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\SimWindow.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\MultiValBrowserPrefs.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\MultiValBrowserView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\ParamDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\RepNode.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\resource.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\ScopeSelector.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\SimpleTableView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\SimpleTreeView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\SimpleViewPrefPanel.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\SimWrapper.h" />
+    <ClInclude Include="..\..\..\include\Windows\stdafx.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\TblRepNode.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\TreeRepNode.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMESimRunner\TreeViewPrefPanel.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\ArrayBrowser.resx" />
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\FieldSelector.resx">
+      <DependentUpon>..\..\..\include\Windows\OMESimRunner\FieldSelector.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\SimWindow.resX">
+      <DependentUpon>SimWindow.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\MultiValBrowserPrefs.resx">
+      <DependentUpon>MultiValBrowserPrefs.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\MultiValBrowserView.resx">
+      <DependentUpon>MultiValBrowserView.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\ParamDialog.resx">
+      <DependentUpon>ParamDialog.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\ScopeSelector.resx">
+      <DependentUpon>ScopeSelector.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\SimpleTableView.resx">
+      <DependentUpon>SimpleTableView.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\SimpleTreeView.resx">
+      <DependentUpon>SimpleTreeView.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\SimpleViewPrefPanel.resx">
+      <DependentUpon>SimpleViewPrefPanel.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\include\Windows\OMESimRunner\TreeViewPrefPanel.resx">
+      <DependentUpon>TreeViewPrefPanel.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

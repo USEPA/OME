@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0C045AAA-F310-4F25-AB77-2DEDCA6E9E36}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>UniversalConverter</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LUA_COMPAT_5_1;WIN64;_WINDOWS;__EXPORT__=__declspec( dllimport );_DEBUG;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\UniversalConverter;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>LuaLib.lib;OMERuntime.lib;OMEDraw.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>OME_SHOW_DEBUG;LUA_COMPAT_5_1;WIN64;NDEBUG;_CONSOLE;__EXPORT__=__declspec( dllimport );%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\UniversalConverter;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>LuaLib.lib;OMERuntime.lib;OMEDraw.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\Base64Decoder.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\ConverterUtils.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\DebugDefines.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\DebugOutput.h" />
+    <ClInclude Include="..\..\..\include\MainEntries\MainUtils.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\MDLHandlers\MDLEqnRecord.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\MDLHandlers\MDLParser.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\MIMEDecoder.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\MIMEParser.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\ModelFileParser.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\ModifierProcessor.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\NullArcLinkMap.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\NullCloud.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\NullFunc.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\NullProperties.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\NullSource.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\OMENull.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLParserDefines.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLTArc.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLTLinks.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLTNode.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLToken.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLTProperties.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\pltokens\PLTSource.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\PrologParser.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\SMLHandlers\SmlParser.h" />
+    <ClInclude Include="..\..\..\extern_support\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\Units.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\XMILEHandlers\XMILENodeProcessor.h" />
+    <ClInclude Include="..\..\..\include\UniversalConverter\XMILEHandlers\XMILEOptionSet.h" />
+    <ClInclude Include="..\..\..\include\Windows\stdafx.h" />
+    <ClInclude Include="..\..\..\include\Windows\targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\UniversalConverter\ConverterUtils.cpp" />
+    <ClCompile Include="..\..\..\src\MainEntries\UniversalConverter.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\MDLHandlers\MDLEqnRecord.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\MDLHandlers\MDLParser.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\ModifierProcessor.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\NullArcLinkMap.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\NullCloud.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\NullFunc.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\NullProperties.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\NullSource.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\Base64Decoder.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\MIMEDecoder.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\MIMEParser.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\pltokens\PLTArc.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\pltokens\PLTLinks.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\pltokens\PLTNode.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\pltokens\PLToken.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\pltokens\PLTProperties.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\pltokens\PLTSource.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\PrologParser.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\SMLHandlers\SmlParser.cpp" />
+    <ClCompile Include="..\..\..\extern_support\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\XMILEHandlers\XMILENodeProcessor.cpp" />
+    <ClCompile Include="..\..\..\src\UniversalConverter\XMILEHandlers\XMILEOptionSet.cpp" />
+    <ClCompile Include="..\..\..\src\Windows\stdafx.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

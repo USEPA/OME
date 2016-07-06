@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{628A7B3F-9A0B-4C60-AE08-EE8A3715C2D5}</ProjectGuid>
+    <RootNamespace>OMERuntime</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CLRSupport>false</CLRSupport>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Lua.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Lua.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LUA_COMPAT_5_1;_HAS_ITERATOR_DEBUGGING=0;__EXPORT__=__declspec( dllexport );WIN32;_WIN64;_DEBUG;_CONSOLE;OME_CLASS_TEMPLATE_NAME=".\\..\\..\\CompiledHeaderTemplate.txt";OME_MAIN_TEMPLATE_NAME=".\\..\\..\\CompiledMainTemplate.txt";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Visual Leak Detector\include;..\..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMERuntime\;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\extern_support\lua\src;%(AdditionalIncludeDirectories);..\..\..\extern_support\tinyxml2</AdditionalIncludeDirectories>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>.\OMERuntime.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>false</Profile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>LUA_COMPAT_5_1;OME_SHOW_DEBUG;__EXPORT__=__declspec( dllexport );WIN32;_CONSOLE;_NDEBUG;_AFXEXT;_ITERATOR_DEBUG_LEVEL=0;OME_CLASS_TEMPLATE_NAME=".\\..\\..\\CompiledHeaderTemplate.txt";OME_MAIN_TEMPLATE_NAME=".\\..\\..\\CompiledMainTemplate.txt";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Visual Leak Detector\include;..\..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMERuntime\;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\extern_support\lua\src;%(AdditionalIncludeDirectories);..\..\..\extern_support\tinyxml2</AdditionalIncludeDirectories>
+      <OpenMPSupport>false</OpenMPSupport>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>true</StringPooling>
+      <AdditionalOptions>/F5242880 %(AdditionalOptions)</AdditionalOptions>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>.\OMERuntime.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lua\src;$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <Profile>true</Profile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="res\OMERuntime.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\extern_support\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\BaseEvalSerializer.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\BaseManager.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\BaseSpatialDataProvider.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CompiledMdlFuncs.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CompiledMdlParser.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CompiledMdlWrappers.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CPPLCAccumEntry.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CPPLCSubEntry.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CPPLoopCluster.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\CPPSerializer.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\DataSrc.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\DebugOutput.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\ErrCollection.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\EvalAlias.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\EvalXSetInterpTable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\HiResIntegrationBlock.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\InitializerSet.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\LuaEvalSerializer.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\LuaMemPool.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\LuaOMEParser.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\ModelEnum.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\OMEDefines.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\OMEException.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\OMEIntegrationBlock.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\OMELuaDefines.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\OMELuaFunc.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\OMEParser.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\RecordMgr.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\SDPMapEntry.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\SDPMapSubEntry.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\SimManager.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\Summarizable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\Units.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\ValueArchive.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\events\CentralEvent.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\events\CentralEventDispatcher.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\events\OMEEvent.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\AssocPort.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Conveyor.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\EvalInterpTable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\EvalTable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Evaluable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Flow.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Influence.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\IterConditional.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Link.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\MIValue.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Model.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\ModelInstance.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\MultiPort.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\OMENull.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\OMEObject.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Param.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\SimObjs.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\SimpleLabel.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Spawner.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\StateVar.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\SubmodelAssoc.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\SubmodelPort.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\TimeSeriesVar.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\VarArray.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\Variable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\omeobjects\XMLLoadable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\DynamicUpArray.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\IndexJumpTable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\Listable.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\ListDims.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\ShuffledList.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\SimpleArrayWrapper.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\StaticUpArray.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\TempPoolArray.cpp" />
+    <ClCompile Include="..\..\..\src\OMERuntime\UpdateContainers\TempVCArray.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\OMERuntime\BaseEvalSerializer.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\BaseManager.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\BaseSpatialDataProvider.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CPPLCAccumEntry.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CPPLCSubEntry.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CPPLoopCluster.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CompiledInterface.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CompiledMdlFuncs.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CompiledMdlParser.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CompiledMdlWrappers.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\CPPSerializer.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\DataSrc.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\DebugDefines.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\DebugOutput.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\EnumRep.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\ErrCollection.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\EvalAlias.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\EvalXSetInterpTable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\events\CentralEvent.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\events\CentralEventDispatcher.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\events\Eventable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\events\OMEEvent.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMEException.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\FileExts.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\HiResIntegrationBlock.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\InitializerSet.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\ISpatialDataProvider.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\LuaEvalSerializer.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\LuaFuncs.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\LuaMemPool.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\LuaOMEParser.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\MemPool.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\ModelEnum.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMEDefines.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMEEventTypes.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMEIntegrationBlock.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMELuaDefines.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMELuaFunc.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\AssocPort.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Conveyor.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\EvalInterpTable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\EvalTable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Evaluable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Flow.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Influence.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\IterConditional.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Link.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\MIValue.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Model.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\ModelInstance.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\MultiPort.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\OMENull.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\OMEObject.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Param.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\SimObjs.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\SimpleLabel.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Spawner.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\StateVar.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\SubmodelAssoc.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\SubmodelPort.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\TimeSeriesVar.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\VarArray.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\Variable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\omeobjects\XMLLoadable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\OMEParser.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\RecordMgr.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\SDPLuaFuncs.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\SDPMapEntry.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\SDPMapSubEntry.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\SimManager.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\DynamicTempArray.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\SubIndexVal.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\Summarizable.h" />
+    <ClInclude Include="..\..\..\extern_support\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\DynamicUpArray.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\IndexJumpTable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\Listable.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\ListDims.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\ShuffledList.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\SimpleArrayWrapper.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\StaticUpArray.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\TempPoolArray.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\TempVCArray.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\UpdateContainers\UpdateContainers.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\ValCache.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\ValTypes.h" />
+    <ClInclude Include="..\..\..\include\OMERuntime\ValueArchive.h" />
+    <ClInclude Include="..\..\..\include\Windows\OMERuntime\Resource.h" />
+    <ClInclude Include="..\..\..\include\Windows\stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OMERuntime.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
