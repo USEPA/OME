@@ -43,7 +43,7 @@ Open the project_files/Windows/OME.sln file in Visual Studio. Select BUILD --> B
 
 ##Build Under OS X / macOS
 
-Open the project_files/OS_X/OME_OSX.xcworkspace in XCode. Select the build-all option from the scheme/target dropdown, and Select Project --> Build.
+Open the project_files/OS_X/OME_OSX.xcworkspace in XCode. Select the "Build All" option from the scheme/target dropdown, and Select Project --> Build.
 
 ##Build Linux
 
