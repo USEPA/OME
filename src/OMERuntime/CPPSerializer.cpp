@@ -85,10 +85,6 @@ bool CPPSerializer::SerializeEval(Model* pRootModel)
 	m_cache<<"using namespace OMECFuncs;"<<endl;
 	//then eval
 	SerializeModel(pRootModel,false);
-//#if SHINY_PROFILER==TRUE
-	m_cache << "PROFILER_UPDATE(0);" << endl;
-	m_cache<<"PROFILER_OUTPUT((\"/Users/pwing_000/Desktop/ShinyReports/Update\" + std::to_string("<< m_className << "Time ) + \".shiny\").c_str());"<<endl;
-//#endif
 	//m_cache << "UpdateSpawners(" << m_className << "Time, " << m_className << "Bm," << m_className << "SDP);" << endl;
 	m_cache<<"AdjustTempPool();"<<endl;
 	m_cache<<'}'<<endl<<endl;

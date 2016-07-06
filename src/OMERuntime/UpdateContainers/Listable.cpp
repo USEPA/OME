@@ -24,7 +24,6 @@ Listable::Listable(const bool & isPersist)
 Listable::Listable(const size_t & len, const bool & isPersist)
 	: m_dims(isPersist), m_length(len)
 {
-	PROFILE_FUNC();
 	m_dims.AppendDim(len);
 	RecalcStep();
 }
@@ -36,7 +35,6 @@ Listable::Listable(const size_t & len, const bool & isPersist)
 Listable::Listable(const ListDims & dims, const bool & isPersist)
 	: m_dims(dims, 0,isPersist), m_length(0)
 {
-	PROFILE_FUNC();
 	if (m_dims.GetSize())
 	{
 		m_length = 1;
@@ -62,7 +60,6 @@ size_t Listable::GetStepSize() const
 /** @return The Level of abstraction represented by the list. */
 size_t Listable::GetLevel() const
 {
-	PROFILE_FUNC();
 	return m_dims.GetSize();
 }
 
@@ -81,21 +78,18 @@ ListDims Listable::GetDims() const
 /** @return The number of dimensions for the list. Will be equal to GetLevel() in most cases.*/
 unsigned short Listable::GetDimCount() const
 {
-	PROFILE_FUNC();
 	return m_dims.GetSize();
 }
 
 /** @return The dimension for a specific depth. */
 size_t Listable::GetDim(const size_t & ind) const
 {
-	PROFILE_FUNC();
 	return m_dims[ind];
 }
 
 /** Calculate current step size for future reference.*/
 void Listable::RecalcStep()
 {
-	PROFILE_FUNC();
 	m_step = m_dims.CalcStep();
 }
 
@@ -105,7 +99,6 @@ void Listable::RecalcStep()
 */
 bool Listable::TestAny(const OME_SCALAR & testCase) const
 {
-	PROFILE_FUNC();
 	bool ret = false;
 	for (size_t i = 0; !ret && i < m_length; ++i)
 		ret = testCase == operator[](i);
@@ -119,7 +112,6 @@ bool Listable::TestAny(const OME_SCALAR & testCase) const
 */
 bool Listable::TestAll(const OME_SCALAR & testCase) const
 {
-	PROFILE_FUNC();
 	bool ret = true;
 	for (size_t i = 0; ret && i < m_length; ++i)
 		ret = testCase == operator[](i);
@@ -130,7 +122,6 @@ bool Listable::TestAll(const OME_SCALAR & testCase) const
 /** @return index of the maximum value within the list. */
 size_t Listable::GetMaxInd() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR currMax = std::numeric_limits<OME_SCALAR>::min();
 	OME_SCALAR currVal;
 	size_t ret = 0;
@@ -149,7 +140,6 @@ size_t Listable::GetMaxInd() const
 /** @return index of the minimum value within the list. */
 size_t Listable::GetMinInd() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR currMin = std::numeric_limits<OME_SCALAR>::max();
 	OME_SCALAR currVal;
 	size_t ret = 0;
@@ -168,7 +158,6 @@ size_t Listable::GetMinInd() const
 /** @return The combined product of all list values. */
 OME_SCALAR Listable::GetProduct() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR ret = 0.0;
 	if (m_length)
 	{
@@ -183,7 +172,6 @@ OME_SCALAR Listable::GetProduct() const
 /** @return The combined sum of all list values. */
 OME_SCALAR Listable::GetSum() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR ret = 0.0;
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -214,7 +202,6 @@ OME_SCALAR Listable::GetSum() const
 /** @return The maximum value within the list. */
 OME_SCALAR Listable::GetMax() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR ret = std::numeric_limits<OME_SCALAR>::min();
 	OME_SCALAR currVal;
 
@@ -230,7 +217,6 @@ OME_SCALAR Listable::GetMax() const
 /** @return The minimum value within the list. */
 OME_SCALAR Listable::GetMin() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR ret = std::numeric_limits<OME_SCALAR>::max();
 	OME_SCALAR currVal;
 
@@ -249,7 +235,6 @@ OME_SCALAR Listable::GetMin() const
 */
 Listable& Listable::operator+(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -264,7 +249,6 @@ Listable& Listable::operator+(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator+(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -304,7 +288,6 @@ Listable& Listable::operator+(Listable & rhs)
 */
 Listable& Listable::operator-(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -320,7 +303,6 @@ Listable& Listable::operator-(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator-(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -363,7 +345,6 @@ Listable& Listable::operator-(Listable & rhs)
 */
 Listable& Listable::operator*(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -378,7 +359,6 @@ Listable& Listable::operator*(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator*(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	
@@ -423,7 +403,6 @@ Listable& Listable::operator*(Listable & rhs)
 */
 Listable& Listable::operator/(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -438,7 +417,6 @@ Listable& Listable::operator/(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator/(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -491,7 +469,6 @@ Listable& Listable::operator/(Listable & rhs)
 */
 Listable& Listable::operator==(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -506,7 +483,6 @@ Listable& Listable::operator==(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator==(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -545,7 +521,6 @@ Listable& Listable::operator==(Listable & rhs)
 */
 Listable& Listable::operator!=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -559,7 +534,6 @@ Listable& Listable::operator!=(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator!=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -599,7 +573,6 @@ Listable& Listable::operator!=(Listable & rhs)
 */
 Listable& Listable::operator<=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -613,7 +586,6 @@ Listable& Listable::operator<=(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator<=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -665,7 +637,6 @@ Listable& Listable::operator<=(Listable & rhs)
 */
 Listable& Listable::operator< (const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -680,7 +651,6 @@ Listable& Listable::operator< (const OME_SCALAR & rhs)
 */
 Listable& Listable::operator< (Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -732,7 +702,6 @@ Listable& Listable::operator< (Listable & rhs)
 */
 Listable& Listable::operator>=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -747,7 +716,6 @@ Listable& Listable::operator>=(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator>=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -799,7 +767,6 @@ Listable& Listable::operator>=(Listable & rhs)
 */
 Listable& Listable::operator>(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -811,7 +778,7 @@ Listable& Listable::operator>(const OME_SCALAR & rhs)
 
 //Listable& Listable::operator&&(const OME_SCALAR & rhs)
 //{
-//	PROFILE_FUNC();
+//
 //	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 //
 //	for (size_t i = 0; i < m_length; ++i)
@@ -822,7 +789,7 @@ Listable& Listable::operator>(const OME_SCALAR & rhs)
 //
 //Listable& Listable::operator||(const OME_SCALAR & rhs)
 //{
-//	PROFILE_FUNC();
+//
 //	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 //
 //	for (size_t i = 0; i < m_length; ++i)
@@ -837,7 +804,6 @@ Listable& Listable::operator>(const OME_SCALAR & rhs)
 */
 Listable& Listable::operator> (Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	ret->GetDims() = m_dims;
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -886,7 +852,7 @@ Listable& Listable::operator> (Listable & rhs)
 
 //Listable& Listable::operator&&(Listable & rhs)
 //{
-//	PROFILE_FUNC();
+//
 //	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 //	ret->GetDims() = m_dims;
 //	if (m_dims.GetSize() == rhs.GetLevel())
@@ -935,7 +901,7 @@ Listable& Listable::operator> (Listable & rhs)
 //
 //Listable& Listable::operator||(Listable & rhs)
 //{
-//	PROFILE_FUNC();
+//
 //	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 //	ret->GetDims() = m_dims;
 //	if (m_dims.GetSize() == rhs.GetLevel())
@@ -987,7 +953,6 @@ Listable& Listable::operator> (Listable & rhs)
 */
 Listable& Listable::operator!()
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -1000,7 +965,6 @@ Listable& Listable::operator!()
 */
 Listable& Listable::operator-()
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 
 	for (size_t i = 0; i < m_length; ++i)
@@ -1014,7 +978,6 @@ Listable& Listable::operator-()
 */
 Listable& Listable::Negate()
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 		operator[](i) = -1.0;
 	return *this;
@@ -1025,7 +988,6 @@ Listable& Listable::Negate()
 */
 Listable& Listable::Invert()
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 	{
 		OME_SCALAR& ref = operator[](i);
@@ -1039,7 +1001,6 @@ Listable& Listable::Invert()
 */
 Listable& Listable::Reciprocate()
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 	{
 		OME_SCALAR& ref = operator[](i);
@@ -1055,21 +1016,14 @@ Listable& Listable::Reciprocate()
 */
 Listable* Listable::SubAggregate(AggFunc aggFunc,const size_t & initVal)
 {
-	PROFILE_FUNC();
-
-	PROFILE_BEGIN(SA_NEWTEMP);
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_dims,GetLevel()-1,initVal,GetRepEval());
-	PROFILE_END();
 
 	size_t offset;
-
-	PROFILE_BEGIN(SA_LOOP);
 	for (size_t i = 0,r=0; i < m_length;++r)
 	{
 		for (offset = 0; offset < m_step;++offset,++i)
 			aggFunc(ret, this, offset, i, r);
 	}
-	PROFILE_END();
 	return ret;
 }
 
@@ -1078,9 +1032,6 @@ Listable* Listable::SubAggregate(AggFunc aggFunc,const size_t & initVal)
 */
 Listable* Listable::SubSum()
 {
-	PROFILE_FUNC();
-
-	PROFILE_BEGIN(SA_NEWTEMP);
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_dims, GetLevel() - 1, 0.0, GetRepEval());
 	size_t lvlLen = m_length / m_step;
 	//TEMP_LIST_TYPE& tmpLvl = *TEMP_LIST_TYPE::NewTempNoFill(lvlLen);
@@ -1097,11 +1048,8 @@ Listable* Listable::SubSum()
 		currLen = m_length;
 	}
 	TEMP_LIST_TYPE& lclRet = *ret;
-	PROFILE_END();
 
 	size_t offset;
-
-	PROFILE_BEGIN(SA_LOOP);
 	//for (size_t i = 0; i < m_length;)
 	//{
 	//	//this would be a good place to try using SSE
@@ -1124,7 +1072,6 @@ Listable* Listable::SubSum()
 		for (size_t s = 0; s < lvlLen; ++s,++t)
 			lclRet[r] += tmpLvl[t];
 	}
-	PROFILE_END();
 
 	//delete[] tmpLvl;
 
@@ -1180,7 +1127,6 @@ ListableSclrItr::ListableSclrItr(Listable* pSrc, const size_t & initPos, const s
 */
 ListableSclrItr& ListableSclrItr::operator=(const ListableSclrItr & itr)
 {
-	PROFILE_FUNC();
 	m_pSrc = itr.m_pSrc;
 	m_pRef = itr.m_pRef;
 	m_pos = itr.m_pos;
@@ -1194,8 +1140,7 @@ ListableSclrItr& ListableSclrItr::operator=(const ListableSclrItr & itr)
 	@return reference to calling iterator after increment. 
 */
 ListableSclrItr& ListableSclrItr::operator++() 
-{ 
-	PROFILE_FUNC();
+{
 	++m_pos;
 	
 	m_posChanged = true;
@@ -1207,8 +1152,7 @@ ListableSclrItr& ListableSclrItr::operator++()
 	@return Copy of iterator before increment
 */
 ListableSclrItr ListableSclrItr::operator++(int dummy)
-{ 
-	PROFILE_FUNC();
+{
 	ListableSclrItr ret(*this); 
 	++m_pos;
 
@@ -1221,8 +1165,7 @@ ListableSclrItr ListableSclrItr::operator++(int dummy)
 	@return reference to the calling iterator after it has been incremented.
 */
 ListableSclrItr& ListableSclrItr::operator+=(size_t offset)
-{ 
-	PROFILE_FUNC();
+{
 	m_pos+=offset;
 
 	m_posChanged = true;
@@ -1235,7 +1178,6 @@ ListableSclrItr& ListableSclrItr::operator+=(size_t offset)
 */
 ListableSclrItr ListableSclrItr::operator+(const size_t & offset)
 {
-	PROFILE_FUNC();
 	ListableSclrItr ret(*this); 
 	ret += offset;
 	return ret; 
@@ -1246,8 +1188,7 @@ ListableSclrItr ListableSclrItr::operator+(const size_t & offset)
 	@return true if iterators are equivalent.
 */
 bool ListableSclrItr::operator==(const ListableSclrItr & rhs)
-{ 
-	PROFILE_FUNC();
+{
 	return m_pSrc == rhs.m_pSrc && (m_pRef == rhs.m_pRef || m_pos == rhs.m_pos); 
 }
 
@@ -1257,7 +1198,6 @@ bool ListableSclrItr::operator==(const ListableSclrItr & rhs)
 */
 bool ListableSclrItr::operator!=(const ListableSclrItr & rhs) 
 {
-	PROFILE_FUNC();
 	return m_pSrc != rhs.m_pSrc || (m_pRef != rhs.m_pRef && m_pos != rhs.m_pos); 
 }
 
@@ -1266,8 +1206,7 @@ bool ListableSclrItr::operator!=(const ListableSclrItr & rhs)
 	Note that IsValid() should be called in order to determine if the returned value is valid.
 */
 OME_SCALAR& ListableSclrItr::operator*()
-{ 
-	PROFILE_FUNC();
+{
 	OME_SCALAR& ret= m_pSrc->ValForRef(m_pRef, m_pos,m_posChanged);
 	m_posChanged = false;
 	return ret;
@@ -1277,8 +1216,7 @@ OME_SCALAR& ListableSclrItr::operator*()
 	@return true if the calling iterator points to a valid index; false otherwise.
 */
 bool ListableSclrItr::IsValid() const 
-{ 
-	PROFILE_FUNC();
+{
 	return m_pSrc && m_pos < m_endPos; 
 }
 

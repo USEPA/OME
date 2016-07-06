@@ -58,7 +58,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>LUA_COMPAT_5_1;_HAS_ITERATOR_DEBUGGING=0;__EXPORT__=__declspec( dllexport );WIN32;_WIN64;_DEBUG;_CONSOLE;OME_CLASS_TEMPLATE_NAME=".\\..\\..\\CompiledHeaderTemplate.txt";OME_MAIN_TEMPLATE_NAME=".\\..\\..\\CompiledMainTemplate.txt";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Visual Leak Detector\include;..\..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMERuntime\;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\extern_support\lua\src;%(AdditionalIncludeDirectories);..\..\..\extern_support\tinyxml2</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMERuntime\;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\extern_support\lua\src;%(AdditionalIncludeDirectories);..\..\..\extern_support\tinyxml2</AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
@@ -67,7 +67,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>.\OMERuntime.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>..\..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>false</Profile>
     </Link>
     <Midl>
@@ -92,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>LUA_COMPAT_5_1;OME_SHOW_DEBUG;__EXPORT__=__declspec( dllexport );WIN32;_CONSOLE;_NDEBUG;_AFXEXT;_ITERATOR_DEBUG_LEVEL=0;OME_CLASS_TEMPLATE_NAME=".\\..\\..\\CompiledHeaderTemplate.txt";OME_MAIN_TEMPLATE_NAME=".\\..\\..\\CompiledMainTemplate.txt";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Visual Leak Detector\include;..\..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMERuntime\;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\extern_support\lua\src;%(AdditionalIncludeDirectories);..\..\..\extern_support\tinyxml2</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;$(SolutionDir)..\..\include\OMERuntime\;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\extern_support\lua\src;%(AdditionalIncludeDirectories);..\..\..\extern_support\tinyxml2</AdditionalIncludeDirectories>
       <OpenMPSupport>false</OpenMPSupport>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <StringPooling>true</StringPooling>
@@ -106,7 +106,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\OMERuntime.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\lua\src;$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>..\..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <Profile>true</Profile>
     </Link>

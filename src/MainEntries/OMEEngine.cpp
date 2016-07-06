@@ -147,10 +147,7 @@ int main(int argc, const char* argv[])
 		unsigned int smFlags = SimManager::IS_SINGLETON;
 		if (mode == QUIET)
 			smFlags |= SimManager::NO_DEBUG;
-
-		PROFILE_BEGIN(SM_INIT);
 		SimManager sMngr(filename, start, stop, interval, stepsize);
-		PROFILE_END();
 		//try
 		//{
 			if (mode != QUIET)
@@ -185,7 +182,7 @@ int main(int argc, const char* argv[])
 			}
 			DBG_PRINT(("Solver: " + sTypeStr));
 			DBG_PRINT((STLString("Integration Method: ") + (sMngr.GetIntMethod() == OMEIntegrationBlock::IM_RK4 ? "rk4" : "euler")));
-			PROFILE_CODE(sMngr.PreloadSubmodels());
+			sMngr.PreloadSubmodels();
 
 			for (Param & p : userParams)
 			{
@@ -194,7 +191,7 @@ int main(int argc, const char* argv[])
 			}
 			
 			clock_t startTime = clock();
-			PROFILE_CODE(sMngr.RunSimulation());
+			sMngr.RunSimulation();
 			clock_t stopTime = clock();
 
 			cout << "Total time (s): " << (stopTime - startTime) / CLOCKS_PER_SEC << endl;
@@ -208,8 +205,6 @@ int main(int argc, const char* argv[])
 				}
 			}
 
-		PROFILER_UPDATE(0);
-		PROFILER_OUTPUT("/Users/pwing_000/Desktop/ShinyReports/OMEEngine.shiny");
 		DoExit(mode);
 	}
 

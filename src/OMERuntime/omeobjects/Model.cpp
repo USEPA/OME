@@ -734,7 +734,6 @@ int Model::PopulateFromComplexElements(TI2Element* pCurrElem,const STLString & t
 */
  int Model::SpawnInstance(const int useIndex, const int instParent, Spawner* pSpwn)
  {
-	 PROFILE_FUNC();
 	 /// \question do we need to update for multiplier?
 	 DBG_PRINTELAPSED("Spawn instance");
 	 

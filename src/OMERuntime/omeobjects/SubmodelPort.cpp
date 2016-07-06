@@ -191,7 +191,7 @@ OME_SCALAR SubmodelPort::Evaluate(const OME_SCALAR time,BaseManager* pBm)
 		}
 	}
 		
-	PROFILE_CODE(SetValue(valSum););
+	SetValue(valSum);;
 
 	return valSum;
 }

@@ -54,14 +54,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>LUA_COMPAT_5_1;_HAS_ITERATOR_DEBUGGING=0;__EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\external_src\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows\OMEDraw;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\external_src\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows\OMEDraw;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>.\OMEDraw.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>..\..\..\extern_support\lua\src;$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"..\..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib";OMERuntime.lib</AdditionalDependencies>
+      <AdditionalDependencies>OMERuntime.lib</AdditionalDependencies>
       <AssemblyDebug>false</AssemblyDebug>
     </Link>
     <Midl>
@@ -82,7 +82,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>__EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;NDEBUG;_USRDLL;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\external_src\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows\OMEDraw;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\external_src\lua\src;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows\OMEDraw;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
@@ -92,7 +92,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\OMEDraw.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"$(SolutionDir)..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib";OMERuntime.lib</AdditionalDependencies>
+      <AdditionalDependencies>OMERuntime.lib</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
     <Midl>

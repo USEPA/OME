@@ -66,7 +66,6 @@ RecordMgr::~RecordMgr()
 */
 void RecordMgr::RecordState(const OME_SCALAR & timeStamp,ValueArchive* pArch)
 {
-	PROFILE_FUNC();
 
 	//ensure that the most recent iteration is loaded (calls to lookbacks such as var_delay can change this.
 	//if (m_cacheToDisk)
@@ -111,7 +110,6 @@ void RecordMgr::RecordState(const OME_SCALAR & timeStamp,ValueArchive* pArch)
 */
 void RecordMgr::RecordFullState(const OME_SCALAR & timeStamp, ValueArchive* pArch)
 {
-	PROFILE_FUNC();
 
 	if (!m_cacheToDisk)
 	{
@@ -301,7 +299,6 @@ void RecordMgr::GetAllRecordedValues(RecordMgr::FullValueMap & fvm)
 */
 void RecordMgr::WriteRecordToDisk(const STLString & path, const OME_SCALAR & timeStamp, ValueArchive* pArch)
 {
-	PROFILE_FUNC();
 	
 	ofstream outFile(path,ios_base::out | ios_base::binary);
 	
@@ -349,7 +346,6 @@ void RecordMgr::WriteRecordToDisk(const STLString & path, const OME_SCALAR & tim
 */
 void RecordMgr::WriteFullRecord(ofstream & outFile,ValueArchive* pArch)
 {
-	PROFILE_FUNC();
 
 	WriteModelFlags(outFile, pArch);
 	//write out index count
@@ -431,7 +427,7 @@ void RecordMgr::WriteDifferenceRecord(ofstream & outFile,ValueArchive* pArch)
 	//m_lastTimeInd += m_interval;
 ///////////////////////////////////////////////////
 	//old code:
-	//PROFILE_FUNC();
+	//
 	//size_t ind = 0;
 	//size_t i, j, k;
 	//streampos countPos, currPos, singlePos, arrPos, restartPos;
@@ -683,7 +679,6 @@ void RecordMgr::LoadRecordFromDisk(const OME_SCALAR & time)
 */
 void RecordMgr::LoadRecordFromDisk(const size_t & trgInd)
 {
-	PROFILE_FUNC();
 	size_t currInd;
 
 	if(trgInd>m_lastTimeInd)

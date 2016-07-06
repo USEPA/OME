@@ -55,13 +55,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>__EXPORT__=__declspec( dllimport );_WIN64;_DEBUG;_CONSOLE;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\include\common\BaseRuntime\lua;$(SolutionDir)$(Platform)\$(Configuration);C:\Documents and Settings\pwingo\Desktop\ome\src\lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"$(SolutionDir)..\..\extern_support\Shiny\lib\ShinyDebug$(PlatformArchitecture).lib";OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>false</Profile>
     </Link>
   </ItemDefinitionGroup>
@@ -74,7 +74,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>OME_SHOW_DEBUG;__EXPORT__=__declspec( dllimport );WIN64;_CONSOLE;_NDEBUG;_AFXEXT;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\Windows\OMERuntime;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>false</OpenMPSupport>
       <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -87,7 +87,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>"$(SolutionDir)..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib";OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OMERuntime.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\include\common\BaseRuntime\lua;$(SolutionDir)$(Platform)\$(Configuration);C:\Documents and Settings\pwingo\Desktop\ome\src\lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <Profile>true</Profile>

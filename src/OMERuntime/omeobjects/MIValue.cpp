@@ -75,8 +75,7 @@ ValCache<OME_SCALAR>& MIValue::GetCache()
 	@return true if multi-value retrieval is successful; false otherwise.
 */
 bool MIValue::GetVal(SclrVArray & outA)
-{ 
-	PROFILE_FUNC();
+{
 	if(!IsSingle())
 	{
 		outA.resize(m_count);

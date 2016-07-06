@@ -18,7 +18,6 @@ namespace SUAPool
 StaticUpArray::StaticUpArray(Evaluable* pEval, const size_t & lvl)
 :Listable(),m_pRefEval(pEval), m_start(0),m_pArch(pEval->GetParentModel()->GetValueArchive())
  {
-	PROFILE_FUNC();
 	m_dims.AppendDims(lvl,0);
 	Model* pMdl = pEval->GetParentModel();
 	m_pRefModel = pMdl;
@@ -51,7 +50,6 @@ StaticUpArray::StaticUpArray(Evaluable* pEval, const size_t & lvl)
 StaticUpArray::StaticUpArray(VarArray* pVa, const size_t & lvl)
 	:Listable(), m_pRefEval(pVa), m_pArch(pVa->GetParentModel()->GetValueArchive())
 {
-	PROFILE_FUNC();
 
 	m_dims.AppendDims(lvl, 0);
 	m_length = 1;
@@ -89,19 +87,16 @@ StaticUpArray::StaticUpArray(VarArray* pVa, const size_t & lvl)
 
 OME_SCALAR& StaticUpArray::operator[](size_t pos)
 {
-	PROFILE_FUNC();
 	return (*m_pArch)[pos + m_start];
 }
 
 const OME_SCALAR StaticUpArray::operator[](size_t pos) const
 {
-	PROFILE_FUNC();
 	return (*m_pArch)[pos + m_start];
 }
 
 bool StaticUpArray::SetValue(const size_t & index, const OME_SCALAR & value)
 {
-	PROFILE_FUNC();
 	bool ret = index < m_length;
 	if (ret)
 		operator[](index) = value;
@@ -110,26 +105,22 @@ bool StaticUpArray::SetValue(const size_t & index, const OME_SCALAR & value)
 
 void StaticUpArray::SetValues(const OME_SCALAR & val)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 		operator[](i) = val;
 }
 void StaticUpArray::SetValues(const OME_SCALAR* vals, const size_t count)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < count; ++i)
 		operator[](i) = vals[i];
 }
 
 OME_SCALAR StaticUpArray::GetValue(const size_t & i) const
 {
-	PROFILE_FUNC();
 	return operator[](i);
 }
 
 bool StaticUpArray::GetValue(const size_t & i, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	bool ret = i < m_length;
 	if (ret)
 		out = operator[](i);
@@ -138,13 +129,11 @@ bool StaticUpArray::GetValue(const size_t & i, OME_SCALAR & out)
 
 OME_SCALAR StaticUpArray::GetValue(const ListDims & iv) const
 {
-	PROFILE_FUNC();
 	return operator[](DeriveIndex(iv, m_dims));
 }
 
 bool StaticUpArray::GetValue(const ListDims & iv, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	size_t ind = DeriveIndex(iv, m_dims);
 	bool ret = ind < m_length;
 	if (ret)
@@ -154,13 +143,11 @@ bool StaticUpArray::GetValue(const ListDims & iv, OME_SCALAR & out)
 
 Evaluable* StaticUpArray::GetRepEval()
 {
-	PROFILE_FUNC();
 	return m_pRefEval;
 }
 
 Listable& StaticUpArray::Subset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	StaticUpArray *ret = new(SUAPool::s_pool.NewCastPtr())StaticUpArray();
 
 	ret->m_length = length;
@@ -174,7 +161,6 @@ Listable& StaticUpArray::Subset(const size_t & start, const size_t & length)
  
 Listable& StaticUpArray::SubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	StaticUpArray *ret = new(SUAPool::s_pool.NewCastPtr())StaticUpArray();
 	
 	ret->m_length=m_step;
@@ -191,19 +177,16 @@ Listable& StaticUpArray::SubsetFromStep(const size_t & ind)
 
 Listable& StaticUpArray::RefSubset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	return Subset(start, length);
 }
 
 Listable& StaticUpArray::RefSubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	return SubsetFromStep(ind);
 }
 
 void StaticUpArray::SubCollect(Listable & out, const size_t & offset, const size_t & outStart)
 {
-	PROFILE_FUNC();
 	//size_t length = m_step;
 	size_t start = m_start + (m_step*offset);
 	
@@ -230,13 +213,11 @@ void StaticUpArray::OffsetByAbsolute(const size_t & offset)
 
 ListableSclrItr StaticUpArray::SclrBegin()
 {
-	PROFILE_FUNC();
 	return ListableSclrItr(this, 0, m_length);
 }
 
 OME_SCALAR& StaticUpArray::ValForRef(void*& ref, const size_t & pos, const bool & posChanged)
 {
-	PROFILE_FUNC();
 	//if (posChanged)
 	//{
 	//	ref = &operator[](pos);
@@ -249,14 +230,12 @@ OME_SCALAR& StaticUpArray::ValForRef(void*& ref, const size_t & pos, const bool 
 /** Reset the pool containing temporary StaticUpArrays.*/
 void StaticUpArray::ClearTempPool()
 {
-	PROFILE_FUNC();
 	SUAPool::s_pool.ClearPool();
 }
 
 /** Refit the pool containing temporary StaticUpArrays.*/
 void StaticUpArray::RefitTempPool()
 {
-	PROFILE_FUNC();
 	SUAPool::s_pool.RefitPool();
 }
 
@@ -267,7 +246,6 @@ void StaticUpArray::RefitTempPool()
 */
 StaticUpArray* StaticUpArray::NewSUA(Evaluable* pEval, const size_t & lvl)
 {
-	PROFILE_FUNC();
 	return new(SUAPool::s_pool.NewCastPtr())StaticUpArray(pEval, lvl);
 }
 
@@ -278,7 +256,6 @@ StaticUpArray* StaticUpArray::NewSUA(Evaluable* pEval, const size_t & lvl)
 */
 StaticUpArray* StaticUpArray::NewSUA(VarArray* pVa, const size_t & lvl)
 {
-	PROFILE_FUNC();
 	return new(SUAPool::s_pool.NewCastPtr())StaticUpArray(pVa, lvl);
 }
 
@@ -290,7 +267,6 @@ StaticUpArray* StaticUpArray::NewSUA(VarArray* pVa, const size_t & lvl)
 */
 StaticUpArray* StaticUpArray::NewSUA(VarArray* pVa, const size_t & start, const size_t & len)
 {
-	PROFILE_FUNC();
 	StaticUpArray* ret= new(SUAPool::s_pool.NewCastPtr())StaticUpArray(pVa, 1);
 	ret->m_start = pVa->GetModelIndex() + start;
 	ret->m_dims[0] = len;
@@ -303,7 +279,6 @@ StaticUpArray* StaticUpArray::NewSUA(VarArray* pVa, const size_t & start, const 
 */
 void StaticUpArray::ReleaseSUA(StaticUpArray* pSua)
 {
-	PROFILE_FUNC();
 	SUAPool::s_pool.ReleasePtr(pSua);
 }
 

@@ -447,8 +447,6 @@ bool SimManager::PrepSimulation()
 				if ((*itr)->GetInitializer() && !(*itr)->IsOMEType(OME_TSVAR))
 					(*itr)->SetIsConstant(true);
 			}
-			//PROFILER_UPDATE(); // update all profiles
-			//PROFILER_OUTPUT("ShinyInitProfile.txt"); // print to cout
 
 			m_staticValues.RefreshInds();
 			m_dynamicValues.RefreshInds();
@@ -693,11 +691,6 @@ void SimManager::EventAction(const CentralEvent & ev, void* extra)
 		//m_eventDispatcher->DispatchEvent(endRecordEvent);
 		m_staticValues.SetRetainRecords(m_keepRecords);
 		m_dynamicValues.SetRetainRecords(m_keepRecords);
-		//PROFILER_UPDATE();
-		//PROFILE_ROOT_DATA();
-		//PROFILER_OUTPUT();
-		//PROFILER_OUTPUT("C:/Users/pwing_000/Desktop/ShinyTotEvalProfile.txt");
-		//PROFILER_OUTPUT("C:/Documents and Settings/pwingo/Desktop/ShinyTotEvalProfile.txt");
 	}
 }
 
@@ -747,7 +740,6 @@ void SimManager::DefaultInitParamFn(EvalArray & evals, void* extra)
 */
 void SimManager::GetDerivatives( OME_SCALAR time, OME_SCALAR timestep, int svCount, OME_SCALAR *deriveArray, void* extra )
 {
-	PROFILE_FUNC();
 
 	SimManager* mngr=(SimManager*)extra;
 	//update time (we can access the private variable since this static function is part of the class)
@@ -792,7 +784,6 @@ void SimManager::GetDerivatives( OME_SCALAR time, OME_SCALAR timestep, int svCou
 */
 void SimManager::PostIntegrateStep(OME_SCALAR time, OME_SCALAR timestep, void* extra)
 {
-	PROFILE_FUNC();
 	SimManager* mngr = (SimManager*)extra;
 	mngr->m_currentTime = time + timestep;
 	mngr->UpdateSupportObjects(time + timestep);
@@ -821,14 +812,6 @@ void SimManager::UpdateSupportObjects(const OME_SCALAR time)
 	//}
 	//DBG_PRINTC("Total time for time step " + std::to_string(time) + " (s): " + std::to_string((stop - start) / CLOCKS_PER_SEC), DBG_YELLOW);
 	//DBG_COLOR(cout<<"Total time for time step "<<time<<" (s): "<<(stop-start)/CLOCKS_PER_SEC<<endl,DBG_YELLOW);
-
-	//shiny write.
-	//oSTLSStream outPath;
-	//outPath<<"ShinyEvalProfile-"<<time<<".txt";
-	//PROFILER_UPDATE(); // update all profiles
-	//PROFILER_OUTPUT(outPath.str().c_str()); // print to cout
-	PROFILER_UPDATE(0);
-	PROFILER_OUTPUT(("/Users/pwing_000/Desktop/ShinyReports/UpdateInternal" + std::to_string(m_currentTime) + ".shiny").c_str());
 
 	//DBG_PRINT(sstrm.str());
 }

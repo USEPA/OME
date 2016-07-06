@@ -77,7 +77,6 @@ void OMECFuncs::ResizeTempPools(const size_t & sSize, const size_t & aSize)
 /**Clear pools for current line. */
 void OMECFuncs::ResetLine()
 {
-	PROFILE_FUNC();
 	//EvalCollection::ResetCacheIndex(); 
 	OMEUpdateContainers::ClearAllUCPools();
 	//LocalTempPools::s_EAliasPool.ClearPool();
@@ -88,37 +87,21 @@ void OMECFuncs::ResetLine()
 /** Resize temporary pools to account for overallocation. */
 void OMECFuncs::AdjustTempPool()
 {
-	PROFILE_FUNC();
 	OMEUpdateContainers::RefitAllUCPools();
 	//LocalTempPools::s_EAliasPool.RefitPool();
 	if (LocalTempPools::BWRefit)
 		LocalTempPools::BWRefit(LocalTempPools::pAllocExtra);
 
-	static short update = 0;
-	PROFILER_UPDATE(0);
-	PROFILER_OUTPUT(("/Users/pwing_000/Desktop/ShinyReports/OMER" + std::to_string(update++) + ".shiny").c_str());
 }
 
 /** @return a pointer to the stack keeping track of call depth; for use with makeArray.*/
 std::vector<std::pair<size_t, size_t> >* OMECFuncs::GetPositionStack()
 {
-	PROFILE_FUNC();
 	//position, offset
 	static std::vector<std::pair<size_t, size_t> > positionStack;
 	return &positionStack;
 }
 
-/** Convenience function for Dumping performance profile if Shiny Profiler is enabled.
-	@param file Path to location to dump file. 
-*/
-void OMECFuncs::DumpProfile(const char* file)
-{
-	PROFILER_UPDATE(0);
-	PROFILER_OUTPUT(file);
-
-	//DBG_PRINTC(std::to_string(Caches::s_waNodePool.m_dbgCount), DBG_GREEN);
-	//Caches::s_waNodePool.m_dbgCount = 0;
-}
 
 /** Retrieve a new temporary list.
 	@param len The length of the new temporary list.

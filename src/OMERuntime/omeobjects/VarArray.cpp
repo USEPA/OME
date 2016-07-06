@@ -35,7 +35,6 @@ VarArray::VarArray(const STLString & n, const STLString & desc)
 VarArray::VarArray(TI2Element* pCurrElem,const STLString & tag, const STLString & filename)
 	:Listable(true)
 {
-	PROFILE_FUNC();
 	OMEObject::PopulateFromXML(pCurrElem, tag, filename);
 	CheckConstant();
 }
@@ -46,7 +45,6 @@ VarArray::VarArray(TI2Element* pCurrElem,const STLString & tag, const STLString 
 VarArray::VarArray(const VarArray & va)
 	:Listable(true)
 {
-	PROFILE_FUNC();
 	Duplicate(va);
 }
 
@@ -56,7 +54,6 @@ VarArray::VarArray(const VarArray & va)
 VarArray::VarArray(const Variable & v)
 	:Listable(true)
 {
-	PROFILE_FUNC();
 	Variable::Duplicate(v);
 	//SetValue(((Variable)v).GetValue());
 }
@@ -68,7 +65,6 @@ VarArray::VarArray(const Variable & v)
 VarArray::VarArray(Variable & v, const bool & isReplace)
 	:Listable(true)
 {
-	PROFILE_FUNC();
 	Variable::Duplicate(v);
 	//SetValue(((Variable)v).GetValue());
 
@@ -99,7 +95,6 @@ VarArray::VarArray(Variable & v, const bool & isReplace)
 */
 bool VarArray::SetValue(const size_t index, const OME_SCALAR value, const bool & clamp)
 {
-	PROFILE_FUNC();
 	OME_SCALAR chkVal=value;
 	bool ret=true; //Variable::CheckBounds(chkVal,clamp);
 
@@ -153,7 +148,6 @@ bool VarArray::SetValue(const size_t & index, EnumEntry* value)
 */
 OME_SCALAR VarArray::GetValue(const size_t & i) const
 {
-	PROFILE_FUNC();
 	
 	return i < m_length ? GETARRINDREF(i) : 0.0;
 }
@@ -165,7 +159,6 @@ OME_SCALAR VarArray::GetValue(const size_t & i) const
 */
 bool VarArray::GetValue(const size_t & i, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	bool ret=false;
 
 	if(i< m_length)
@@ -225,7 +218,6 @@ bool VarArray::IsEnumValue(const size_t & i) const
 /** Allocates space based on assigned dimensions.*/
 void VarArray::Allocate()
 {
-	PROFILE_FUNC();
 	size_t oldLength = m_length;
 	m_step = m_dims.CalcStep();
 	m_length = m_dims.CalcRepLength();
@@ -244,7 +236,6 @@ void VarArray::Allocate()
 */
 void VarArray::Allocate(const size_t newSize)
 {
-	PROFILE_FUNC(); 
 	m_dims.ClearDims();
 	m_dims.AppendDim(newSize);
 	Allocate();
@@ -255,7 +246,6 @@ void VarArray::Allocate(const size_t newSize)
 */
 void VarArray::Allocate(const IndVec & newSizes)
 {
-	PROFILE_FUNC();
 	m_dims = newSizes;
 	Allocate();
 }
@@ -273,7 +263,6 @@ void VarArray::SetValues(const OME_SCALAR* vals, const size_t count)
 */
 void VarArray::SetValues(const OME_SCALAR* vals, const size_t count, const bool & resize)
 {
-	PROFILE_FUNC();
 
 	size_t limit=count;
 	if(count!=m_length)
@@ -301,7 +290,6 @@ void VarArray::SetValues(const OME_SCALAR* vals, const size_t count, const bool 
 */
 void VarArray::SetValues(const VALVECTOR vals, const bool & resize)
 {
-	PROFILE_FUNC();
 	size_t limit=vals.size();
 
 	if(limit!=m_length)
@@ -358,7 +346,6 @@ void VarArray::SetValues(EnumEntry* pEe)
 */
 OME_SCALAR* VarArray::GetValues(size_t & outCount) const
 {
-	PROFILE_FUNC();
 	outCount = m_length;
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -380,7 +367,6 @@ OME_SCALAR* VarArray::GetValues(size_t & outCount) const
 */
 VALVECTOR VarArray::GetValues() const
 {
-	PROFILE_FUNC();
 	VALVECTOR ret(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -394,7 +380,6 @@ VALVECTOR VarArray::GetValues() const
 */
 SclrPtrArray VarArray::GetValueAddrs() const
 {
-	PROFILE_FUNC();
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	SclrPtrArray out;
@@ -407,7 +392,6 @@ SclrPtrArray VarArray::GetValueAddrs() const
 
 void VarArray::Reset(BaseManager* pBm)
 {
-	PROFILE_FUNC();
 	Variable::Reset(pBm);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -417,13 +401,11 @@ void VarArray::Reset(BaseManager* pBm)
 
 STLString VarArray::GetXMLRepresentation(const unsigned int indent,const unsigned int inc)
 {
-	PROFILE_FUNC();
 	return GetXMLForObject(indent,inc);
 }
 
 void VarArray::GetXMLAttributes(StrArray & out) const
 {
-	PROFILE_FUNC();
 	Variable::GetXMLAttributes(out);
 
 	//remove value tag
@@ -472,7 +454,6 @@ void VarArray::GetXMLSubNodes(StrArray & out,const unsigned int indent,const uns
 
 OME_SCALAR VarArray::Evaluate(const OME_SCALAR time,BaseManager* pBm)
 {
-	PROFILE_FUNC();
 	if(m_expr.length() && !IsInitialized())
 	{
 		m_lastTime=time;
@@ -491,7 +472,6 @@ OME_SCALAR VarArray::Evaluate(const OME_SCALAR time,BaseManager* pBm)
 
 OME_SCALAR VarArray::Initialize(const OME_SCALAR time,BaseManager* pBm)
 {
-	PROFILE_FUNC();
 	if(!IsInitialized())
 	{
 		m_mdlIndex=GetModelIndex();
@@ -537,7 +517,6 @@ size_t VarArray::GetInstValCount() const
 */
 void VarArray::Duplicate(const VarArray & va)
 {
-	PROFILE_FUNC();
 	Variable::Duplicate(va);
 	m_dims = va.m_dims;
 	RecalcStep();
@@ -564,7 +543,6 @@ void VarArray::GetXMLAttributeMap(XMLAttrVector & out)
 
 int VarArray::PopulateFromComplexElements(TI2Element* pCurrElem,const STLString & tag, const STLString & filename)
 {
-	PROFILE_FUNC();
 	//input for value should be a whit=space delineated series of values in a quotes string
 	const OMEChar* valStr=pCurrElem->Attribute("value");
 	if(pCurrElem->Attribute("dimensions"))
@@ -612,7 +590,6 @@ int VarArray::PopulateFromComplexElements(TI2Element* pCurrElem,const STLString 
 */
 VarArray& VarArray::operator=(const SubmodelPort& rhs)
 {
-	PROFILE_FUNC();
 	bool useInner=true;
 	size_t srcSize=rhs.GetSubSourceCount();
 	if(!srcSize)
@@ -639,7 +616,6 @@ VarArray& VarArray::operator=(const SubmodelPort& rhs)
 */
 OME_SCALAR& VarArray::operator[](size_t pos)
 {
-	PROFILE_FUNC();
 	if (pos > m_length)
 		throw OMEOOBException("VarArray::operator[]");
 	
@@ -652,7 +628,6 @@ OME_SCALAR& VarArray::operator[](size_t pos)
 */
 const OME_SCALAR VarArray::operator[](size_t pos) const
 {
-	PROFILE_FUNC();
 	if (pos > m_length)
 		throw OMEOOBException("VarArray::operator[]");
 
@@ -665,7 +640,6 @@ const OME_SCALAR VarArray::operator[](size_t pos) const
 */
 bool VarArray::TestAny(const OME_SCALAR & testCase) const
 {
-	PROFILE_FUNC();
 	bool ret=false;
 
 	size_t insertPoint;
@@ -683,7 +657,6 @@ bool VarArray::TestAny(const OME_SCALAR & testCase) const
 */
 bool VarArray::TestAll(const OME_SCALAR & testCase) const
 {
-	PROFILE_FUNC();
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	bool ret=m_length>0;
@@ -697,7 +670,6 @@ bool VarArray::TestAll(const OME_SCALAR & testCase) const
 */
 size_t VarArray::GetMaxInd() const
 {
-	PROFILE_FUNC();
 	size_t m=OME_NOVAL;
 	
 	if(m_length)
@@ -747,7 +719,6 @@ size_t VarArray::GetMinInd() const
 /** @return The maximum contained value. */
 OME_SCALAR VarArray::GetMax() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR maxVal = -OME_NOVAL;
 
 	if (m_length)
@@ -769,7 +740,6 @@ OME_SCALAR VarArray::GetMax() const
 /** @return The minimum contained value. */
 OME_SCALAR VarArray::GetMin() const
 {
-	PROFILE_FUNC();
 	OME_SCALAR minVal = OME_NOVAL;
 
 	if (m_length)
@@ -792,7 +762,6 @@ OME_SCALAR VarArray::GetMin() const
 */
 OME_SCALAR VarArray::GetProduct() const
 {
-	PROFILE_FUNC();
 	unsigned int i;
 	OME_SCALAR prod=0.0;
 	if(m_length)
@@ -810,7 +779,6 @@ OME_SCALAR VarArray::GetProduct() const
 */
 OME_SCALAR VarArray::GetSum() const
 {
-	PROFILE_FUNC();
 	unsigned int i;
 	OME_SCALAR tot = 0.0;
 	if (m_length)
@@ -835,7 +803,6 @@ void VarArray::OverrideDims(const std::initializer_list<unsigned int> & dims)
 
 const OMEChar* VarArray::ToString(const OMEChar tabChar, const unsigned int indent, const unsigned int inc) const
 {
-	PROFILE_FUNC();
 	oSTLSStream buff;
 
 	STLString head(indent,tabChar);
@@ -863,7 +830,6 @@ const OMEChar* VarArray::ToString(const OMEChar tabChar, const unsigned int inde
 */
 void VarArray::GetDimsForRawIndex(size_t ind, IndVec & outInds) const
 {
-	PROFILE_FUNC();
 	
 	if (outInds.size() < m_dims.GetSize())
 		outInds.resize(m_dims.GetSize());
@@ -887,7 +853,6 @@ void VarArray::GetDimsForRawIndex(size_t ind, IndVec & outInds) const
 */
 void VarArray::GetDimsForRawIndex(size_t ind, ListDims & outInds) const
 {
-    PROFILE_FUNC();
     
     outInds.ClearDims();
     
@@ -917,7 +882,6 @@ size_t VarArray::GetLevel() const
 
 Listable& VarArray::operator+(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
@@ -930,7 +894,6 @@ Listable& VarArray::operator+(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator+(Listable & rhs)
 {
-	PROFILE_FUNC();
 
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
@@ -973,7 +936,6 @@ Listable& VarArray::operator+(Listable & rhs)
 
 Listable& VarArray::operator-(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -985,7 +947,6 @@ Listable& VarArray::operator-(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator-(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1030,20 +991,17 @@ Listable& VarArray::operator-(Listable & rhs)
 
 Listable& VarArray::operator*(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	for (size_t i = 0; i < m_length; ++i)
 		(*ret)[i] = rVArch[insertPoint+i] * rhs;
 	ret->RecalcStep();
-	PROFILE_END();
 	return *ret;
 }
 
 Listable& VarArray::operator*(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1052,11 +1010,9 @@ Listable& VarArray::operator*(Listable & rhs)
 		ret->GetDims() = m_dims;
 		for (size_t i = 0; i < m_length; ++i)
 			(*ret)[i] = rVArch[insertPoint + i] * rhs[i];
-		PROFILE_END();
 	}
 	else
 	{
-		PROFILE_BEGIN(VAMULTUNEQUAL);
 		Listable* pLrg, *pSml;
 		if (m_dims.GetSize() > rhs.GetLevel())
 		{
@@ -1071,8 +1027,6 @@ Listable& VarArray::operator*(Listable & rhs)
 		
 		size_t inStep = pLrg->GetSize() / pSml->GetSize();
 		ret->GetDims() = pLrg->GetDims();
-		
-		PROFILE_BEGIN(PROCESSSLOTS)
 		for (size_t i = 0,s=0, flip = 0; i<pLrg->GetSize(); ++i, ++flip)
 		{
 			if (flip >= inStep)
@@ -1082,8 +1036,6 @@ Listable& VarArray::operator*(Listable & rhs)
 			}
 			(*ret)[i] = (*pLrg)[i] * (*pSml)[s];
 		}
-		PROFILE_END();
-		PROFILE_END();
 	}
 	ret->RecalcStep();
 	return *ret;
@@ -1091,7 +1043,6 @@ Listable& VarArray::operator*(Listable & rhs)
 
 Listable& VarArray::operator/(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1103,7 +1054,6 @@ Listable& VarArray::operator/(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator/(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1161,7 +1111,6 @@ Listable& VarArray::operator/(Listable & rhs)
 
 Listable& VarArray::operator==(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1173,7 +1122,6 @@ Listable& VarArray::operator==(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator==(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1215,7 +1163,6 @@ Listable& VarArray::operator==(Listable & rhs)
 
 Listable& VarArray::operator!=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1227,7 +1174,6 @@ Listable& VarArray::operator!=(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator!=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1269,7 +1215,6 @@ Listable& VarArray::operator!=(Listable & rhs)
 
 Listable& VarArray::operator<=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1281,7 +1226,6 @@ Listable& VarArray::operator<=(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator<=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1339,7 +1283,6 @@ Listable& VarArray::operator<=(Listable & rhs)
 
 Listable& VarArray::operator< (const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1351,7 +1294,6 @@ Listable& VarArray::operator< (const OME_SCALAR & rhs)
 
 Listable& VarArray::operator< (Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1409,7 +1351,6 @@ Listable& VarArray::operator< (Listable & rhs)
 
 Listable& VarArray::operator>=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1421,7 +1362,6 @@ Listable& VarArray::operator>=(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator>=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1479,7 +1419,6 @@ Listable& VarArray::operator>=(Listable & rhs)
 
 Listable& VarArray::operator>(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1491,7 +1430,6 @@ Listable& VarArray::operator>(const OME_SCALAR & rhs)
 
 Listable& VarArray::operator> (Listable & rhs)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(std::max(m_length, rhs.GetSize()));
 	if (m_dims.GetSize() == rhs.GetLevel())
 	{
@@ -1549,7 +1487,6 @@ Listable& VarArray::operator> (Listable & rhs)
 
 Listable& VarArray::operator!()
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1560,7 +1497,6 @@ Listable& VarArray::operator!()
 }
 Listable& VarArray::operator-()
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(m_length);
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
@@ -1572,7 +1508,6 @@ Listable& VarArray::operator-()
 
 Listable& VarArray::Negate()
 {
-	PROFILE_FUNC();
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	for (size_t i = 0; i < m_length; ++i)
@@ -1582,7 +1517,6 @@ Listable& VarArray::Negate()
 
 Listable& VarArray::Invert()
 {
-	PROFILE_FUNC();
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	for (size_t i = 0; i < m_length; ++i)
@@ -1592,7 +1526,6 @@ Listable& VarArray::Invert()
 
 Listable& VarArray::Reciprocate()
 {
-	PROFILE_FUNC();
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	for (size_t i = 0; i < m_length; ++i)
@@ -1602,13 +1535,11 @@ Listable& VarArray::Reciprocate()
 
 Listable& VarArray::Subset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	return *StaticUpArray::NewSUA(this,start,length);
 }
 
 Listable& VarArray::SubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	StaticUpArray* ret = StaticUpArray::NewSUA(this, GetLevel()-1);
 	ret->OffsetByAbsolute(ind*GetStepSize());
 	return *ret;
@@ -1616,19 +1547,16 @@ Listable& VarArray::SubsetFromStep(const size_t & ind)
 
 Listable& VarArray::RefSubset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	return Subset(start, length);
 }
 
 Listable& VarArray::RefSubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	return SubsetFromStep(ind);
 }
 
 void VarArray::SubCollect(Listable & out, const size_t & offset, const size_t & outStart)
 {
-	PROFILE_FUNC();
 	size_t insertPoint;
 	ValueArchive& rVArch = GETARCHINFOREF(insertPoint);
 	size_t stepSize = GetStepSize();
@@ -1641,7 +1569,7 @@ void VarArray::SubCollect(Listable & out, const size_t & offset, const size_t & 
 
 //void VarArray::SubAggregate(Listable & out, AggFunc aggFunc)
 //{
-//	PROFILE_FUNC();
+//
 //	StaticUpArray tmp(this,GetLevel()-1);
 //
 //	for (size_t i = 0; i < m_dims.Innermost(); ++i, tmp.OffsetByStep(i))
@@ -1652,7 +1580,6 @@ void VarArray::SubCollect(Listable & out, const size_t & offset, const size_t & 
 
 ListableSclrItr VarArray::SclrBegin()
 {
-	PROFILE_FUNC();
 	
 	size_t insertPoint = m_pParentModel->GetArchiveIndex(m_mdlIndex,m_length);
 	return ListableSclrItr((Listable*)this, (size_t)insertPoint, (size_t)GetSize()+insertPoint);
@@ -1661,7 +1588,6 @@ ListableSclrItr VarArray::SclrBegin()
 
 OME_SCALAR& VarArray::ValForRef(void*& ref, const size_t & pos,const bool & posChanged)
 {
-	PROFILE_FUNC();
 	if (posChanged)
 	{
 		ValueArchive& rVArch = *m_pParentModel->GetValueArchive();

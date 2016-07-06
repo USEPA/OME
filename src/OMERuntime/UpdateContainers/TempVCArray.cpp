@@ -18,7 +18,6 @@ namespace TVCCache
 TempVCArray::TempVCArray(const ListDims & dims, const size_t & lvl, const OME_SCALAR & fillVal, Evaluable* pEval)
 	:Listable(dims), m_pRepEval(pEval)
 {
-	PROFILE_FUNC();
 	m_dims.Shrink(m_dims.GetSize() - lvl);
 	m_length = m_dims.CalcRepLength();
 	m_start = TVCCache::s_cache.Append(m_length, fillVal);
@@ -33,7 +32,6 @@ TempVCArray::TempVCArray(const ListDims & dims, const size_t & lvl, const OME_SC
 TempVCArray::TempVCArray(const size_t & length, const OME_SCALAR & fillVal, Evaluable* pEval)
 	:Listable(length),m_pRepEval(pEval)
 {
-	PROFILE_FUNC();
 	m_start = TVCCache::s_cache.Append(length, fillVal);
 }
 
@@ -44,7 +42,6 @@ TempVCArray::TempVCArray(const size_t & length, const OME_SCALAR & fillVal, Eval
 TempVCArray::TempVCArray(const TempVCArray & tvc,const bool & copyVals)
 	: Listable( tvc.m_dims), m_pRepEval(NULL)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	m_start = s_cache.GetInsertIndex();
 	
@@ -57,19 +54,16 @@ TempVCArray::TempVCArray(const TempVCArray & tvc,const bool & copyVals)
 
 OME_SCALAR& TempVCArray::operator[](size_t pos)
 {
-	PROFILE_FUNC();
 	return TVCCache::s_cache[pos + m_start];
 }
 
 const OME_SCALAR TempVCArray::operator[](size_t pos) const
 {
-	PROFILE_FUNC();
 	return TVCCache::s_cache[pos + m_start];
 }
 
 bool TempVCArray::SetValue(const size_t & index, const OME_SCALAR & value)
 {
-	PROFILE_FUNC();
 	bool ret = index < m_length;
 	if (ret)
 		TVCCache::s_cache[index + m_start]=value;
@@ -78,26 +72,22 @@ bool TempVCArray::SetValue(const size_t & index, const OME_SCALAR & value)
 
 void TempVCArray::SetValues(const OME_SCALAR & val)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 		TVCCache::s_cache[i + m_start] = val;
 }
 void TempVCArray::SetValues(const OME_SCALAR* vals, const size_t count)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < count; ++i)
 		TVCCache::s_cache[i + m_start] = vals[i];
 }
 
 OME_SCALAR TempVCArray::GetValue(const size_t & i) const
 {
-	PROFILE_FUNC();
 	return TVCCache::s_cache[i + m_start];
 }
 
 bool TempVCArray::GetValue(const size_t & i, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	bool ret = i < m_length;
 	if (ret)
 		out = TVCCache::s_cache[i + m_start];
@@ -106,13 +96,11 @@ bool TempVCArray::GetValue(const size_t & i, OME_SCALAR & out)
 
 OME_SCALAR TempVCArray::GetValue(const ListDims & iv) const
 {
-	PROFILE_FUNC();
 	return TVCCache::s_cache[m_start + DeriveIndex(iv, m_dims)];
 }
 
 bool TempVCArray::GetValue(const ListDims & iv, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	size_t ind = DeriveIndex(iv, m_dims);
 	bool ret = ind < m_length;
 	if (ret)
@@ -122,13 +110,11 @@ bool TempVCArray::GetValue(const ListDims & iv, OME_SCALAR & out)
 
 Evaluable* TempVCArray::GetRepEval()
 {
-	PROFILE_FUNC();
 	return m_pRepEval;
 }
 
 Listable& TempVCArray::operator+(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this,false);
 	
@@ -142,7 +128,6 @@ Listable& TempVCArray::operator+(const OME_SCALAR & rhs)
 Listable& TempVCArray::operator+(Listable & rhs)
 {
 	//assume outermost dims are compatible
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 	
@@ -181,7 +166,6 @@ Listable& TempVCArray::operator+(Listable & rhs)
 
 Listable& TempVCArray::operator-(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -194,7 +178,6 @@ Listable& TempVCArray::operator-(const OME_SCALAR & rhs)
 Listable& TempVCArray::operator-(Listable & rhs)
 {
 	//assume outermost dims are compatible
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -236,7 +219,6 @@ Listable& TempVCArray::operator-(Listable & rhs)
 
 Listable& TempVCArray::operator*(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -249,7 +231,6 @@ Listable& TempVCArray::operator*(const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator*(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -288,7 +269,6 @@ Listable& TempVCArray::operator*(Listable & rhs)
 
 Listable& TempVCArray::operator/(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -300,7 +280,6 @@ Listable& TempVCArray::operator/(const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator/(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -350,7 +329,6 @@ Listable& TempVCArray::operator/(Listable & rhs)
 
 Listable& TempVCArray::operator==(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -363,7 +341,6 @@ Listable& TempVCArray::operator==(const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator==(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -401,7 +378,6 @@ Listable& TempVCArray::operator==(Listable & rhs)
 
 Listable& TempVCArray::operator!=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -413,7 +389,6 @@ Listable& TempVCArray::operator!=(const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator!=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -451,7 +426,6 @@ Listable& TempVCArray::operator!=(Listable & rhs)
 
 Listable& TempVCArray::operator<=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -463,7 +437,6 @@ Listable& TempVCArray::operator<=(const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator<=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -513,7 +486,6 @@ Listable& TempVCArray::operator<=(Listable & rhs)
 
 Listable& TempVCArray::operator< (const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -525,7 +497,6 @@ Listable& TempVCArray::operator< (const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator< (Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -575,7 +546,6 @@ Listable& TempVCArray::operator< (Listable & rhs)
 
 Listable& TempVCArray::operator>=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -587,7 +557,6 @@ Listable& TempVCArray::operator>=(const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator>=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -637,7 +606,6 @@ Listable& TempVCArray::operator>=(Listable & rhs)
 
 Listable& TempVCArray::operator> (const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -649,7 +617,6 @@ Listable& TempVCArray::operator> (const OME_SCALAR & rhs)
 
 Listable& TempVCArray::operator> (Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -699,7 +666,6 @@ Listable& TempVCArray::operator> (Listable & rhs)
 
 Listable& TempVCArray::operator!()
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -711,7 +677,6 @@ Listable& TempVCArray::operator!()
 
 Listable& TempVCArray::operator-()
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = new(s_pool.NewCastPtr())TempVCArray(*this, false);
 
@@ -723,7 +688,6 @@ Listable& TempVCArray::operator-()
 
 Listable& TempVCArray::Invert()
 {
-	PROFILE_FUNC();
 	for (size_t i = m_start; i < m_start + m_length; ++i)
 		TVCCache::s_cache[i] = !TVCCache::s_cache[i];
 
@@ -732,7 +696,6 @@ Listable& TempVCArray::Invert()
 
 Listable& TempVCArray::Negate()
 {
-	PROFILE_FUNC();
 	for (size_t i = m_start; i < m_start + m_length; ++i)
 		TVCCache::s_cache[i] *= -1.0;
 
@@ -741,7 +704,6 @@ Listable& TempVCArray::Negate()
 
 Listable& TempVCArray::Reciprocate()
 {
-	PROFILE_FUNC();
 	for (size_t i = m_start; i < m_start + m_length; ++i)
 		TVCCache::s_cache[i] = 1.0 / TVCCache::s_cache[i];
 
@@ -750,7 +712,6 @@ Listable& TempVCArray::Reciprocate()
 
 Listable& TempVCArray::Subset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray *ret = s_pool.NewCastPtr();
 	
@@ -768,7 +729,6 @@ Listable& TempVCArray::Subset(const size_t & start, const size_t & length)
 
 Listable& TempVCArray::SubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray *ret = s_pool.NewCastPtr();
 
@@ -786,7 +746,6 @@ Listable& TempVCArray::SubsetFromStep(const size_t & ind)
 
 Listable& TempVCArray::RefSubset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray *ret = new(s_pool.NewCastPtr())TempVCArray();
 
@@ -801,7 +760,6 @@ Listable& TempVCArray::RefSubset(const size_t & start, const size_t & length)
 
 Listable& TempVCArray::RefSubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray *ret = new(s_pool.NewCastPtr())TempVCArray();
 
@@ -816,7 +774,6 @@ Listable& TempVCArray::RefSubsetFromStep(const size_t & ind)
 
 void TempVCArray::SubCollect(Listable & out, const size_t & offset, const size_t & outStart)
 {
-	PROFILE_FUNC();
 	size_t start = m_start + (m_step*offset);
 
 	for (size_t i = 0; i < m_step; ++i)
@@ -825,13 +782,11 @@ void TempVCArray::SubCollect(Listable & out, const size_t & offset, const size_t
 
 ListableSclrItr TempVCArray::SclrBegin()
 {
-	PROFILE_FUNC();
 	return ListableSclrItr(this,0, m_length);
 }
 
 OME_SCALAR& TempVCArray::ValForRef(void*& ref, const size_t & pos,const bool & posChanged)
 {
-	PROFILE_FUNC();
 
 	return  TVCCache::s_cache[m_start + pos];
 }
@@ -841,7 +796,6 @@ OME_SCALAR& TempVCArray::ValForRef(void*& ref, const size_t & pos,const bool & p
 /** Reset backing ValCache insertion index.*/
 void TempVCArray::ResetGlobalCache()
 {
-	PROFILE_FUNC();
 	TVCCache::s_cache.ResetCache();
 }
 
@@ -854,7 +808,6 @@ void TempVCArray::ResetGlobalCache()
 */
 TempVCArray* TempVCArray::NewTemp(const ListDims & dims, const size_t & lvl, const OME_SCALAR & fillVal, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempVCArray* ret = new(TVCCache::s_pool.NewCastPtr())TempVCArray(dims, lvl, fillVal);
 	ret->m_pRepEval = repObj;
 	return ret;
@@ -868,7 +821,6 @@ TempVCArray* TempVCArray::NewTemp(const ListDims & dims, const size_t & lvl, con
 */
 TempVCArray* TempVCArray::NewTemp(const size_t & length, const OME_SCALAR & fillVal, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempVCArray* ret = new(TVCCache::s_pool.NewCastPtr())TempVCArray(length, fillVal);
 	ret->m_pRepEval = repObj;
 	return ret;
@@ -933,7 +885,6 @@ Listable* TempVCArray::NewTemp(Listable & list)
 */
 TempVCArray* TempVCArray::NewTempNoFill(const ListDims & dims, const size_t & lvl, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempVCArray* ret = new(TVCCache::s_pool.NewCastPtr())TempVCArray();
 	ret->m_dims = dims;
 	ret->m_length = 0;
@@ -956,7 +907,6 @@ TempVCArray* TempVCArray::NewTempNoFill(const ListDims & dims, const size_t & lv
 */
 TempVCArray* TempVCArray::NewTempNoFill(const size_t & length, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempVCArray* ret = new(TVCCache::s_pool.NewCastPtr())TempVCArray();
 	ret->m_step = 1;
 	ret->m_dims.AppendDim(length);
@@ -973,7 +923,6 @@ TempVCArray* TempVCArray::NewTempNoFill(const size_t & length, Evaluable* repObj
 */
 TempVCArray* TempVCArray::NewTempSubstep(Listable & parent, const size_t & offset, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	using namespace TVCCache;
 	TempVCArray* ret = s_pool.NewCastPtr();
 
@@ -999,20 +948,17 @@ TempVCArray* TempVCArray::NewTempSubstep(Listable & parent, const size_t & offse
 */
 void TempVCArray::ReleaseTemp(TempVCArray * tmp)
 {
-	PROFILE_FUNC();
 	TVCCache::s_pool.ReleasePtr(tmp);
 }
 
 /** Reset the temporary TempVCArray pool. */
 void TempVCArray::ClearTempPool()
 {
-	PROFILE_FUNC();
 	TVCCache::s_pool.ClearPool();
 }
 
 /** Resize pool of TempVCArray to compensate for overflow.*/
 void TempVCArray::RefitTempPool()
 {
-	PROFILE_FUNC();
 	TVCCache::s_pool.RefitPool();
 }

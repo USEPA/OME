@@ -262,7 +262,6 @@ bool LuaOMEParser::Evaluate(OME_SCALAR & value, const bool isTest,const SclrArgs
 
 bool LuaOMEParser::Evaluate(SclrResults & values, int & count, const bool isTest,const SclrArgs & args)
 {
-	PROFILE_FUNC();
 	lua_pushboolean(m_pLState,isTest);
 	lua_setfield(m_pLState,LUA_REGISTRYINDEX,LuaDefines::TEST_MODE);
 
@@ -280,8 +279,8 @@ bool LuaOMEParser::Evaluate(SclrResults & values, int & count, const bool isTest
 	//remove c function from stack
 	lua_remove(m_pLState, 1);
 	count=lua_gettop(m_pLState);
-	if(values.size()<count)
-		PROFILE_CODE(values.resize(count);)
+	if (values.size() < count)
+		values.resize(count);
 
 	if(count)
 	{
@@ -421,7 +420,6 @@ void LuaOMEParser::ProcessResult(const int & err, int index, OME_SCALAR & value)
 
 bool LuaOMEParser::BatchEvaluate(const SclrArgs & args, const bool isTest)
 {
-	PROFILE_FUNC();
 	bool ret=false;
 	OME_SCALAR dummy;
 	if(!m_batchStack.empty())
@@ -446,7 +444,6 @@ bool LuaOMEParser::BatchEvaluate(const SclrArgs & args, const bool isTest)
 
 bool LuaOMEParser::BatchEvaluate(SclrResults & values, int & count, const SclrArgs & args, const bool isTest)
 {
-	PROFILE_FUNC();
 	bool ret=false;
 	if(!m_batchStack.empty())
 	{
@@ -469,7 +466,6 @@ bool LuaOMEParser::BatchEvaluate(SclrResults & values, int & count, const SclrAr
 
 bool LuaOMEParser::BatchEvaluate(OME_SCALAR* & values, int & count,const SclrArgs & args, const bool isTest)
 {
-	PROFILE_FUNC();
 	bool ret=false;
 	if(!m_batchStack.empty())
 	{
@@ -1003,7 +999,7 @@ void LuaOMEParser::ClearModeIDs()
 /// @cond DOX_NO_DOC
 bool LuaOMEParser::CheckMultiVal(lua_State* L,const int ind)
 {
-	//PROFILE_FUNC();
+	//
 	using namespace LuaDefines;
 
 	bool ret;
@@ -1025,7 +1021,6 @@ int LuaOMEParser::FNAME(lua_State* L)					       \
 {															   \
 	using namespace OMECFuncs;								   \
 															   \
-	PROFILE_FUNC();											   \
 	SclrWrap wRhs(0.0), wLhs(0.0);							   \
 	BaseWrap* lhs = checkOMEWrap(L, 1);						   \
 	if (!lhs)												   \
@@ -1094,7 +1089,6 @@ int LuaOMEParser::FNAME(lua_State* L)					       \
 {															   \
 	using namespace OMECFuncs;								   \
 															   \
-	PROFILE_FUNC();											   \
 	SclrWrap wRhs(0.0), wLhs(0.0);							   \
 	BaseWrap* lhs = checkOMEWrap(L, 1);						   \
 	if (!lhs)												   \
@@ -1172,7 +1166,6 @@ DEFINE_LUABOOLOP(OMEWrapGe, >=)
 
 int LuaOMEParser::OMEWrapMod(lua_State* L)
 {
-	PROFILE_FUNC();
 	using namespace OMECFuncs;
 
 	SclrWrap wRhs(0.0), wLhs(0.0);
@@ -1200,7 +1193,6 @@ int LuaOMEParser::OMEWrapMod(lua_State* L)
 
 int LuaOMEParser::OMEWrapPow(lua_State* L)
 {
-	PROFILE_FUNC();
 	using namespace OMECFuncs;								   
 											
 	SclrWrap wRhs(0.0), wLhs(0.0);
@@ -1241,7 +1233,6 @@ int LuaOMEParser::OMEWrapPow(lua_State* L)
 												         					   
 int LuaOMEParser::OMEWrapUNM(lua_State* L)
 {
-	PROFILE_FUNC();
 	using namespace OMECFuncs;
 
 	SclrWrap wRhs(0.0), wLhs(0.0);
@@ -1316,7 +1307,6 @@ int LuaOMEParser::OMEWrapToString(lua_State* L)
 
 int LuaOMEParser::OMEWrapLen(lua_State* L)
 {
-	PROFILE_FUNC();
 	using namespace OMECFuncs;
 
 	BaseWrap* pRep;

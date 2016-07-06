@@ -29,7 +29,6 @@ SimpleArrayWrapper::SimpleArrayWrapper(OME_SCALAR* arr, const size_t & len, Eval
 SimpleArrayWrapper::SimpleArrayWrapper(OME_SCALAR* arr, const ListDims & dims, Evaluable* repEval, const bool & isPersist)
 :Listable(), m_pArr(arr), m_pEval(repEval)
 {
-	PROFILE_FUNC();
 	unsigned short dSize = m_dims.GetSize();
 	if (dSize)
 	{
@@ -53,7 +52,6 @@ const OME_SCALAR SimpleArrayWrapper::operator[](size_t pos) const
 
 bool SimpleArrayWrapper::SetValue(const size_t & index, const OME_SCALAR & value)
 {
-	PROFILE_FUNC();
 	bool ret = index<m_length;
 	if (ret)
 		m_pArr[index] = value;
@@ -61,14 +59,12 @@ bool SimpleArrayWrapper::SetValue(const size_t & index, const OME_SCALAR & value
 }
 void SimpleArrayWrapper::SetValues(const OME_SCALAR & val)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 		m_pArr[i] = val;
 }
 
 void SimpleArrayWrapper::SetValues(const OME_SCALAR* vals, const size_t count)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_length; ++i)
 		m_pArr[i] = vals[i];
 }
@@ -133,19 +129,16 @@ unsigned short SimpleArrayWrapper::GetDimCount() const
 
 size_t SimpleArrayWrapper::GetDim(const size_t & ind) const
 {
-	PROFILE_FUNC();
 	return m_dims[ind];
 }
 
 Evaluable* SimpleArrayWrapper::GetRepEval()
 {
-	PROFILE_FUNC();
 	return m_pEval;
 }
 
 Listable& SimpleArrayWrapper::Subset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	TEMP_LIST_TYPE* ret = TEMP_LIST_TYPE::NewTemp(length);
 	for (size_t i = 0; i < length; ++i)
 		(*ret)[i] = m_pArr[i + start];
@@ -154,19 +147,16 @@ Listable& SimpleArrayWrapper::Subset(const size_t & start, const size_t & length
 }
 Listable& SimpleArrayWrapper::SubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	return *TEMP_LIST_TYPE::NewTempSubstep(*this, ind);
 }
 
 Listable& SimpleArrayWrapper::RefSubset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	return *(new(SubPool::s_pool.NewCastPtr())SimpleArrayWrapper(&m_pArr[start], length,m_pEval,false));
 }
 
 Listable& SimpleArrayWrapper::RefSubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	SimpleArrayWrapper* ret=new(SubPool::s_pool.NewCastPtr())SimpleArrayWrapper(&m_pArr[ind], m_step, m_pEval,false);
 	
 	ret->m_dims = ListDims(m_dims, 1);
@@ -176,33 +166,28 @@ Listable& SimpleArrayWrapper::RefSubsetFromStep(const size_t & ind)
 
 void SimpleArrayWrapper::SubCollect(Listable & out, const size_t & offset, const size_t & outStart)
 {
-	PROFILE_FUNC();
 	for (size_t i = 0; i < m_step; ++i)
 		out[i+outStart] = m_pArr[i + (m_step*offset)];
 }
 
 ListableSclrItr SimpleArrayWrapper::SclrBegin()
 {
-	PROFILE_FUNC();
 	return ListableSclrItr(this, 0, m_length);
 }
 
 OME_SCALAR& SimpleArrayWrapper::ValForRef(void*& ref, const size_t & pos,const bool & posChanged)
 {
-	PROFILE_FUNC();
 	return m_pArr[pos];
 }
 
 /** Clear SimpleArrayWrapper temporary pool*/
 void SimpleArrayWrapper::ClearTmpPool()
 {
-	PROFILE_FUNC();
 	SubPool::s_pool.ClearPool();
 }
 
 /** Refit SimpleArrayWrapper temporary pool*/
 void SimpleArrayWrapper::RefitTmpPool()
 {
-	PROFILE_FUNC();
 	SubPool::s_pool.RefitPool();
 }

@@ -53,14 +53,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WIN64;_WINDOWS;__EXPORT__=__declspec( dllimport );_DEBUG;_AFXEXT;LUA_COMPAT_5_1;%(PreprocessorDefinitions);__IMPORT__=__declspec(dllimport);USING_ENVISION</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\..\envision\src\;$(SolutionDir)..\..\envision\..\..\include\envEngine;$(SolutionDir)..\..\..\envision\src\libs;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows;$(SolutionDir)..\..\include\Windows\OMEAdapter;$(SolutionDir)..\..\include\Windows\OMERuntime;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\envision\src\;$(SolutionDir)..\..\envision\..\..\include\envEngine;$(SolutionDir)..\..\..\envision\src\libs;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows;$(SolutionDir)..\..\include\Windows\OMEAdapter;$(SolutionDir)..\..\include\Windows\OMERuntime;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>.\OMEAdapter.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(PlatformName)\$(ConfigurationName);$(ProjectDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"..\..\..\extern_support\Shiny\lib\ShinyDebug.lib";libs.lib;OMERuntime.lib</AdditionalDependencies>
+      <AdditionalDependencies>libs.lib;OMERuntime.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -88,7 +88,7 @@ copy /Y "$(OutputPath)LuaLib.*" "$(SolutionDir)..\..\envision\src\$(Platform)\$(
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>OME_SHOW_DEBUG;WIN32;_WINDOWS;__EXPORT__=__declspec( dllimport );NDEBUG;_AFXEXT;%(PreprocessorDefinitions);__IMPORT__=__declspec(dllimport);USING_ENVISION</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\..\envision\src\;$(SolutionDir)..\..\envision\..\..\include\envEngine;$(SolutionDir)..\..\..\envision\src\libs;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows;$(SolutionDir)..\..\include\Windows\OMEAdapter;$(SolutionDir)..\..\include\Windows\OMERuntime;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\envision\src\;$(SolutionDir)..\..\envision\..\..\include\envEngine;$(SolutionDir)..\..\..\envision\src\libs;$(SolutionDir)..\..\extern_support\lua\src;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\Windows;$(SolutionDir)..\..\include\Windows\OMEAdapter;$(SolutionDir)..\..\include\Windows\OMERuntime;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -97,7 +97,7 @@ copy /Y "$(OutputPath)LuaLib.*" "$(SolutionDir)..\..\envision\src\$(Platform)\$(
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\OMEAdapter.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(PlatformName)\$(ConfigurationName);$(ProjectDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"..\..\..\extern_support\Shiny\lib\Shiny$(PlatformArchitecture).lib";libs.lib;OMERuntime.lib</AdditionalDependencies>
+      <AdditionalDependencies>libs.lib;OMERuntime.lib</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
     <Midl>

@@ -17,7 +17,6 @@ namespace DUAPool
 DynamicUpArray::DynamicUpArray(Evaluable* pEval, const size_t & lvl)
 :StaticUpArray(pEval,lvl)
 {
-	PROFILE_FUNC();
 	//build lookup list of only active models
 	ModelInstance* pCurrInst;
 	bool inActives = false;
@@ -46,7 +45,6 @@ DynamicUpArray::DynamicUpArray(Evaluable* pEval, const size_t & lvl)
 DynamicUpArray::DynamicUpArray(VarArray* pEval, const size_t & lvl)
 	:StaticUpArray(pEval, lvl)
 {
-	PROFILE_FUNC();
 	//build lookup list of only active models
 	ModelInstance* pCurrInst;
 	bool inActives = false;
@@ -75,21 +73,18 @@ DynamicUpArray::DynamicUpArray(VarArray* pEval, const size_t & lvl)
 
 OME_SCALAR& DynamicUpArray::operator[](size_t pos)
 {
-	PROFILE_FUNC();
 	IndexJumpTable::IJTPair adjust = m_offsetTable.Lookup(pos);
 	return (*m_pArch)[m_start + adjust.outInd + (pos - adjust.inInd)];
 }
 
 const OME_SCALAR DynamicUpArray::operator[](size_t pos) const
 {
-	PROFILE_FUNC();
 	IndexJumpTable::IJTPair adjust = m_offsetTable.Lookup(pos);
 	return (*m_pArch)[m_start + adjust.outInd + (pos - adjust.inInd)];
 }
 
 Listable& DynamicUpArray::Subset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	DynamicUpArray* ret = new(DUAPool::s_pool.NewCastPtr())DynamicUpArray();
 	ret->m_length = length;
 	ret->m_dims.ClearDims();
@@ -101,7 +96,6 @@ Listable& DynamicUpArray::Subset(const size_t & start, const size_t & length)
 
 Listable& DynamicUpArray::SubsetFromStep(const size_t & ind)
 {
-	PROFILE_FUNC();
 	DynamicUpArray* ret= (DynamicUpArray*)&Subset(m_step*ind,m_step);
 	ret->m_dims = ListDims(m_dims, 1);
 	ret->RecalcStep();
@@ -111,13 +105,11 @@ Listable& DynamicUpArray::SubsetFromStep(const size_t & ind)
 
 ListableSclrItr DynamicUpArray::SclrBegin()
 {
-	PROFILE_FUNC();
 	return ListableSclrItr(this, 0, m_length);
 }
 
 OME_SCALAR& DynamicUpArray::ValForRef(void*& ref, const size_t & pos,const bool & posChanged)
 {
-	PROFILE_FUNC();
 
 	if (posChanged)
 	{
@@ -132,14 +124,12 @@ OME_SCALAR& DynamicUpArray::ValForRef(void*& ref, const size_t & pos,const bool 
 /** Reset Temporary DynamicUpArray Pool.*/
 void DynamicUpArray::ClearTempPool()
 {
-	PROFILE_FUNC();
 	DUAPool::s_pool.ClearPool();
 }
 
 /** Resize the DynamicUpArray Pool.*/
 void DynamicUpArray::RefitTempPool()
 {
-	PROFILE_FUNC();
 	DUAPool::s_pool.RefitPool();
 }
 
@@ -150,7 +140,6 @@ void DynamicUpArray::RefitTempPool()
 */
 DynamicUpArray* DynamicUpArray::NewDUA(Evaluable* pEval, const size_t & lvl)
 {
-	PROFILE_FUNC();
 	return new(DUAPool::s_pool.NewCastPtr())DynamicUpArray(pEval, lvl);
 }
 
@@ -159,7 +148,6 @@ DynamicUpArray* DynamicUpArray::NewDUA(Evaluable* pEval, const size_t & lvl)
 */
 void DynamicUpArray::ReleaseDUA(DynamicUpArray* pDua)
 {
-	PROFILE_FUNC();
 	DUAPool::s_pool.ReleasePtr(pDua);
 }
 

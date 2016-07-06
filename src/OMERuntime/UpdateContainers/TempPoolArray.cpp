@@ -19,7 +19,6 @@ namespace TPAPool
 TempPoolArray::TempPoolArray(const ListDims & dims, const size_t & lvl, const OME_SCALAR & fillVal, Evaluable* pEval)
 	:Listable(dims), m_pRepEval(pEval), m_isRef(false), m_start(0)
 {
-	PROFILE_FUNC();
 	m_dims.Shrink(m_dims.GetSize() - lvl);
 	m_length = m_dims.CalcRepLength();
 	m_pFront = new(TPAPool::s_nodePool.NewCastPtr())TPANode(0);
@@ -47,7 +46,6 @@ TempPoolArray::TempPoolArray(const ListDims & dims, const size_t & lvl, const OM
 TempPoolArray::TempPoolArray(const size_t & length, const OME_SCALAR & fillVal, Evaluable* pEval)
 	:Listable(length), m_pRepEval(pEval), m_isRef(false), m_start(0)
 {
-	PROFILE_FUNC();
 	size_t nodeInd;
 	m_pFront = new(TPAPool::s_nodePool.NewCastPtr())TPANode(0);
 	TPANode* pCurr = m_pFront;
@@ -72,7 +70,6 @@ TempPoolArray::TempPoolArray(const size_t & length, const OME_SCALAR & fillVal, 
 TempPoolArray::TempPoolArray(const TempPoolArray & tpa, const bool & copyVals)
 	: Listable(tpa.m_dims), m_pRepEval(NULL), m_isRef(false), m_start(0)
 {
-	PROFILE_FUNC();
 	m_pFront = new(TPAPool::s_nodePool.NewCastPtr())TPANode(0);
 
 	TPANode* pLhs = m_pFront;
@@ -96,14 +93,12 @@ TempPoolArray::TempPoolArray(const TempPoolArray & tpa, const bool & copyVals)
 
 TempPoolArray::~TempPoolArray()
 {
-	PROFILE_FUNC();
 	if (!m_isRef)
 		CleanupNodes(m_pFront);
 }
 
 OME_SCALAR& TempPoolArray::operator[](size_t pos)
 {
-	PROFILE_FUNC();
 	if (pos > m_length)
 		throw OMEOOBException("TempPoolArray::operator[]: index is out of bounds");
 
@@ -125,7 +120,6 @@ OME_SCALAR& TempPoolArray::operator[](size_t pos)
 
 const OME_SCALAR TempPoolArray::operator[](size_t pos) const
 {
-	PROFILE_FUNC();
 	if (pos > m_length)
 		throw OMEOOBException("TempPoolArray::operator[]: index is out of bounds");
 
@@ -146,7 +140,6 @@ const OME_SCALAR TempPoolArray::operator[](size_t pos) const
 
 bool TempPoolArray::SetValue(const size_t & index, const OME_SCALAR & value)
 {
-	PROFILE_FUNC();
 	bool ret = index + m_start< m_length;
 	if (ret)
 		operator[](index) = value;
@@ -155,7 +148,6 @@ bool TempPoolArray::SetValue(const size_t & index, const OME_SCALAR & value)
 
 void TempPoolArray::SetValues(const OME_SCALAR & val)
 {
-	PROFILE_FUNC();
 	if (m_isRef)
 		throw OMEFuncOpException("TempPoolArray::SetValues","Not supported by reference type");
 
@@ -172,7 +164,6 @@ void TempPoolArray::SetValues(const OME_SCALAR & val)
 
 void TempPoolArray::SetValues(const OME_SCALAR* vals, const size_t count)
 {
-	PROFILE_FUNC();
 	if (m_isRef)
 		throw OMEFuncOpException("TempPoolArray::SetValues","Not supported by reference type");
 
@@ -189,13 +180,11 @@ void TempPoolArray::SetValues(const OME_SCALAR* vals, const size_t count)
 
 OME_SCALAR TempPoolArray::GetValue(const size_t & i) const
 {
-	PROFILE_FUNC();
 	return operator[](i);
 }
 
 bool TempPoolArray::GetValue(const size_t & i, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	bool ret = m_start+i < m_length;
 	if (ret)
 		out = operator[](i);
@@ -204,26 +193,22 @@ bool TempPoolArray::GetValue(const size_t & i, OME_SCALAR & out)
 
 OME_SCALAR TempPoolArray::GetValue(const ListDims & iv) const
 {
-	PROFILE_FUNC();
 	return operator[](DeriveIndex(iv, m_dims));
 }
 
 bool TempPoolArray::GetValue(const ListDims & iv, OME_SCALAR & out)
 {
-	PROFILE_FUNC();
 	return GetValue(DeriveIndex(iv, m_dims),out);
 }
 
 Evaluable* TempPoolArray::GetRepEval()
 {
-	PROFILE_FUNC();
 	return m_pRepEval;
 }
 
 
 Listable& TempPoolArray::operator+(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -247,7 +232,6 @@ Listable& TempPoolArray::operator+(const OME_SCALAR & rhs)
 Listable& TempPoolArray::operator+(Listable & rhs)
 {
 	//assume outermost dims are compatible
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -312,7 +296,6 @@ Listable& TempPoolArray::operator+(Listable & rhs)
 */
 Listable& TempPoolArray::operator+(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -350,7 +333,6 @@ Listable& TempPoolArray::operator+(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator-(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -374,7 +356,6 @@ Listable& TempPoolArray::operator-(const OME_SCALAR & rhs)
 Listable& TempPoolArray::operator-(Listable & rhs)
 {
 	//assume outermost dims are compatible
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -441,7 +422,6 @@ Listable& TempPoolArray::operator-(Listable & rhs)
 */
 Listable& TempPoolArray::operator-(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -479,7 +459,6 @@ Listable& TempPoolArray::operator-(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator*(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -502,7 +481,6 @@ Listable& TempPoolArray::operator*(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator*(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -565,7 +543,6 @@ Listable& TempPoolArray::operator*(Listable & rhs)
 */
 Listable& TempPoolArray::operator*(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -602,7 +579,6 @@ Listable& TempPoolArray::operator*(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator/(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -625,7 +601,6 @@ Listable& TempPoolArray::operator/(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator/(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -707,7 +682,6 @@ Listable& TempPoolArray::operator/(Listable & rhs)
 */
 Listable& TempPoolArray::operator/(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -744,7 +718,6 @@ Listable& TempPoolArray::operator/(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator==(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -767,7 +740,6 @@ Listable& TempPoolArray::operator==(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator==(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -830,7 +802,6 @@ Listable& TempPoolArray::operator==(Listable & rhs)
 */
 Listable& TempPoolArray::operator==(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -867,7 +838,6 @@ Listable& TempPoolArray::operator==(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator!=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -890,7 +860,6 @@ Listable& TempPoolArray::operator!=(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator!=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -954,7 +923,6 @@ Listable& TempPoolArray::operator!=(Listable & rhs)
 */
 Listable& TempPoolArray::operator!=(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -992,7 +960,6 @@ Listable& TempPoolArray::operator!=(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator<=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -1015,7 +982,6 @@ Listable& TempPoolArray::operator<=(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator<=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -1097,7 +1063,6 @@ Listable& TempPoolArray::operator<=(Listable & rhs)
 */
 Listable& TempPoolArray::operator<=(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -1135,7 +1100,6 @@ Listable& TempPoolArray::operator<=(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator< (const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -1158,7 +1122,6 @@ Listable& TempPoolArray::operator< (const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator< (Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -1240,7 +1203,6 @@ Listable& TempPoolArray::operator< (Listable & rhs)
 */
 Listable& TempPoolArray::operator<(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -1277,7 +1239,6 @@ Listable& TempPoolArray::operator<(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator>=(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -1300,7 +1261,6 @@ Listable& TempPoolArray::operator>=(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator>=(Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -1382,7 +1342,6 @@ Listable& TempPoolArray::operator>=(Listable & rhs)
 */
 Listable& TempPoolArray::operator>=(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -1420,7 +1379,6 @@ Listable& TempPoolArray::operator>=(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator>(const OME_SCALAR & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -1443,7 +1401,6 @@ Listable& TempPoolArray::operator>(const OME_SCALAR & rhs)
 
 Listable& TempPoolArray::operator> (Listable & rhs)
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret;
 
@@ -1524,7 +1481,6 @@ Listable& TempPoolArray::operator> (Listable & rhs)
 */
 Listable& TempPoolArray::operator>(TempPoolArray & rhs)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret;
 	if (GetLevel() == rhs.GetLevel())
 	{
@@ -1561,7 +1517,6 @@ Listable& TempPoolArray::operator>(TempPoolArray & rhs)
 
 Listable& TempPoolArray::operator!()
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -1584,7 +1539,6 @@ Listable& TempPoolArray::operator!()
 
 Listable& TempPoolArray::operator-()
 {
-	PROFILE_FUNC();
 	using namespace TPAPool;
 	TempPoolArray* ret = new(s_tpaPool.NewCastPtr())TempPoolArray(*this, false);
 
@@ -1607,7 +1561,6 @@ Listable& TempPoolArray::operator-()
 
 Listable& TempPoolArray::Invert()
 {
-	PROFILE_FUNC();
 	TPANode* pCurr = m_pFront;
 	size_t ind;
 	for (size_t i = m_start; i < m_length + m_start; ++i)
@@ -1623,7 +1576,6 @@ Listable& TempPoolArray::Invert()
 
 Listable& TempPoolArray::Negate()
 {
-	PROFILE_FUNC();
 	TPANode* pCurr = m_pFront;
 	size_t ind;
 	for (size_t i = m_start; i < m_length + m_start; ++i)
@@ -1638,7 +1590,6 @@ Listable& TempPoolArray::Negate()
 }
 Listable& TempPoolArray::Reciprocate()
 {
-	PROFILE_FUNC();
 	TPANode* pCurr = m_pFront;
 	size_t ind;
 	for (size_t i = m_start; i < m_length + m_start; ++i)
@@ -1654,7 +1605,6 @@ Listable& TempPoolArray::Reciprocate()
 
 Listable& TempPoolArray::Subset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	TempPoolArray *ret = TempPoolArray::NewTempNoFill(length, m_pRepEval);
 
 	size_t lim = start / TPA_NODE_LEN;
@@ -1691,7 +1641,6 @@ Listable& TempPoolArray::SubsetFromStep(const size_t & ind)
 
 Listable& TempPoolArray::RefSubset(const size_t & start, const size_t & length)
 {
-	PROFILE_FUNC();
 	TempPoolArray *ret = new(TPAPool::s_tpaPool.NewCastPtr())TempPoolArray();
 	size_t lim = start / TPA_NODE_LEN;
 	ret->m_pRepEval = m_pRepEval;
@@ -1721,7 +1670,6 @@ Listable& TempPoolArray::RefSubsetFromStep(const size_t & ind)
 
 void TempPoolArray::SubCollect(Listable & out, const size_t & offset, const size_t & outStart)
 {
-	PROFILE_FUNC();
 	size_t lim = (offset*m_step) / TPA_NODE_LEN;
 	size_t oldInd = (offset*m_step) - TPA_NODE_LEN*lim;
 	TPANode* pOld = m_pFront;
@@ -1769,7 +1717,6 @@ OME_SCALAR& TempPoolArray::ValForRef(void*& ref, const size_t & pos,const bool &
 */
 TempPoolArray* TempPoolArray::NewTemp(const ListDims & dims, const size_t & lvl, const OME_SCALAR & fillVal, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret = new(TPAPool::s_tpaPool.NewCastPtr())TempPoolArray(dims, lvl, fillVal);
 	ret->m_pRepEval = repObj;
 	return ret;
@@ -1783,7 +1730,6 @@ TempPoolArray* TempPoolArray::NewTemp(const ListDims & dims, const size_t & lvl,
 */
 TempPoolArray* TempPoolArray::NewTemp(const size_t & length, const OME_SCALAR & fillVal, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret = new(TPAPool::s_tpaPool.NewCastPtr())TempPoolArray(length, fillVal);
 	ret->m_pRepEval = repObj;
 	return ret;
@@ -1846,7 +1792,6 @@ Listable* TempPoolArray::NewTemp(Listable & list)
 */
 TempPoolArray* TempPoolArray::NewTempNoFill(const ListDims & dims, const size_t & lvl, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret = new(TPAPool::s_tpaPool.NewCastPtr())TempPoolArray();
 	
 	ret->m_dims = dims;
@@ -1877,7 +1822,6 @@ TempPoolArray* TempPoolArray::NewTempNoFill(const ListDims & dims, const size_t 
 */
 TempPoolArray* TempPoolArray::NewTempNoFill(const size_t & length, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret = new(TPAPool::s_tpaPool.NewCastPtr())TempPoolArray();
 
 	ret->m_dims.AppendDim(length);
@@ -1904,7 +1848,6 @@ TempPoolArray* TempPoolArray::NewTempNoFill(const size_t & length, Evaluable* re
 */
 TempPoolArray* TempPoolArray::NewTempSubstep(Listable & parent, const size_t & offset, Evaluable* repObj)
 {
-	PROFILE_FUNC();
 	TempPoolArray* ret = new(TPAPool::s_tpaPool.NewCastPtr())TempPoolArray();
 
 	ret->m_length = parent.GetStepSize();
@@ -1975,7 +1918,6 @@ void TempPoolArray::RefitNodePool(const size_t & buff)
 */
 void TempPoolArray::CleanupNodes(TPANode* pNode)
 {
-	PROFILE_FUNC();
 	if (pNode)
 	{
 		CleanupNodes(pNode->m_next);

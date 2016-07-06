@@ -91,7 +91,6 @@ OMEIntegrationBlock::~OMEIntegrationBlock( void )
 */
 OME_SCALAR OMEIntegrationBlock::Integrate(OME_SCALAR time, OME_SCALAR stopTime, DERIVEFN deriveFn, void *dExtra, POSTINTFN postFn, void* pExtra)
 {
-	PROFILE_FUNC();
 	m_time = time;
 	m_stopTime = stopTime;
 	m_currentTimeStep = m_timeStep;

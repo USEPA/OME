@@ -55,7 +55,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>LUA_COMPAT_5_1;WIN64;_WINDOWS;__EXPORT__=__declspec( dllimport );_DEBUG;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\UniversalConverter;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\UniversalConverter;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -74,7 +74,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>OME_SHOW_DEBUG;LUA_COMPAT_5_1;WIN64;NDEBUG;_CONSOLE;__EXPORT__=__declspec( dllimport );%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\extern_support\Shiny\include;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\UniversalConverter;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include;$(SolutionDir)..\..\include\UniversalConverter;$(SolutionDir)..\..\include\OMEDraw;$(SolutionDir)..\..\include\OMERuntime;$(SolutionDir)..\..\include\MainEntries;$(SolutionDir)..\..\include\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
