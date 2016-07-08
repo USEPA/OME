@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome_ctrl>
+    <!-- Misc config settings -->
+    <!--The spatial_provider tag provides the information to populate the Spatial Data Provider. We need to specify which provider to use, the path to
+		the coverage file, the columns for the x and y coordinates, and the nature of the coverage (its a grid in this case). -->
+    <spatial_provider library_path="CSVSpatialDataProvider" filepath="OMEDemoSquareCoverage.csv" x_label="x" y_label="y" coverage_format="grid">
+        <!-- The neightbor expression is used to determine which cells neighbor one another. When the mode is set to "compare_xy", the expression 
+		is run for each cell, which is then compared against al other cells. the id, x, and y values are passed in for both cells being compared. 
+		for the grid type of "grid4", the index of a neighbor and a defined flag specifying the direction of the neighbor (NORTH, SOUTH, EAST, or WEST)
+		is returned; nothing is expected to be returned if the two cells are not direct neighbors. The script is written in Lua; see http://www.lua.org
+		for more information.-->
+        <neighbor_expr language="lua" mode="compare_xy"  grid_type="grid4">
+  local center,x1,y1,neigh,x2,y2 =...
+
+  --check to see if both cells are the same
+
+  if x1==x2 and y2-y1==1 then
+	return neigh,SDP_SOUTH
+  end
+  
+  if x1==x2 and y1-y2==1 then
+	return neigh,SDP_NORTH
+  end
+  
+  if y1==y2 and x2-x1==1 then
+	return neigh,SDP_EAST
+  end
+  
+  if y1==y2 and x1-x2==1 then
+	return neigh,SDP_WEST
+  end
+
+		</neighbor_expr>
+    </spatial_provider>
+	<!-- The coverage_mapping section allows us to directly map data from the spatial coverage to model components in the .omem file. -->
+    <coverage_mapping>
+		<!-- Plates will have one instance per record as found in the coverage file. -->
+        <submodel name="Plates" instance_per_unit="1">
+			<!-- Each entry below basically states "take the value in the provided column of the spatial record and assign it to the provided
+			model component at initialization. each instance of the model component corresponds to each record in the spatial record-->
+            <var sdp_name="x" mapto_name="x" init_dir="sdp_to_component"/>
+            <var sdp_name="y" mapto_name="y" init_dir="sdp_to_component"/>
+            <var sdp_name="index" mapto_name="id" init_dir="sdp_to_component"/>
+        </submodel>
+    </coverage_mapping>
+	<!-- The integration solving method; presently only euler and rk4 are supported.-->
+    <solver method="euler"/>
+	<!-- This is the actual information for running the model. Here we want to load the omeDemoModel.omem file, start the simulation at 
+	time 0, end the simulation at time 20, report after every full time step, and have the actual step size match the reported step size.-->
+    <ome_model filepath="omeDemoModel.omem" start_time="0.0" stop_time="20.0" report_interval="1.0" relative_step_size="1.0"/>
+</ome_ctrl>

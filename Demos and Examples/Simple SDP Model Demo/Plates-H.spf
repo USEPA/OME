@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="spf1.xsl"?>
+<spf simile_version="6.5">
+<submodel label="top">
+<variables>
+<csv_columns label="X" filename="OMEDemoHCoverage.csv" data_column="x">
+</csv_columns>
+<csv_columns label="id" filename="OMEDemoHCoverage.csv" data_column="index">
+</csv_columns>
+<csv_columns label="Y" filename="OMEDemoHCoverage.csv" data_column="y">
+</csv_columns>
+</variables>
+<submodels>
+</submodels>
+</submodel>
+</spf>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome>
+ <model init_instances='1' id='root' name='root' step_size='-4.31602e+008' int_method='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
+  <tables>
+   <table_data id='table_1' filename='G:/OME Paper/OMEDemoTimeSeries.csv' column='plate' dimensions='21' data='0 2 1 8 3 2 3 8 2 4 7 6 8 4 4 1 9 7 3 8 7' />
+  </tables>
+  <variables>
+   <variable id='node00213' name='plate&#10;electrifier' expr='int(table(int(time(  ))+1.0))' origin='0,0' extents='0,0' >
+<tables>
+<table id='table_1' />
+</tables>
+
+   </variable>
+  </variables>
+  <influences>
+   <influence id='arc00329' name='i123' expr='' use_curr_val='0' source='node00213' target='node00215' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+  </influences>
+  <submodels>
+   <model init_instances='1' id='node00144' name='Plates' step_size='-4.31602e+008' int_method='1' expects_spatial='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
+    <description>
+     _____________
+| 1 | 2 | 3 |
+-------------
+| 4 | 5 | 6 |
+-------------
+| 7 | 8 | 9 |
+-------------
+
+--!!OME:@expectsSpatial!!--
+    </description>
+    <variables>
+     <variable id='node00147' name='X' expr='' as_int='1' external_init='1' origin='0,0' extents='0,0' />
+     <variable id='node00148' name='Y' expr='' as_int='1' external_init='1' origin='0,0' extents='0,0' />
+     <variable id='node00151' name='dirCount' expr='SDPGetNeighborCount(index(1.0))' init_only='1' origin='0,0' extents='0,0' >
+      <description>
+       --!!OME:@initOnly@expression:SDPGetNeighborCount(index(1))!!--
+      </description>
+     </variable>
+     <variable id='node00161' name='electrified' expr='(if index(1.0)==root.plate_electrifier then 1.0 else 0.0 end)' origin='0,0' extents='0,0' />
+     <variable id='node00201' name='id' expr='index(1.0)' external_init='1' origin='0,0' extents='0,0' />
+     <variable id='node00209' name='transfer&#10;rate' expr='120.0' origin='0,0' extents='0,0' />
+     <variable id='node00211' name='dirTrans' expr='(if root.Plates.Pop &gt;root.Plates.transfer_rate then root.Plates.transfer_rate else  root.Plates.Pop  end)/root.Plates.dirCount' origin='0,0' extents='0,0' />
+    </variables>
+    <states>
+     <state id='node00149' name='Pop' expr='1000.0' init_condition='0' origin='0,0' extents='0,0' />
+    </states>
+    <flows>
+     <flow id='arc00331' name='upIn' expr='if SDPHasNeighborForDirection(index(1.0),SDP_NORTH) then valueFromInstance(Plates.downOut, SDPGetNeighborForDirection(index(1.0),SDP_NORTH)) else 0.0 end' exec_group='2' target='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:2@expression:if SDPHasNeighborForDirection(index(1),SDP_NORTH) then valueFromInstance(Plates.downOut, SDPGetNeighborForDirection(index(1),SDP_NORTH)) else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00332' name='downIn' expr='if SDPHasNeighborForDirection(index(1.0),SDP_SOUTH) then valueFromInstance(root.Plates.upOut, SDPGetNeighborForDirection(index(1.0),SDP_SOUTH)) else 0.0 end' exec_group='2' target='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:2@expression:if SDPHasNeighborForDirection(index(1),SDP_SOUTH) then valueFromInstance(upOut, SDPGetNeighborForDirection(index(1),SDP_SOUTH)) else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00333' name='leftIn' expr='if SDPHasNeighborForDirection(index(1.0),SDP_WEST) then valueFromInstance(root.Plates.rightOut, SDPGetNeighborForDirection(index(1.0),SDP_WEST)) else 0.0 end' exec_group='2' target='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:2@expression:if SDPHasNeighborForDirection(index(1),SDP_WEST) then valueFromInstance(rightOut, SDPGetNeighborForDirection(index(1),SDP_WEST)) else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00334' name='rightIn' expr='if SDPHasNeighborForDirection(index(1.0),SDP_EAST) then valueFromInstance(root.Plates.leftOut, SDPGetNeighborForDirection(index(1.0),SDP_EAST)) else 0.0 end' exec_group='2' target='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:2@expression:if SDPHasNeighborForDirection(index(1),SDP_EAST) then valueFromInstance(leftOut, SDPGetNeighborForDirection(index(1),SDP_EAST)) else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00342' name='upOut' expr='if (root.Plates.electrified==1.0)  and  SDPHasNeighborForDirection(index(1.0),SDP_NORTH) then root.Plates.dirTrans else 0.0 end' exec_group='1' source='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:1@influenceTo:downIn@expression:if (electrified!=0) && SDPHasNeighborForDirection(index(1),SDP_NORTH) then dirTrans else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00346' name='downOut' expr='if (root.Plates.electrified==1.0)  and  SDPHasNeighborForDirection(index(1.0),SDP_SOUTH) then root.Plates.dirTrans else 0.0 end' exec_group='1' source='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:1@influenceTo:upIn@expression:if (electrified!=0) && SDPHasNeighborForDirection(index(1),SDP_SOUTH) then dirTrans else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00349' name='leftOut' expr='if (root.Plates.electrified==1.0)  and  SDPHasNeighborForDirection(index(1.0),SDP_WEST) then root.Plates.dirTrans else 0.0 end' exec_group='1' source='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:1@influenceTo:rightIn@expression:if (electrified!=0) && SDPHasNeighborForDirection(index(1),SDP_WEST) then dirTrans else 0!!--
+      </description>
+     </flow>
+     <flow id='arc00353' name='rightOut' expr='if (root.Plates.electrified==1.0)  and  SDPHasNeighborForDirection(index(1.0),SDP_EAST) then root.Plates.dirTrans else 0.0 end' exec_group='1' source='node00149' ctrl_pt1='0,0' ctrl_pt2='0,0' >
+      <description>
+       --!!OME:@execGroup:1@influenceTo:leftIn@expression:if (electrified!=0) && SDPHasNeighborForDirection(index(1),SDP_EAST) then dirTrans else 0!!--
+      </description>
+     </flow>
+    </flows>
+    <influences>
+     <influence id='arc00358' name='i124' expr='' use_curr_val='0' source='node00215' target='node00161' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00343' name='i46' expr='' use_curr_val='0' source='node00161' target='arc00342' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00345' name='i118' expr='' use_curr_val='0' source='node00211' target='arc00342' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00347' name='i48' expr='' use_curr_val='0' source='node00161' target='arc00346' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00348' name='i120' expr='' use_curr_val='0' source='node00211' target='arc00346' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00350' name='i45' expr='' use_curr_val='0' source='node00161' target='arc00349' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00352' name='i121' expr='' use_curr_val='0' source='node00211' target='arc00349' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00354' name='i47' expr='' use_curr_val='0' source='node00161' target='arc00353' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00356' name='i119' expr='' use_curr_val='0' source='node00211' target='arc00353' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00364' name='i115' expr='' use_curr_val='0' source='node00209' target='node00211' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00365' name='i116' expr='' use_curr_val='0' source='node00151' target='node00211' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='arc00366' name='i117' expr='' use_curr_val='0' source='node00149' target='node00211' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='upOut-&gt;downIn' name='upOut-&gt;downIn' expr='' use_curr_val='0' source='arc00342' target='arc00332' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='downOut-&gt;upIn' name='downOut-&gt;upIn' expr='' use_curr_val='0' source='arc00346' target='arc00331' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='leftOut-&gt;rightIn' name='leftOut-&gt;rightIn' expr='' use_curr_val='0' source='arc00349' target='arc00334' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='rightOut-&gt;leftIn' name='rightOut-&gt;leftIn' expr='' use_curr_val='0' source='arc00353' target='arc00333' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='upOut-&gt;downIn' name='upOut-&gt;downIn' expr='' use_curr_val='0' source='arc00342' target='arc00332' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='downOut-&gt;upIn' name='downOut-&gt;upIn' expr='' use_curr_val='0' source='arc00346' target='arc00331' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='leftOut-&gt;rightIn' name='leftOut-&gt;rightIn' expr='' use_curr_val='0' source='arc00349' target='arc00334' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+     <influence id='rightOut-&gt;leftIn' name='rightOut-&gt;leftIn' expr='' use_curr_val='0' source='arc00353' target='arc00333' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </influences>
+    <modelports>
+     <port id='node00215' name='bdr9_2' origin='0,0' extents='0,0' >
+      <subtargets>
+       <trg name="arc00358"/>
+      </subtargets>
+      <outsources>
+       <src name="arc00329"/>
+      </outsources>
+     </port>
+    </modelports>
+   </model>
+  </submodels>
+ </model>
+</ome>
