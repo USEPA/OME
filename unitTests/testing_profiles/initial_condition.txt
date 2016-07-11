@@ -1,0 +1,30 @@
+# parameters for base_math unit tests
+#
+# The '#' symbol at the beginning of a line is used to denote a comment
+#
+
+#display title
+Initial Condition functions - Compiled
+
+#base name for key/solution files
+initial_condition
+
+#governing control file (relative to test_models directory - extension omitted)
+compiled_tests/initial_condition_dbg
+
+#solution comparator to use (presently only simpleFloat is defined)
+#the idea here is that the first value should contain the type of comparator, and then a list of options specific to it
+#in the case of simpleFloat, the only argument would be the acceptable deviation
+# Current options:
+# 	 simpleFloat,<% deviation>
+
+simpleFloat,0.025
+
+#parameter sets to build
+# Current options:
+#	 single,<field label>,<value>
+#	 uniRange,<field label>,<start value>,<end value>,<increment>
+#	 simpleSet,<field_label>,<val 1>,<val 2>,...,<val n>
+
+simpleSet,Input_value_1,1,1,2,2
+simpleSet,Input_value_2,1,2,1,2
