@@ -137,9 +137,9 @@ Input Generators:
 	
 	note*: IF in the wizard remember to click on the ModelClassBuilder tab
 	example: 
-		Input Model File: C:\Users\musubi\Desktop\OME\trunk\unitTests\test_models\conditionals.omem
+		Input Model File: trunk\unitTests\test_models\conditionals.omem
 
-		Output Directory: C:\Users\musubi\Desktop\OME\trunk\project_files\Windows\ModelProject
+		Output Directory: trunk\project_files\Windows\ModelProject
 		
 		Class Name: TestModel   (Always set the class name as TestModel)
 

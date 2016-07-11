@@ -18,5 +18,7 @@ Doxy Docs/
 local.doxygen
 extern_support/lua/*
 extern_support/tinyxml2/*
+
+#unitTests
 *.omet
 *.pyc
