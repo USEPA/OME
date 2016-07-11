@@ -52,6 +52,7 @@ if __name__=='__main__':
 		runResults=[]
 		for f in paramFiles:
 			#run through all tests for config...(feeding in param files in testing_profiles)
+			#									param file path         engine path
 			runResults.append(runTests(TestSet(paramDir+os.path.sep+f),omeEngine))
 		
 		outStr='Unit Testing begun on '+datetime.datetime.now().strftime("%B %d, %Y at %I:%M%p")+'\n\n'

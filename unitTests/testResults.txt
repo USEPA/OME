@@ -1,175 +1,445 @@
-Unit Testing begun on June 17, 2016 at 10:54AM
+Unit Testing begun on July 11, 2016 at 03:02PM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-1.0
+	Input_value_2=1.0
+	Input_value_3=3.1
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.9
+	Input_value_2=1.1
+	Input_value_3=3.0
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.8
+	Input_value_2=1.2
+	Input_value_3=2.9
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.7
+	Input_value_2=1.3
+	Input_value_3=2.8
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.6
+	Input_value_2=1.4
+	Input_value_3=2.7
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.5
+	Input_value_2=1.5
+	Input_value_3=2.6
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.4
+	Input_value_2=1.6
+	Input_value_3=2.5
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.3
+	Input_value_2=1.7
+	Input_value_3=2.4
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Input values:
+	Input_value_1=-0.2
+	Input_value_2=1.8
+	Input_value_3=2.3
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__-0_1__1_9__2_2__.csv
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Key mismatch: gamma_ln_test
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Could not open file: base_math__0__2__2_1__.csv
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Could not open file: base_math__0_1__2_1__2__.csv
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Key mismatch: gamma_ln_test
+Could not open file: base_math__0_2__2_2__1_9__.csv
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__0_3__2_3__1_8__.csv
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__0_4__2_4__1_7__.csv
 
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__0_5__2_5__1_6__.csv
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__0_6__2_6__1_5__.csv
 
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__0_7__2_7__1_4__.csv
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__0_8__2_8__1_3__.csv
 
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__0_9__2_9__1_2__.csv
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Could not open file: base_math__1__3__1_1__.csv
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Could not open file: base_math__1__3__1_1__.csv
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: base_math__1__3__1_1__.csv
+
 
 ################################
 ################################
 
 >>>>> Conditional functions - Compiled <<<<<
 
-Input values:
-	Input_value_1=1.0
-	Input_value_2=0.0
-	Static_Input_value_1=5.0
-	Static_Input_value_2=3.0
-
-================================
-Test Results:
-	zidz         : pass
-	xidz         : pass
-	if_then_else : pass
+Could not open file: conditionals__5__3__1__0__.csv
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: conditionals__5__3__1__1__.csv
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: conditionals__5__3__0__1__.csv
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Could not open file: conditionals__5__3__0__0__.csv
+
+
+################################
+################################
+
+>>>>> Initial Condition functions - Compiled <<<<<
 
 Input values:
 	Input_value_1=1.0
 	Input_value_2=1.0
-	Static_Input_value_1=5.0
-	Static_Input_value_2=3.0
 
 ================================
 Test Results:
-	zidz         : pass
-	xidz         : pass
-	if_then_else : pass
+	active_initial : pass
+	initial      : pass
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=0.0
+	Input_value_1=1.0
+	Input_value_2=2.0
+
+================================
+Test Results:
+	active_initial : pass
+	initial      : pass
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_value_1=2.0
 	Input_value_2=1.0
-	Static_Input_value_1=5.0
-	Static_Input_value_2=3.0
 
 ================================
 Test Results:
-	zidz         : pass
-	xidz         : pass
-	if_then_else : pass
+	active_initial : pass
+	initial      : pass
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=0.0
-	Static_Input_value_1=5.0
-	Static_Input_value_2=3.0
+	Input_value_1=2.0
+	Input_value_2=2.0
 
 ================================
 Test Results:
-	zidz         : pass
-	xidz         : pass
-	if_then_else : pass
+	active_initial : pass
+	initial      : pass

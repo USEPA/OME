@@ -41,6 +41,7 @@ class TestSet:
 
             self.simParams = []
 
+            # iterate through the parameter file
             while True:
                 line = self.__nextValidLine(paramFile)
                 if line.__len__() <= 0:
@@ -54,6 +55,7 @@ class TestSet:
 
         for r in self.simParams:
             args += '-o{0}={1} '.format(r.name, r.current)
+
         return args
 
     def advanceRanges(self):
@@ -125,20 +127,20 @@ class RunResults:
         # load records
         omeVals = {}
         keyVals = {}
-        #try:
-        with open(omeCsvPath, 'rb') as omeFile, open(keyCsvPath, 'rb') as keyFile:
-            omeVals = self.__loadCSVRecords(omeFile, 1)
-            keyVals = self.__loadCSVRecords(keyFile, 0)
+        try:
+            with open(omeCsvPath, 'rb') as omeFile, open(keyCsvPath, 'rb') as keyFile:
+                omeVals = self.__loadCSVRecords(omeFile, 1)
+                keyVals = self.__loadCSVRecords(keyFile, 0)
 
-        # run tester's comparator only on values whose name ends with _test
-        for k in keyVals.keys():
-            if k.endswith('_test'):
-                try:
-                    self.testResults[k] = tester.comparator.compareRecords(omeVals[k], keyVals[k])
-                except KeyError as err:
-                    self.testResults[k] = "ERROR: Key not found: " + err.message
-        #except Exception as failError:
-            #self.error = "Could not open file: " + tester.csvName + "\n" + failError.message
+            # run tester's comparator only on values whose name ends with _test
+            for k in keyVals.keys():
+                if k.endswith('_test'):
+                    try:
+                        self.testResults[k] = tester.comparator.compareRecords(omeVals[k], keyVals[k])
+                    except KeyError as err:
+                        self.testResults[k] = "ERROR: Key not found: " + err.message
+        except Exception as failError:
+            self.error = "Could not open file: " + tester.csvName + "\n" + failError.message
 
 
     def __str__(self):
@@ -166,6 +168,5 @@ class RunResults:
 
         for row in rdr:
             ret[row[nameCol]] = row
-            print ret[row[nameCol]]
-
+            
         return ret

@@ -12,6 +12,8 @@ Quick start (run command):
 		<path to OME Engine> is the path to OMEEngine.exe.
 		<output file> is an optional path to where the test results should be written;
 		              if omitted, the result is printed directly to stdout.
+	 example:
+		python runUnitTests.py ..\project_files\Windows\x64\Debug\OMEEngine.exe testResults.txt
 
 =============================
 
