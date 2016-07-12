@@ -10,7 +10,7 @@ const unsigned int CE_TOP_PRIORITY = std::numeric_limits<int>::max();
 
 class Eventable;
 /**
-	A class used to represent an event in a Centralized Event Driven environment
+	A class used to represent an event in a Centralized Event Driven environment.
 */
 class __EXPORT__ CentralEvent : public Summarizable
 {
@@ -61,11 +61,6 @@ public:
 		else
 			return m_priority < rhs.m_priority; 
 	}
-
-
-	
-	//I like to isolate my member variables using setters/getters;
-	// old habits die hard
 
 	/** Sets the sender Pointer.
 		@param s Pointer to the object to act as sender.
