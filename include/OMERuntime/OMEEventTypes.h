@@ -3,6 +3,5 @@
 
 //event types for models
 const STLString EV_MD_INIT="MD_I";
-const STLString EV_MD_CHECK_VALID="MD_V";
 const STLString EV_MD_RECORD="MD_R";
 const STLString EV_MD_REPORT="MD_REP";

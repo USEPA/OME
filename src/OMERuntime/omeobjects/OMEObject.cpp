@@ -299,11 +299,6 @@ unsigned int OMEObject::Prioritize(unsigned int currPriority, const bool isIniti
 void OMEObject::EventAction(const CentralEvent & ev, void* extra)
 {
 	//nothing for now
-	STLString type=ev.GetEventType();
-	//if(type=="OME_UPDATE_DESCRIPTION")
-	//	m_description=CString(*(CString*)ev.GetPayload());
-
-	//additional responders below
 }
 
 /** Equivalence operator.
