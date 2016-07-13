@@ -1,4 +1,4 @@
-Unit Testing begun on July 11, 2016 at 03:02PM
+Unit Testing begun on July 13, 2016 at 12:26PM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -296,25 +296,129 @@ Could not open file: base_math__-0_1__1_9__2_2__.csv
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: base_math__0__2__2_1__.csv
+Input values:
+	Input_value_1=0
+	Input_value_2=2.0
+	Input_value_3=2.1
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: base_math__0_1__2_1__2__.csv
+Input values:
+	Input_value_1=0.1
+	Input_value_2=2.1
+	Input_value_3=2.0
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: base_math__0_2__2_2__1_9__.csv
+Input values:
+	Input_value_1=0.2
+	Input_value_2=2.2
+	Input_value_3=1.9
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: base_math__0_3__2_3__1_8__.csv
+Input values:
+	Input_value_1=0.3
+	Input_value_2=2.3
+	Input_value_3=1.8
+
+================================
+Test Results:
+	arcsin       : pass
+	min          : pass
+	sqrt         : pass
+	max          : pass
+	cosh         : pass
+	cos          : pass
+	log          : pass
+	ln           : pass
+	power        : pass
+	gamma_ln     : FAIL
+	tanh         : pass
+	tan          : pass
+	sin          : pass
+	arctan       : pass
+	exp          : pass
+	integer      : pass
+	abs          : pass
+	modulo       : pass
+	arccos       : pass
+	sinh         : pass
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -370,25 +474,65 @@ Could not open file: base_math__1__3__1_1__.csv
 
 >>>>> Conditional functions - Compiled <<<<<
 
-Could not open file: conditionals__5__3__1__0__.csv
+Input values:
+	Input_1=1.0
+	Input_2=0.0
+	static_input_1=5.0
+	static_input_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : pass
+	if_then_else : FAIL
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: conditionals__5__3__1__1__.csv
+Input values:
+	Input_1=1.0
+	Input_2=1.0
+	static_input_1=5.0
+	static_input_2=3.0
+
+================================
+Test Results:
+	zidz         : FAIL
+	xidz         : FAIL
+	if_then_else : FAIL
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: conditionals__5__3__0__1__.csv
+Input values:
+	Input_1=0.0
+	Input_2=1.0
+	static_input_1=5.0
+	static_input_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : FAIL
+	if_then_else : FAIL
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Could not open file: conditionals__5__3__0__0__.csv
+Input values:
+	Input_1=0.0
+	Input_2=0.0
+	static_input_1=5.0
+	static_input_2=3.0
+
+================================
+Test Results:
+	zidz         : pass
+	xidz         : pass
+	if_then_else : FAIL
 
 
 ################################
