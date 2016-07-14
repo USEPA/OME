@@ -167,6 +167,7 @@ m_varParamFunc(DefaultInitParamFn), m_varParamExtra(NULL), m_reInitIntegrator(fa
 */
 void SimManager::PopulateFromXMLTree(TI2Element* pXmlRoot,const STLString & modelPath,unsigned int & flags,oSTLSStream & errStrm)
 {
+	bool useCompiled = false;
 	STLString rootTag=pXmlRoot->Value();
 	if(rootTag=="ome_ctrl")
 	{
@@ -178,7 +179,6 @@ void SimManager::PopulateFromXMLTree(TI2Element* pXmlRoot,const STLString & mode
 			STLString newPath = PrepPath(subPath, modelPath);
 			if (mdlDoc.LoadFile(newPath.c_str()) == tinyxml2::XML_SUCCESS)
 			{ 
-				bool useCompiled=false;
 				const char* temp=pXmlMdlPath->Attribute("compiled_name");
 				STLString compiledPath;
 				if(temp)
@@ -292,7 +292,8 @@ void SimManager::PopulateFromXMLTree(TI2Element* pXmlRoot,const STLString & mode
 
     if (m_pRootModel)
     {
-		UnpackComponents();
+		if(!useCompiled)
+			UnpackComponents();
         if (m_pEvalParser->RequiresRuntimePrioritization())
             m_pRootModel->PrioritizeObjects(1, true);
         m_serializer = m_pEvalParser->GenerateSerializer();
