@@ -55,7 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>__EXPORT__=__declspec( dllimport );__MDL_EXPORT__=__declspec( dllexport );WIN32;_WINDOWS;_DEBUG;_USRDLL;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include\OMERuntime;\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern_support\tinyxml2;$(SolutionDir)..\..\include\Windows\OMERuntime\;$(SolutionDir)..\..\include\OMERuntime;\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>

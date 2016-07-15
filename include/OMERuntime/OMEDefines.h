@@ -1,6 +1,6 @@
 #pragma once
 #if defined WIN32 || defined _WIN64
-#include "..\include\Windows\stdafx.h"
+#include "..\Windows\stdafx.h"
 //#include<vld.h>
 //disable sign mismatch warnings;
 #pragma warning(push)
