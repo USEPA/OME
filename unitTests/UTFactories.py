@@ -26,9 +26,13 @@ def GenComparator(args):
 	'''generate a specific input factory based on first argument'''
 	if args.__len__() and isinstance(args[0],str):
 		#return value based on first args
+
 		if args[0]=='simpleFloat':
 			#create a uniform range, return threshold
 			return SimpleFloatCompare(float(args[1]))
+
+		if args[0]=='stepFloat':
+			return StepFloatCompare(float(args[1]))
 		#more options to come!
 
 
@@ -135,13 +139,15 @@ class SimpleFloatCompare:
 
 	def __init__(self):
 		self.threshold=0.0
-
+									# WHAT DOES THIS MEAN?
 	def __init__(self,threshold):
 		self.threshold=threshold
 
 	def compareRecords(self,omeRec,keyRec):
 		'''take list of values and do compare. Return true if difference between values is less than or equal todeviation threshold'''
 
+		if str(omeRec[3]) == "1.#INF":					# Not sure why appearing in temp_files misc_signals
+			omeRec[3] = 1
 		omeVal=float(omeRec[3])
 		keyVal=float(keyRec[1])
 
@@ -151,3 +157,32 @@ class SimpleFloatCompare:
 		deviation=abs(rawDev)
 
 		return deviation <= self.threshold
+
+class StepFloatCompare:
+	'''Compare two float values with an acceptable deviation value. Repeat for every step'''
+
+	def __init__(self):
+		self.threshold=0.0
+									# WHAT DOES THIS MEAN?
+	def __init__(self,threshold):
+		self.threshold=threshold
+
+	def compareRecords(self,omeRec,keyRec):
+		'''take list of values and do compare. Return true if difference between values is less than or equal todeviation threshold'''
+
+		if str(omeRec[3]) == "1.#INF":					# Not sure why appearing in temp_files misc_signals
+			omeRec[3] = 1
+
+		for i in xrange(1,len(keyRec)):			
+			omeVal=float(omeRec[i+2])
+			keyVal=float(keyRec[i])
+
+			rawDev=omeVal-keyVal
+			if keyVal!=0:
+				rawDev/=keyVal
+			deviation=abs(rawDev)
+
+			if deviation > self.threshold:
+				return False
+
+		return True

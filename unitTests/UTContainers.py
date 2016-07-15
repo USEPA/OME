@@ -28,6 +28,7 @@ class TestSet:
         self.args = ""
         self.simParams = []
         self.csvName = ''
+        self.compArgs = None
         self.comparator = None
 
     # Parsing the testing profiles upon initialization
@@ -36,8 +37,8 @@ class TestSet:
             self.label = self.__nextValidLine(paramFile)
             self.name = self.__nextValidLine(paramFile)
             self.ctrlPath = self.__nextValidLine(paramFile).replace('/', os.path.sep)
-
-            self.comparator = GenComparator(self.__nextValidLine(paramFile).split(','))
+            self.compArgs = self.__nextValidLine(paramFile).split(',')
+            self.comparator = GenComparator(self.compArgs)
 
             self.simParams = []
 
@@ -51,7 +52,14 @@ class TestSet:
 
     def __str__(self):
         '''build OMEEngine-friendly argument list'''
-        args = ' -c"' + os.getcwd() + os.path.sep + 'temp_files' + os.path.sep + self.csvName + '" '
+
+        # Alter for options depending on comparator class chosen in profile
+        if self.compArgs[0] == "simpleFloat":
+            args = ' -c"' + os.getcwd() + os.path.sep + 'temp_files' + os.path.sep + self.csvName + '" '
+        else:
+            args = ' -f"' + os.getcwd() + os.path.sep + 'temp_files' + os.path.sep + self.csvName + '" '
+
+
 
         for r in self.simParams:
             args += '-o{0}={1} '.format(r.name, r.current)
@@ -132,11 +140,11 @@ class RunResults:
                 omeVals = self.__loadCSVRecords(omeFile, 1)
                 keyVals = self.__loadCSVRecords(keyFile, 0)
 
-            # run tester's comparator only on values whose name ends with _test
+        # run tester's comparator only on values whose name ends with _test
             for k in keyVals.keys():
                 if k.endswith('_test'):
                     try:
-                        self.testResults[k] = tester.comparator.compareRecords(omeVals[k], keyVals[k])
+                        self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k])) + str(omeVals[k]) + str(keyVals[k])
                     except KeyError as err:
                         self.testResults[k] = "ERROR: Key not found: " + err.message
         except Exception as failError:
@@ -166,7 +174,9 @@ class RunResults:
         # skip header
         rdr.next()
 
+
         for row in rdr:
-            ret[row[nameCol]] = row
+            if row:                             # Deal with blank new lines
+                ret[row[nameCol]] = row
             
         return ret

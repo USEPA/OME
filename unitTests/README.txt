@@ -105,6 +105,9 @@ Result Generators:
 		values is less than or equal to <% deviation>. Set <% deviation> to 0 to require 
 		absolute equality.
 
+	stepFloat,<% deviation>: 
+		Very similar to simpleFloat, except that the values are compared for the every step including the initial state of the variables.
+
 Input Generators:
 	single,<field label>,<value>
 		A single constant value that does not change throughout the unit testing.

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome_ctrl>
+    <!--param_file can go here -->
+    <solver method="euler" />
+    <!-- compiled_name="../Windows/x64/Debug/ModelProject"-->
+    <ome_model filepath="../smooths.omem" compiled_name="../smooths_dbg" start_time="0" stop_time="20" report_interval="1.0" relative_step_size="1"/>
+    
+</ome_ctrl>

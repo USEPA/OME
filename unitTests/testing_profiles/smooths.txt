@@ -1,16 +1,16 @@
-# parameters for initial_condition unit tests
+# parameters for smooths unit tests
 #
 # The '#' symbol at the beginning of a line is used to denote a comment
 #
 
 #display title
-Initial Condition functions - Compiled
+Smooth functions - Compiled
 
 #base name for key/solution files
-initial_condition
+smooths
 
 #governing control file (relative to test_models directory - extension omitted)
-compiled_tests/initial_condition_dbg
+compiled_tests/smooths_dbg
 
 #solution comparator to use (presently only simpleFloat is defined)
 #the idea here is that the first value should contain the type of comparator, and then a list of options specific to it
@@ -18,7 +18,7 @@ compiled_tests/initial_condition_dbg
 # Current options:
 # 	 simpleFloat,<% deviation>
 
-simpleFloat,0.025
+stepFloat,0.025
 
 #parameter sets to build
 # Current options:
@@ -26,5 +26,6 @@ simpleFloat,0.025
 #	 uniRange,<field label>,<start value>,<end value>,<increment>
 #	 simpleSet,<field_label>,<val 1>,<val 2>,...,<val n>
 
-simpleSet,Input_value_1,1,1,2,2
-simpleSet,Input_value_2,1,2,1,2
+simpleSet,Input_value_1,1,1,1,1,2,2,2,2
+simpleSet,Input_value_2,1,1,2,2,1,1,2,2
+simpleSet,Input_value_3,4,5,4,5,4,5,4,5

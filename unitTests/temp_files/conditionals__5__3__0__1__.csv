@@ -1,8 +1,8 @@
 Id,Name,Instance,Value
 v_0,if_then_else_test,0,0
-v_1,Input_value_1,0,1
-v_2,Input_value_2,0,0
+v_1,Input_value_1,0,0
+v_2,Input_value_2,0,1
 v_3,static_input_value_1,0,5
 v_4,static_input_value_2,0,3
-v_5,xidz_test,0,5
+v_5,xidz_test,0,0
 v_6,zidz_test,0,0
