@@ -841,6 +841,7 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"queue_fifo",					"@unimplemented"					},
         {"queue_fifo_attrib",			"@unimplemented"					},
         {"ramp",						"" /* implement similar to step*/	},
+		{"random_0_1",                  "rand_var(0,1)"                     },
         {"random_beta",					"" /* implement */					},
         {"random_binomial",				"" /* implement */					},
         {"random_exponential",			"" /* implement */					},
@@ -850,7 +851,7 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"random_normal",				"gaussian_var($3,$4,$1,$2)"			},
         {"random_poisson",				""	/* implement */					},
         {"random_triangular",			""	/* implement */					},
-        {"random_uniform",				""	/* implement */					},
+        {"random_uniform",				"rand_var($1,$2)"					},
         {"random_weibull",				""	/* implement */					},
         {"rc_compare",					"@unimplemented"					},
         {"rc_compare_check",			"@unimplemented"					},
@@ -912,6 +913,10 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
 		//check for simple substitution
 		if (funcPattern[0] != '@' && funcPattern.find('$') == STLString::npos)
 		{
+			//if predefined argument list, just return
+			if (funcPattern.find('(') != STLString::npos)
+				return funcPattern;
+
 			//simple substitution
 			return funcPattern + "(" + args + ")";
 		}
