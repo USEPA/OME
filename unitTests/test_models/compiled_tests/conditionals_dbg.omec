@@ -3,7 +3,6 @@
     <!--param_file can go here -->
     <solver method="euler" />
     <!-- compiled_name="../Windows/x64/Debug/ModelProject"-->
-	<ome_model filepath="../conditionals.omem" compiled_name="C:/Users/PWingo/Desktop/GitHub/OME/project_files/Windows/x64/Debug/ModelProject" start_time="0" stop_time="1" report_interval="1.0" relative_step_size="1"/>
-    <!--<ome_model filepath="../conditionals.omem" compiled_name="../conditionals_dbg" start_time="0" stop_time="1" report_interval="1.0" relative_step_size="1"/>-->
+    <ome_model filepath="../conditionals.omem" compiled_name="../conditionals_dbg" start_time="0" stop_time="1" report_interval="1.0" relative_step_size="1"/>
     
 </ome_ctrl>
