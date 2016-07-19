@@ -143,7 +143,7 @@ class RunResults:
             for k in keyVals.keys():
                 if k.endswith('_test'):
                     try:
-                        self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k])) + str(omeVals[k]) + str(keyVals[k])
+                        self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k])) + '\n' + str(omeVals[k]) + '\n' + str(keyVals[k])
                     except KeyError as err:
                         self.testResults[k] = "ERROR: Key not found: " + err.message
         except Exception as failError:

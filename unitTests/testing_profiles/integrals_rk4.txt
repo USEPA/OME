@@ -1,0 +1,32 @@
+# parameters for smooths unit tests
+#
+# The '#' symbol at the beginning of a line is used to denote a comment
+#
+
+#display title
+integrals_rk4 functions - Compiled
+
+#base name for key/solution files
+integrals_rk4
+
+#governing control file (relative to test_models directory - extension omitted)
+compiled_tests/integrals_rk4_dbg
+
+#solution comparator to use (presently only simpleFloat is defined)
+#the idea here is that the first value should contain the type of comparator, and then a list of options specific to it
+#in the case of simpleFloat, the only argument would be the acceptable deviation
+# Current options:
+# 	 simpleFloat,<% deviation>
+
+stepFloat,0.025
+
+#parameter sets to build
+# Current options:
+#	 single,<field label>,<value>
+#	 uniRange,<field label>,<start value>,<end value>,<increment>
+#	 simpleSet,<field_label>,<val 1>,<val 2>,...,<val n>
+
+simpleSet,Input_value_1,0,0,1,1
+simpleSet,Input_value_2,0,1,0,1
+simpleSet,Input_value_3,0,1,1,2
+simpleSet,Input_value_3,1,3,1,1
