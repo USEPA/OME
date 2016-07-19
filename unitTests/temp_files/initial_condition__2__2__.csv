@@ -1,6 +1,5 @@
-Id,Name,Instance,0,1
-v_0,active_initial_test,0,2,2
-v_1,initial_test,0,2,2
-v_2,Input_value_1,0,2,2
-v_3,Input_value_2,0,2,2
-
+Id,Name,Instance,Value
+v_0,active_initial_test,0,2
+v_1,initial_test,0,2
+v_2,Input_value_1,0,2
+v_3,Input_value_2,0,2

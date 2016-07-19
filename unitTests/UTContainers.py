@@ -139,7 +139,6 @@ class RunResults:
             with open(omeCsvPath, 'rb') as omeFile, open(keyCsvPath, 'rb') as keyFile:
                 omeVals = self.__loadCSVRecords(omeFile, 1)
                 keyVals = self.__loadCSVRecords(keyFile, 0)
-
         # run tester's comparator only on values whose name ends with _test
             for k in keyVals.keys():
                 if k.endswith('_test'):
@@ -149,7 +148,6 @@ class RunResults:
                         self.testResults[k] = "ERROR: Key not found: " + err.message
         except Exception as failError:
             self.error = "Could not open file: " + tester.csvName + "\n" + failError.message
-
 
     def __str__(self):
         outStr = self.error
