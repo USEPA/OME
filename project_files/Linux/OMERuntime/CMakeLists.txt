@@ -112,7 +112,6 @@ add_definitions(
   -D__EXPORT__=
   -DPASCAL=
   -DMAXPATHLEN=4096
-  -DLUA_COMPAT_5_1
   -DOME_SHOW_DEBUG
   ${MY_CXX_FLAGS}
 )

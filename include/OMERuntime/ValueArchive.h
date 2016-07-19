@@ -17,11 +17,13 @@ for keeping multiple values for the same model component tightly packed together
 class __EXPORT__ ValueArchive
 {
 	friend class RecordMgr;
-
+	///@cond DOX_NO_DOC
+	struct MSetCompare;
+	///@endcond
 public:
 	///@cond DOX_NO_DOC
     struct EntryInfo;
-	struct MSetCompare;
+
 	typedef std::set < Model*, MSetCompare> ModelSet;
 	typedef OME_VARCHTYPE::iterator	iterator;
 	typedef void(*SVUpdateFunc)(void*);
