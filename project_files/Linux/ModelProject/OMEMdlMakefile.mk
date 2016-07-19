@@ -24,10 +24,10 @@
 
 #general compile settings
 CXX = clang++
-CXXFLAGS = -shared -fPIC -g -Wall -std=c++11 $(MY_CXXFLAGS)
+CXXFLAGS = -O3 -shared -fPIC -Wall -std=c++11 $(MY_CXXFLAGS)
 
 #include paths
-INCPATH =  -I"../../extern_support/tinyxml2" -I"../../extern_support/Shiny/include" -I"../../include" -I"../../include/OMERuntime" $(MY_INCLUDES)
+INCPATH =  -I"../../../extern_support/tinyxml2" -I"../../../extern_support/Shiny/include" -I"../../../include" -I"../../../include/OMERuntime" $(MY_INCLUDES)
 
 #library path
 OME_LIBPATH = -Llib $(MY_LIBPATHS)
@@ -36,10 +36,10 @@ OME_LIBPATH = -Llib $(MY_LIBPATHS)
 LFLAGS = -lOMERuntime $(MY_LFLAGS)
 
 #user args
-OUTPATH=$(OUTDIR)/$(MDLNAME)
+OUTPATH="$(OUTDIR)/lib$(MDLNAME).so"
 
 #Necessary Preprocessor macros
-DEFINES = -D__EXPORT__=  -DLUA_COMPAT_5_1 -DOME_MDL_BUILD -D__MDL_EXPORT__= -DPASCAL= -DMAXPATHLEN=4096 -DSHINY_PROFILER=FALSE $(MY_DEFINES)
+DEFINES = -D__EXPORT__=  -DOME_MDL_BUILD -D__MDL_EXPORT__= -DPASCAL= -DMAXPATHLEN=4096 $(MY_DEFINES)
 
 #suppressed warnings
 NO_WARNS= -Wno-unknown-pragmas -Wno-reorder
@@ -50,5 +50,5 @@ WKLNK= -Wl,-rpath,@rpath/ -install_name @rpath/$(MDLNAME).so
 #build configs
 #buildclean:
 all:
-	$(CXX) $(CXXFLAGS) -v -o "$(OUTPATH).so" $(WKLNK) $(MDLNAME).cpp ModelProject.cpp $(DEFINES) $(INCPATH) $(OME_LIBPATH) $(LFLAGS) $(NO_WARNS)
+	$(CXX) $(CXXFLAGS) -v -o $(OUTPATH) $(WKLNK) $(MDLNAME).cpp ModelProject.cpp $(DEFINES) $(INCPATH) $(OME_LIBPATH) $(LFLAGS) $(NO_WARNS)
 #	rm *.o
