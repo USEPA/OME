@@ -1,4 +1,4 @@
-Unit Testing begun on July 19, 2016 at 02:21PM
+Unit Testing begun on July 19, 2016 at 02:57PM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -1008,8 +1008,8 @@ Test Results:
 	xidz         : True
 ['v_5', 'xidz_test', '0', '5']
 ['xidz_test', '5', '5']
-	if_then_else : False
-['v_0', 'if_then_else_test', '0', '0']
+	if_then_else : True
+['v_0', 'if_then_else_test', '0', '3']
 ['if_then_else_test', '3', '3']
 
 
@@ -1030,8 +1030,8 @@ Test Results:
 	xidz         : True
 ['v_5', 'xidz_test', '0', '1']
 ['xidz_test', '1', '1']
-	if_then_else : False
-['v_0', 'if_then_else_test', '0', '0']
+	if_then_else : True
+['v_0', 'if_then_else_test', '0', '3']
 ['if_then_else_test', '3', '3']
 
 
@@ -1052,8 +1052,8 @@ Test Results:
 	xidz         : True
 ['v_5', 'xidz_test', '0', '0']
 ['xidz_test', '0', '0']
-	if_then_else : False
-['v_0', 'if_then_else_test', '0', '0']
+	if_then_else : True
+['v_0', 'if_then_else_test', '0', '5']
 ['if_then_else_test', '5', '5']
 
 
@@ -1074,8 +1074,8 @@ Test Results:
 	xidz         : True
 ['v_5', 'xidz_test', '0', '5']
 ['xidz_test', '5', '5']
-	if_then_else : False
-['v_0', 'if_then_else_test', '0', '0']
+	if_then_else : True
+['v_0', 'if_then_else_test', '0', '3']
 ['if_then_else_test', '3', '3']
 
 
