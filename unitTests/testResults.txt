@@ -1,4 +1,4 @@
-Unit Testing begun on July 19, 2016 at 03:05PM
+Unit Testing begun on July 19, 2016 at 04:26PM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -717,9 +717,10 @@ Test Results:
 >>>>> integrals_euler functions - Compiled <<<<<
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=0.0
-	Input_value_3=1.0
+	Input_1=0.0
+	Input_2=0.0
+	Input_3=0.0
+	Input_4=1.0
 
 ================================
 Test Results:
@@ -731,42 +732,45 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=1.0
-	Input_value_3=3.0
-
-================================
-Test Results:
-	StateVar     : False
-	Conveyor     : False
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=1.0
-	Input_value_2=0.0
-	Input_value_3=1.0
-
-================================
-Test Results:
-	StateVar     : False
-	Conveyor     : False
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=1.0
+	Input_1=0.0
+	Input_2=1.0
+	Input_3=1.0
+	Input_4=3.0
 
 ================================
 Test Results:
 	StateVar     : True
-	Conveyor     : False
+	Conveyor     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=1.0
+	Input_2=0.0
+	Input_3=1.0
+	Input_4=1.0
+
+================================
+Test Results:
+	StateVar     : True
+	Conveyor     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=2.0
+	Input_4=1.0
+
+================================
+Test Results:
+	StateVar     : True
+	Conveyor     : True
 
 
 ################################
@@ -775,9 +779,10 @@ Test Results:
 >>>>> integrals_rk4 functions - Compiled <<<<<
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=0.0
-	Input_value_3=1.0
+	Input_1=0.0
+	Input_2=0.0
+	Input_3=0.0
+	Input_4=1.0
 
 ================================
 Test Results:
@@ -789,42 +794,45 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=1.0
-	Input_value_3=3.0
-
-================================
-Test Results:
-	StateVar     : False
-	Conveyor     : False
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=1.0
-	Input_value_2=0.0
-	Input_value_3=1.0
-
-================================
-Test Results:
-	StateVar     : False
-	Conveyor     : False
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=1.0
+	Input_1=0.0
+	Input_2=1.0
+	Input_3=1.0
+	Input_4=3.0
 
 ================================
 Test Results:
 	StateVar     : True
-	Conveyor     : False
+	Conveyor     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=1.0
+	Input_2=0.0
+	Input_3=1.0
+	Input_4=1.0
+
+================================
+Test Results:
+	StateVar     : True
+	Conveyor     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=2.0
+	Input_4=1.0
+
+================================
+Test Results:
+	StateVar     : True
+	Conveyor     : True
 
 
 ################################
