@@ -6,7 +6,7 @@ import subprocess
 import datetime
 from UTContainers import *
 
-def runSingleTest(tester,enginePath):
+def runSingleTest(tester,enginePath,outputOpt):
 	'''Run a test using testSet and generate a results container'''
 	fullControlPath=os.getcwd()+os.path.sep+'test_models'+os.path.sep+tester.ctrlPath+'.omec'
 	sys.stdout.write(".")
@@ -16,14 +16,14 @@ def runSingleTest(tester,enginePath):
 	#subprocess.call(enginePath+str(tester)+' -q '+fullControlPath,stdout=FNULL)
 	os.system(enginePath+str(tester)+' -q '+fullControlPath)
 	
-	return RunResults(tester)
+	return RunResults(tester,outputOpt)
 
-def runTests(tester,enginePath):
+def runTests(tester,enginePath,outputOpt):
 	'''Run all permutations of a test set '''
 	sys.stdout.write('Running tests for "'+tester.label+'"')
 	results=[]
 	while True:
-		results.append(str(runSingleTest(tester,enginePath)))
+		results.append(str(runSingleTest(tester,enginePath,outputOpt)))
 		if tester.advanceRanges()==False:
 			break
 	
@@ -39,9 +39,16 @@ if __name__=='__main__':
 		#grab path to engine
 		omeEngine=sys.argv[1]
 		outFile=""
+		outOptions=[]
 		
 		if sys.argv.__len__()>2:
-			outFile=sys.argv[2]
+			for x in sys.argv[2:]:
+				if x.startswith('-'):
+					outOptions.append(x)
+				else:
+					outFile=x
+				
+				
 		#assume script is being run from unitTests base directory
 		paramDir=os.getcwd()+os.path.sep+'testing_profiles'
 		
@@ -53,7 +60,7 @@ if __name__=='__main__':
 		for f in paramFiles:
 			#run through all tests for config...(feeding in param files in testing_profiles)
 			#									param file path         engine path
-			runResults.append(runTests(TestSet(paramDir+os.path.sep+f),omeEngine))
+			runResults.append(runTests(TestSet(paramDir+os.path.sep+f),omeEngine,outOptions))
 		
 		outStr='Unit Testing begun on '+datetime.datetime.now().strftime("%B %d, %Y at %I:%M%p")+'\n\n'
 		outStr+='\n\n################################\n################################\n\n'.join(runResults)

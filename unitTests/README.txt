@@ -14,6 +14,12 @@ Quick start (run command):
 		              if omitted, the result is printed directly to stdout.
 	 example:
 		python runUnitTests.py ..\project_files\Windows\x64\Debug\OMEEngine.exe testResults.txt
+	 
+	 options:		
+		All options must appear after the engine path. All options must be preceeded with a dash
+		Available Options:
+
+		-e: Output key and test lists below the result message for each test.
 
 =============================
 

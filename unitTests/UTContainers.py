@@ -39,7 +39,6 @@ class TestSet:
             self.ctrlPath = self.__nextValidLine(paramFile).replace('/', os.path.sep)
             self.compArgs = self.__nextValidLine(paramFile).split(',')
             self.comparator = GenComparator(self.compArgs)
-
             self.simParams = []
 
             # iterate through the parameter file
@@ -116,10 +115,12 @@ class RunResults:
         self.inVals = {}
         self.testResults = {}
         self.error = ''
+        self.outSwitch = ""
 
-    def __init__(self, tester):
+    def __init__(self, tester, outputOpt):
         self.inVals = {}
         self.error = ''
+        self.outSwitch = outputOpt
         # build path to key file using inVals as ordered in simParams
 
         for r in tester.simParams:
@@ -143,7 +144,10 @@ class RunResults:
             for k in keyVals.keys():
                 if k.endswith('_test'):
                     try:
-                        self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k])) + '\n' + str(omeVals[k]) + '\n' + str(keyVals[k])
+                        if '-e' in self.outSwitch:
+                            self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k])) + '\n' + str(omeVals[k]) + '\n' + str(keyVals[k])
+                        else:
+                            self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k]))
                     except KeyError as err:
                         self.testResults[k] = "ERROR: Key not found: " + err.message
         except Exception as failError:
