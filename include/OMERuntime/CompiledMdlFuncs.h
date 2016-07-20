@@ -304,8 +304,8 @@ inline Listable& atan2(Listable& arg)
 }
 
 //================= binome( prob, maxdata ) ======================
-//Produce random number using the binomial distribution. 
 //FunctionSignatures["binome"]={"binome","@SI,@SI",false};
+//Produce random number using the binomial distribution. 
 inline OME_SCALAR binome(const int & prob, const OME_SCALAR & maxdata)
 {
 	std::binomial_distribution<int> distrib(prob, maxdata);
@@ -320,9 +320,9 @@ inline OME_SCALAR binome(const OME_SCALAR minVal, const OME_SCALAR maxVal, const
 }
 
 //================= exponent_ran(lambda) ======================
+//NEEDS FUNCTION SIGNATURE, MIGHT NOT WORK VENSIM DESCRIPTION NO LAMBDA
 //Produce random number using the exponential distribution.
 //Vensim fixes eventRate = 1 while Simile allows for own input
-//NEEDS FUNCTION SIGNATURE, MIGHT NOT WORK VENSIM DESCRIPTION NO LAMBDA
 inline OME_SCALAR exponent_ran(const OME_SCALAR lambda)
 {
 	std::exponential_distribution<double> distrib(lambda);
@@ -335,6 +335,27 @@ inline OME_SCALAR exponent_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal,
 	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
 	return rannum;
 }
+
+
+//================= gaussian_var( x, y ) ===============
+//FunctionSignatures["gaussian_var"]={"gaussian_var","@SI,@SI",false};
+inline OME_SCALAR gaussian_var(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
+{
+	std::normal_distribution<OME_SCALAR> distrib(arg1, arg2);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR gaussian_var(const OME_SCALAR & shift, const OME_SCALAR & stretch, const OME_SCALAR & minVal, const OME_SCALAR & maxVal)
+{
+	OME_SCALAR rawVal;
+	do
+	{
+		rawVal = gaussian_var(shift, stretch);
+	} while (rawVal<minVal || rawVal>maxVal);
+
+	return rawVal;
+}
+
 
 //================= ceil( x ) ==========================
 //FunctionSignatures["ceil"]={"ceil","@SI",true};
@@ -588,25 +609,6 @@ inline Listable& following(Listable& arg)
 	return *fList;
 }
 
-
-//================= gaussian_var( x, y ) ===============
-//FunctionSignatures["gaussian_var"]={"gaussian_var","@SI,@SI",false};
-inline OME_SCALAR gaussian_var(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
-{
-	std::normal_distribution<OME_SCALAR> distrib(arg1,arg2);
-	return distrib(sGen);
-}
-
-inline OME_SCALAR gaussian_var(const OME_SCALAR & shift, const OME_SCALAR & stretch, const OME_SCALAR & minVal, const OME_SCALAR & maxVal)
-{
-	OME_SCALAR rawVal;
-	do
-	{
-		rawVal = gaussian_var(shift, stretch);
-	} while (rawVal<minVal || rawVal>maxVal);
-
-	return rawVal;
-}
 
 //================= graph( x ) =========================
 //FunctionSignatures["graph"]={"interpTable","@CI,@BM,@SI",false};
