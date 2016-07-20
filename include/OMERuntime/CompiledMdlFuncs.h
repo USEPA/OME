@@ -191,6 +191,18 @@ namespace OMECFuncs
 		return *ret;								  			 \
 		}														 \
 
+
+//================= transform_val( x ) ========================
+// Adjust the random value generated using a set of parameters; min, max, shift, stretch
+// Input: random num (double)		Output: adjusted num (double)
+inline void transform_val(OME_SCALAR & num, const OME_SCALAR mn, const OME_SCALAR mx, const OME_SCALAR sht, const OME_SCALAR stch)
+{
+	num *= stch;
+	num += sht;
+	if (num < mn){ num = mn; }
+	if (num > mx){ num = mx; }
+}
+
 //================= abs( x ) ==========================
 //FunctionSignatures["abs"]={"abs","@SI",true};
 inline OME_SCALAR abs(const OME_SCALAR & arg)
@@ -291,12 +303,36 @@ inline Listable& atan2(Listable& arg)
 	
 }
 
-//================= binome( x, y ) ======================
+//================= binome( prob, maxdata ) ======================
+//Produce random number using the binomial distribution. 
 //FunctionSignatures["binome"]={"binome","@SI,@SI",false};
-inline OME_SCALAR binome(const int & x, const OME_SCALAR & y)
+inline OME_SCALAR binome(const int & prob, const OME_SCALAR & maxdata)
 {
-	std::binomial_distribution<int> distrib(x,y);
+	std::binomial_distribution<int> distrib(prob, maxdata);
 	return distrib(sGen);
+}
+
+inline OME_SCALAR binome(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR prblty, const OME_SCALAR & dataPts, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = binome(prblty, dataPts);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+//================= exponential(lambda) ======================
+//Produce random number using the exponential distribution. 
+//NEEDS FUNCTION SIGNATURE, MIGHT NOT WORK VENSIM DESCRIPTION NO LAMBDA
+inline OME_SCALAR exponential(const OME_SCALAR lambda)
+{
+	std::exponential_distribution<double> distrib(lambda);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR exponential(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR lambda, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = exponential(lambda);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
 }
 
 //================= ceil( x ) ==========================
@@ -852,29 +888,20 @@ inline OME_SCALAR parent(Evaluable& caller)
 	return ret;
 }
 
-//================= transform_val( x ) ========================
-// Adjust the random value generated using a set of parameters; min, max, shift, stretch
-// Input: random num (double)		Output: adjusted num (double)
-inline void transform_val(OME_SCALAR & num, const OME_SCALAR mn, const OME_SCALAR mx, const OME_SCALAR sht, const OME_SCALAR stch)
-{
-	num *= stch;
-	num += sht;
-	if (num < mn){ num = mn; }
-	if (num > mx){ num = mx; }
-}
-
 //================= poidev( x ) ========================
+//Produce random number using the poisson distribution. 
 //FunctionSignatures["poidev"]={"poidev","@SI",false};
 inline OME_SCALAR poidev(const OME_SCALAR & mean)
 {
 		std::poisson_distribution<long> distrib(mean);
 		return distrib(sGen);
 }
-				//SHOULD i GIVE DEFAULT VALUES?
+
 inline OME_SCALAR poidev(const OME_SCALAR & mean, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
 {
 	OME_SCALAR rannum = poidev(mean);
 	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
 }
 
 //================= pow( x, y ) ========================
