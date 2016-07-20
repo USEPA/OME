@@ -852,15 +852,30 @@ inline OME_SCALAR parent(Evaluable& caller)
 	return ret;
 }
 
+//================= transform_val( x ) ========================
+// Adjust the random value generated using a set of parameters; min, max, shift, stretch
+// Input: random num (double)		Output: adjusted num (double)
+inline void transform_val(OME_SCALAR & num, const OME_SCALAR mn, const OME_SCALAR mx, const OME_SCALAR sht, const OME_SCALAR stch)
+{
+	num *= stch;
+	num += sht;
+	if (num < mn){ num = mn; }
+	if (num > mx){ num = mx; }
+}
 
 //================= poidev( x ) ========================
 //FunctionSignatures["poidev"]={"poidev","@SI",false};
-inline OME_SCALAR poidev(const OME_SCALAR & arg)
+inline OME_SCALAR poidev(const OME_SCALAR & mean)
 {
-		std::poisson_distribution<long> distrib(arg);
+		std::poisson_distribution<long> distrib(mean);
 		return distrib(sGen);
 }
-
+				//SHOULD i GIVE DEFAULT VALUES?
+inline OME_SCALAR poidev(const OME_SCALAR & mean, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = poidev(mean);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+}
 
 //================= pow( x, y ) ========================
 //FunctionSignatures["pow"]={"pow","@SI,@SI",false};
