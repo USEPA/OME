@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-Unit Testing begun on July 19, 2016 at 04:15PM
-=======
-Unit Testing begun on July 19, 2016 at 04:26PM
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
+Unit Testing begun on July 20, 2016 at 03:54PM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -488,11 +484,7 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
-<<<<<<< HEAD
-	if_then_else : False
-=======
 	if_then_else : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -508,11 +500,7 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
-<<<<<<< HEAD
-	if_then_else : False
-=======
 	if_then_else : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -528,11 +516,7 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
-<<<<<<< HEAD
-	if_then_else : False
-=======
 	if_then_else : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -548,11 +532,7 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
-<<<<<<< HEAD
-	if_then_else : False
-=======
 	if_then_else : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ################################
@@ -759,13 +739,8 @@ Input values:
 
 ================================
 Test Results:
-<<<<<<< HEAD
-	StateVar     : False
-	Conveyor     : False
-=======
 	StateVar     : True
 	Conveyor     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -779,13 +754,8 @@ Input values:
 
 ================================
 Test Results:
-<<<<<<< HEAD
-	StateVar     : False
-	Conveyor     : False
-=======
 	StateVar     : True
 	Conveyor     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -800,11 +770,7 @@ Input values:
 ================================
 Test Results:
 	StateVar     : True
-<<<<<<< HEAD
-	Conveyor     : False
-=======
 	Conveyor     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ################################
@@ -835,13 +801,8 @@ Input values:
 
 ================================
 Test Results:
-<<<<<<< HEAD
-	StateVar     : False
-	Conveyor     : False
-=======
 	StateVar     : True
 	Conveyor     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -855,13 +816,8 @@ Input values:
 
 ================================
 Test Results:
-<<<<<<< HEAD
-	StateVar     : False
-	Conveyor     : False
-=======
 	StateVar     : True
 	Conveyor     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -876,11 +832,7 @@ Input values:
 ================================
 Test Results:
 	StateVar     : True
-<<<<<<< HEAD
-	Conveyor     : False
-=======
 	Conveyor     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ################################
@@ -889,144 +841,128 @@ Test Results:
 >>>>> Misc_signals - Compiled <<<<<
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=1.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=1.0
 
 ================================
 Test Results:
 	step         : True
 	pulse        : True
 	trend        : True
-<<<<<<< HEAD
-	forecast     : False
-=======
 	forecast     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=4.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=4.0
 
 ================================
 Test Results:
 	step         : True
 	pulse        : True
-	trend        : False
-<<<<<<< HEAD
-	forecast     : False
-=======
-	forecast     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=1.0
-	Input_value_2=4.0
-	Input_value_3=1.0
-
-================================
-Test Results:
-	step         : False
-	pulse        : False
-	trend        : False
-<<<<<<< HEAD
-	forecast     : False
-=======
-	forecast     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=1.0
-	Input_value_2=4.0
-	Input_value_3=4.0
-
-================================
-Test Results:
-	step         : False
-	pulse        : False
-	trend        : False
-<<<<<<< HEAD
-	forecast     : False
-=======
-	forecast     : True
->>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Input values:
-	Input_value_1=4.0
-	Input_value_2=1.0
-	Input_value_3=1.0
-
-================================
-Test Results:
-	step         : False
-	pulse        : False
 	trend        : True
-	forecast     : False
+	forecast     : True
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=4.0
-	Input_value_2=1.0
-	Input_value_3=4.0
+	Input_1=1.0
+	Input_2=4.0
+	Input_3=1.0
 
 ================================
 Test Results:
-	step         : False
-	pulse        : False
-	trend        : False
-	forecast     : False
+	step         : True
+	pulse        : True
+	trend        : True
+	forecast     : True
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=4.0
-	Input_value_2=4.0
-	Input_value_3=1.0
+	Input_1=1.0
+	Input_2=4.0
+	Input_3=4.0
 
 ================================
 Test Results:
-	step         : False
-	pulse        : False
-	trend        : False
-	forecast     : False
+	step         : True
+	pulse        : True
+	trend        : True
+	forecast     : True
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=4.0
-	Input_value_2=4.0
-	Input_value_3=4.0
+	Input_1=4.0
+	Input_2=1.0
+	Input_3=1.0
 
 ================================
 Test Results:
-	step         : False
-	pulse        : False
-	trend        : False
-	forecast     : False
+	step         : True
+	pulse        : True
+	trend        : True
+	forecast     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=4.0
+	Input_2=1.0
+	Input_3=4.0
+
+================================
+Test Results:
+	step         : True
+	pulse        : True
+	trend        : True
+	forecast     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=4.0
+	Input_2=4.0
+	Input_3=1.0
+
+================================
+Test Results:
+	step         : True
+	pulse        : True
+	trend        : True
+	forecast     : True
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input values:
+	Input_1=4.0
+	Input_2=4.0
+	Input_3=4.0
+
+================================
+Test Results:
+	step         : True
+	pulse        : True
+	trend        : True
+	forecast     : True
 
 
 ################################

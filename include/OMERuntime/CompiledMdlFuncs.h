@@ -990,11 +990,13 @@ inline OME_SCALAR prev(const SubIndexVal<ValueArchive&> & siv, const OME_SCALAR 
 }
 
 //================= pulse( x, y,z ) ====================
-inline OME_SCALAR pulse(const OME_SCALAR & mag, const OME_SCALAR & startTime, const OME_SCALAR & interval, BaseManager* pBm)
+inline OME_SCALAR pulse(const OME_SCALAR & mag, const OME_SCALAR & startTime, const OME_SCALAR & periodWidth, BaseManager* pBm)
 {
 	OME_SCALAR time = pBm->GetPresentTime();
-	if (time == startTime || (interval && time> startTime && OMEFMOD(time - startTime, interval) == 0))
-		return mag / pBm->GetStepSize();
+	if (time >= startTime && time < (startTime + periodWidth))
+		return 1.0;
+	//if (interval && time>= startTime && OMEFMOD(time - startTime, interval) == 0)
+	//	return mag / pBm->GetStepSize();
 	
 	return 0.0;
 }

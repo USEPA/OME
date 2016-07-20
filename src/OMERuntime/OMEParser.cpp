@@ -229,7 +229,7 @@ STLString OMEParser::UnpackDelayN(Evaluable* pCaller, const STLString & call)
 STLString OMEParser::UnpackForcst(Evaluable* pCaller, const STLString & call)
 {
 	STLString input, time, horizon, init;
-	UnpackArgs2(call,input, time, horizon, init,true);
+	UnpackArgs2(call,input, time, horizon, init,false);
 
 	//cache up objects
 	EvalArray inpObjs, timeObjs, horObjs, initObjs;

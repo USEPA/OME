@@ -26,6 +26,6 @@ stepFloat,0.025
 #	 uniRange,<field label>,<start value>,<end value>,<increment>
 #	 simpleSet,<field_label>,<val 1>,<val 2>,...,<val n>
 
-simpleSet,Input_value_1,1,1,1,1,4,4,4,4
-simpleSet,Input_value_2,1,1,4,4,1,1,4,4
-simpleSet,Input_value_3,1,4,1,4,1,4,1,4
+simpleSet,Input_1,1,1,1,1,4,4,4,4
+simpleSet,Input_2,1,1,4,4,1,1,4,4
+simpleSet,Input_3,1,4,1,4,1,4,1,4

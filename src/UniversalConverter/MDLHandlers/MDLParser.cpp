@@ -827,7 +827,7 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"net_present_value",			"@unimplemented"                    },
         {"power",						"pow"								},
         {"prod",						"product"							},
-        {"pulse",						"pulse($2,$1)"						}, //arguments need to be flipped
+        {"pulse",						"pulse(1.0,$1,$2)"					}, //arguments need to be flipped
         {"pulse_train",					""	/* implement ?? */				},
         {"quantum",						""	/* implement */					},
         {"queue_age_average",			"@unimplemented"					},

@@ -2,13 +2,13 @@
 <ome>
 <model init_instances='1' id='root' name='root' step_size='-6.27744e+066' int_method='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
     <variables>
-        <variable id='v_0' name='forecast test' expr='forcst( root.Input_value_1, root.Input_value_2, root.Input_value_3)' origin='0,0' extents='0,0' />
+        <variable id='v_0' name='forecast test' expr='forcst(root.Input_1,root.Input_2,root.Input_3)' origin='0,0' extents='0,0' />
         <variable id='v_1' name='Input 1' expr='1.0' origin='0,0' extents='0,0' />
         <variable id='v_2' name='Input 2' expr='1.0' origin='0,0' extents='0,0' />
         <variable id='v_3' name='Input 3' expr='1.0' origin='0,0' extents='0,0' />
-        <variable id='v_4' name='pulse test' expr='pulse( root.Input_value_2,root.Input_value_1)' origin='0,0' extents='0,0' />
-        <variable id='v_5' name='step test' expr='step(root.Input_value_1, root.Input_value_2)' origin='0,0' extents='0,0' />
-        <variable id='v_6' name='trend test' expr='trend(root.Input_value_1, root.Input_value_2, root.Input_value_3)' origin='0,0' extents='0,0' />
+        <variable id='v_4' name='pulse test' expr='pulse(1.0,root.Input_1,root.Input_2)' origin='0,0' extents='0,0' />
+        <variable id='v_5' name='step test' expr='step(root.Input_1,root.Input_2)' origin='0,0' extents='0,0' />
+        <variable id='v_6' name='trend test' expr='trend(root.Input_1,root.Input_2,root.Input_3)' origin='0,0' extents='0,0' />
     </variables>
     <influences>
         <influence id='i_7' name='i_7' expr='' use_curr_val='0' source='v_1' target='v_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
