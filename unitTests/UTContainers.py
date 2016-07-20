@@ -149,7 +149,11 @@ class RunResults:
                         else:
                             self.testResults[k] = str(tester.comparator.compareRecords(omeVals[k], keyVals[k]))
                     except KeyError as err:
-                        self.testResults[k] = "ERROR: Key not found: " + err.message
+						#check to see if key is actually disabled
+						if omeVals.has_key(k+'_disabled')==False:
+							self.testResults[k] = "ERROR: Key not found: " + err.message
+						else:
+							self.testResults[k]="Disabled"
         except Exception as failError:
             self.error = "Could not open file: " + tester.csvName + "\n" + failError.message
 

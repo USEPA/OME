@@ -1,4 +1,4 @@
-Unit Testing begun on July 20, 2016 at 03:54PM
+Unit Testing begun on July 20, 2016 at 04:24PM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -541,120 +541,120 @@ Test Results:
 >>>>> Delay functions - Compiled <<<<<
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=4.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=4.0
 
 ================================
 Test Results:
 	delay3       : True
 	delay1       : True
-	delayN       : False
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=5.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=5.0
 
 ================================
 Test Results:
 	delay3       : True
 	delay1       : True
-	delayN       : False
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=2.0
-	Input_value_3=4.0
+	Input_1=1.0
+	Input_2=2.0
+	Input_3=4.0
 
 ================================
 Test Results:
 	delay3       : True
 	delay1       : True
-	delayN       : False
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=2.0
-	Input_value_3=5.0
+	Input_1=1.0
+	Input_2=2.0
+	Input_3=5.0
 
 ================================
 Test Results:
 	delay3       : True
 	delay1       : True
-	delayN       : False
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=1.0
-	Input_value_3=4.0
+	Input_1=2.0
+	Input_2=1.0
+	Input_3=4.0
 
 ================================
 Test Results:
-	delay3       : False
-	delay1       : False
-	delayN       : False
+	delay3       : True
+	delay1       : True
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=1.0
-	Input_value_3=5.0
+	Input_1=2.0
+	Input_2=1.0
+	Input_3=5.0
 
 ================================
 Test Results:
-	delay3       : False
-	delay1       : False
-	delayN       : False
+	delay3       : True
+	delay1       : True
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=2.0
-	Input_value_3=4.0
+	Input_1=2.0
+	Input_2=2.0
+	Input_3=4.0
 
 ================================
 Test Results:
-	delay3       : False
-	delay1       : False
-	delayN       : False
+	delay3       : True
+	delay1       : True
+	delayN       : Disabled
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=2.0
-	Input_value_3=5.0
+	Input_1=2.0
+	Input_2=2.0
+	Input_3=5.0
 
 ================================
 Test Results:
-	delay3       : False
-	delay1       : False
-	delayN       : False
+	delay3       : True
+	delay1       : True
+	delayN       : Disabled
 
 
 ################################
@@ -978,7 +978,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : True
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : True
 
 
@@ -993,7 +993,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : True
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : True
 
 
@@ -1008,7 +1008,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : True
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : True
 
 
@@ -1023,7 +1023,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : True
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : True
 
 
@@ -1038,7 +1038,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : False
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : False
 
 
@@ -1053,7 +1053,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : False
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : False
 
 
@@ -1068,7 +1068,7 @@ Input values:
 ================================
 Test Results:
 	smooth3      : False
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : False
 
 
@@ -1083,5 +1083,5 @@ Input values:
 ================================
 Test Results:
 	smooth3      : False
-	smoothN      : ERROR: Key not found: smoothN_test
+	smoothN      : Disabled
 	smooth       : False
