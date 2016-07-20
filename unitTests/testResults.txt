@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Unit Testing begun on July 19, 2016 at 04:15PM
+=======
+Unit Testing begun on July 19, 2016 at 04:26PM
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -484,7 +488,11 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
+<<<<<<< HEAD
 	if_then_else : False
+=======
+	if_then_else : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -500,7 +508,11 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
+<<<<<<< HEAD
 	if_then_else : False
+=======
+	if_then_else : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -516,7 +528,11 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
+<<<<<<< HEAD
 	if_then_else : False
+=======
+	if_then_else : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -532,7 +548,11 @@ Input values:
 Test Results:
 	zidz         : True
 	xidz         : True
+<<<<<<< HEAD
 	if_then_else : False
+=======
+	if_then_else : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ################################
@@ -717,9 +737,10 @@ Test Results:
 >>>>> integrals_euler functions - Compiled <<<<<
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=0.0
-	Input_value_3=1.0
+	Input_1=0.0
+	Input_2=0.0
+	Input_3=0.0
+	Input_4=1.0
 
 ================================
 Test Results:
@@ -731,42 +752,59 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=1.0
-	Input_value_3=3.0
+	Input_1=0.0
+	Input_2=1.0
+	Input_3=1.0
+	Input_4=3.0
 
 ================================
 Test Results:
+<<<<<<< HEAD
 	StateVar     : False
 	Conveyor     : False
+=======
+	StateVar     : True
+	Conveyor     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=0.0
-	Input_value_3=1.0
+	Input_1=1.0
+	Input_2=0.0
+	Input_3=1.0
+	Input_4=1.0
 
 ================================
 Test Results:
+<<<<<<< HEAD
 	StateVar     : False
 	Conveyor     : False
+=======
+	StateVar     : True
+	Conveyor     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=1.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=2.0
+	Input_4=1.0
 
 ================================
 Test Results:
 	StateVar     : True
+<<<<<<< HEAD
 	Conveyor     : False
+=======
+	Conveyor     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ################################
@@ -775,9 +813,10 @@ Test Results:
 >>>>> integrals_rk4 functions - Compiled <<<<<
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=0.0
-	Input_value_3=1.0
+	Input_1=0.0
+	Input_2=0.0
+	Input_3=0.0
+	Input_4=1.0
 
 ================================
 Test Results:
@@ -789,42 +828,59 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=0.0
-	Input_value_2=1.0
-	Input_value_3=3.0
+	Input_1=0.0
+	Input_2=1.0
+	Input_3=1.0
+	Input_4=3.0
 
 ================================
 Test Results:
+<<<<<<< HEAD
 	StateVar     : False
 	Conveyor     : False
+=======
+	StateVar     : True
+	Conveyor     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=0.0
-	Input_value_3=1.0
+	Input_1=1.0
+	Input_2=0.0
+	Input_3=1.0
+	Input_4=1.0
 
 ================================
 Test Results:
+<<<<<<< HEAD
 	StateVar     : False
 	Conveyor     : False
+=======
+	StateVar     : True
+	Conveyor     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=1.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=2.0
+	Input_4=1.0
 
 ================================
 Test Results:
 	StateVar     : True
+<<<<<<< HEAD
 	Conveyor     : False
+=======
+	Conveyor     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ################################
@@ -842,7 +898,11 @@ Test Results:
 	step         : True
 	pulse        : True
 	trend        : True
+<<<<<<< HEAD
 	forecast     : False
+=======
+	forecast     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -858,7 +918,11 @@ Test Results:
 	step         : True
 	pulse        : True
 	trend        : False
+<<<<<<< HEAD
 	forecast     : False
+=======
+	forecast     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -874,7 +938,11 @@ Test Results:
 	step         : False
 	pulse        : False
 	trend        : False
+<<<<<<< HEAD
 	forecast     : False
+=======
+	forecast     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -890,7 +958,11 @@ Test Results:
 	step         : False
 	pulse        : False
 	trend        : False
+<<<<<<< HEAD
 	forecast     : False
+=======
+	forecast     : True
+>>>>>>> 4c95caaebd12625097d83a5e3a3f5a193c30e506
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

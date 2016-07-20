@@ -22,3 +22,5 @@ extern_support/tinyxml2/*
 #unitTests
 *.omet
 *.pyc
+project_files/Windows/ModelProject/TestModel-LRP.cpp
+project_files/Windows/ModelProject/TestModel-LRP.h
