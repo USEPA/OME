@@ -319,18 +319,19 @@ inline OME_SCALAR binome(const OME_SCALAR minVal, const OME_SCALAR maxVal, const
 	return rannum;
 }
 
-//================= exponential(lambda) ======================
-//Produce random number using the exponential distribution. 
+//================= exponent_ran(lambda) ======================
+//Produce random number using the exponential distribution.
+//Vensim fixes eventRate = 1 while Simile allows for own input
 //NEEDS FUNCTION SIGNATURE, MIGHT NOT WORK VENSIM DESCRIPTION NO LAMBDA
-inline OME_SCALAR exponential(const OME_SCALAR lambda)
+inline OME_SCALAR exponent_ran(const OME_SCALAR lambda)
 {
 	std::exponential_distribution<double> distrib(lambda);
 	return distrib(sGen);
 }
 
-inline OME_SCALAR exponential(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR lambda, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+inline OME_SCALAR exponent_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
 {
-	OME_SCALAR rannum = exponential(lambda);
+	OME_SCALAR rannum = exponent_ran(1);
 	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
 	return rannum;
 }
