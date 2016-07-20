@@ -171,7 +171,7 @@ class StepFloatCompare:
 		'''take list of values and do compare. Return true if difference between values is less than or equal todeviation threshold'''
 
 		if str(omeRec[3]) == "1.#INF":					# Not sure why appearing in temp_files misc_signals
-			omeRec[3] = 1
+			omeRec[3] = float('Inf')
 
 		for i in xrange(1,len(keyRec)):			
 			omeVal=float(omeRec[i+2])

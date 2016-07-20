@@ -848,7 +848,7 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"random_lookup",				"" /* implement */					},
         {"random_negative_binomal",		"" /* implement */					},
         {"random_normal",				"gaussian_var($3,$4,$1,$2)"			},
-        {"random_poisson",				""	/* implement */					},
+        {"random_poisson",				"poidev($3)"         				},
         {"random_triangular",			""	/* implement */					},
         {"random_uniform",				""	/* implement */					},
         {"random_weibull",				""	/* implement */					},
