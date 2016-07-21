@@ -191,6 +191,18 @@ namespace OMECFuncs
 		return *ret;								  			 \
 		}														 \
 
+
+//================= transform_val( x ) ========================
+// Adjust the random value generated using a set of parameters; min, max, shift, stretch
+// Input: random num (double)		Output: adjusted num (double)
+inline void transform_val(OME_SCALAR & num, const OME_SCALAR mn, const OME_SCALAR mx, const OME_SCALAR sht, const OME_SCALAR stch)
+{
+	num *= stch;
+	num += sht;
+	if (num < mn){ num = mn; }
+	if (num > mx){ num = mx; }
+}
+
 //================= abs( x ) ==========================
 //FunctionSignatures["abs"]={"abs","@SI",true};
 inline OME_SCALAR abs(const OME_SCALAR & arg)
@@ -291,13 +303,186 @@ inline Listable& atan2(Listable& arg)
 	
 }
 
-//================= binome( x, y ) ======================
-//FunctionSignatures["binome"]={"binome","@SI,@SI",false};
-inline OME_SCALAR binome(const int & x, const OME_SCALAR & y)
+//================= gamma_ran(Order) ======================
+//NEEDS FUNCTION SIGNATURE
+//Produce random number using the gamma distribution.
+//Order: Order (alpha value) of the gamma distribution 
+inline OME_SCALAR gamma_ran(const OME_SCALAR alpha, const OME_SCALAR beta)
 {
-	std::binomial_distribution<int> distrib(x,y);
+	std::gamma_distribution<double> distrib(alpha, beta);
 	return distrib(sGen);
 }
+
+inline OME_SCALAR gamma_ran(const OME_SCALAR order, const OME_SCALAR stretchVal, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal)
+{
+	OME_SCALAR rannum = gamma_ran(order, stretchVal);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+//================= beta_ran(Order) ======================
+//sigs["beta_ran"] = FuncSig("beta_ran", "@SI,@SI,@SI,@SI,@SI,@SI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+//Produce random number using the beta distribution.
+//alpha:		beta:
+inline OME_SCALAR beta_ran(const OME_SCALAR alpha, const OME_SCALAR beta, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR X = gamma_ran(alpha, stretchVal);
+	OME_SCALAR Y = gamma_ran(beta, stretchVal);
+
+	OME_SCALAR rannum = X / (X + Y);
+
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+
+	//Generating beta-distributed random variates
+	//https://en.wikipedia.org/wiki/Beta_distribution#Generating_beta-distributed_random_variates
+}
+
+
+//================= binome( prob, maxdata ) ======================
+//FunctionSignatures["binome"]={"binome","@SI,@SI",false};
+//Produce random number using the binomial distribution. 
+inline OME_SCALAR binome(const int & prob, const OME_SCALAR & maxdata)
+{
+	std::binomial_distribution<int> distrib(prob, maxdata);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR binome(const OME_SCALAR prblty, const OME_SCALAR & dataPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = binome(prblty, dataPts);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+
+//================= negBinome_ran( prob, maxdata ) ======================
+//Produce random number using the binomial distribution. 
+inline OME_SCALAR negBinome_ran(const int & prob, const OME_SCALAR & maxdata)
+{
+	std::negative_binomial_distribution<int> distrib(prob, maxdata);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR negBinome_ran(const OME_SCALAR prblty, const OME_SCALAR & reqPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = negBinome_ran(prblty, reqPts);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+
+//================= exponent_ran(lambda) ======================
+//NEEDS FUNCTION SIGNATURE, MIGHT NOT WORK VENSIM DESCRIPTION NO LAMBDA
+//Produce random number using the exponential distribution.
+//Vensim fixes eventRate = 1 while Simile allows for own input
+inline OME_SCALAR exponent_ran(const OME_SCALAR lambda)
+{
+	std::exponential_distribution<double> distrib(lambda);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR exponent_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = exponent_ran(1);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+//================= poidev( x ) ========================
+//Produce random number using the poisson distribution. 
+//FunctionSignatures["poidev"]={"poidev","@SI",false};
+inline OME_SCALAR poidev(const OME_SCALAR & mean)
+{
+	std::poisson_distribution<long> distrib(mean);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR poidev(const OME_SCALAR & mean, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = poidev(mean);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+//================= triangle_ran(st, nd, ht) ======================
+//NEEDS FUNCTION SIGNATURE
+//Produce random number using the triangular distribution. 
+//min st, max nd, peak ht.  
+inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht)
+{
+	if (nd > st || ht < st || ht > nd)
+	{
+		cout << "Incorrect parameters. Peak must be between min and max";
+		return -1;
+	}
+
+
+	double num = rand() / (double)RAND_MAX;
+	double Func = (ht - st) / (nd - st);
+	if (num > Func)
+		return nd - sqrt((1 - num) * (nd - st) * (nd - ht));
+	else
+		return st + sqrt(num * (nd - st) * (ht - st));
+	//return distrib(sGen);
+
+	//Generating Triangular-distributed random variates	
+	//https://en.wikipedia.org/wiki/Triangular_distribution  
+}
+
+
+
+inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht, const OME_SCALAR minVal, const OME_SCALAR maxVal)
+{
+	OME_SCALAR rannum = triangle_ran(st, nd, ht);
+	transform_val(rannum, minVal, maxVal, 0, 1);
+	return rannum;
+}
+
+
+
+//================= weib_ran(Order) ======================
+//NEEDS FUNCTION SIGNATURE
+//Produce random number using the weibull distribution.
+//Vensim fixes eventRate = 1 while Simile allows for own input
+inline OME_SCALAR weib_ran(const OME_SCALAR a, const OME_SCALAR b)
+{
+	std::weibull_distribution<double> distrib(a, b);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR weib_ran(const OME_SCALAR shape, const OME_SCALAR stretchVal, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal)
+{
+	OME_SCALAR rannum = weib_ran(shape, stretchVal);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+//================= gaussian_var( x, y ) ===============
+//FunctionSignatures["gaussian_var"]={"gaussian_var","@SI,@SI",false};
+inline OME_SCALAR gaussian_var(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
+{
+	std::normal_distribution<OME_SCALAR> distrib(arg1, arg2);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR gaussian_var(const OME_SCALAR & shift, const OME_SCALAR & stretch, const OME_SCALAR & minVal, const OME_SCALAR & maxVal)
+{
+	OME_SCALAR rawVal;
+	do
+	{
+		rawVal = gaussian_var(shift, stretch);
+	} while (rawVal<minVal || rawVal>maxVal);
+
+	return rawVal;
+}
+
 
 //================= ceil( x ) ==========================
 //FunctionSignatures["ceil"]={"ceil","@SI",true};
@@ -551,25 +736,6 @@ inline Listable& following(Listable& arg)
 	return *fList;
 }
 
-
-//================= gaussian_var( x, y ) ===============
-//FunctionSignatures["gaussian_var"]={"gaussian_var","@SI,@SI",false};
-inline OME_SCALAR gaussian_var(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
-{
-	std::normal_distribution<OME_SCALAR> distrib(arg1,arg2);
-	return distrib(sGen);
-}
-
-inline OME_SCALAR gaussian_var(const OME_SCALAR & shift, const OME_SCALAR & stretch, const OME_SCALAR & minVal, const OME_SCALAR & maxVal)
-{
-	OME_SCALAR rawVal;
-	do
-	{
-		rawVal = gaussian_var(shift, stretch);
-	} while (rawVal<minVal || rawVal>maxVal);
-
-	return rawVal;
-}
 
 //================= graph( x ) =========================
 //FunctionSignatures["graph"]={"interpTable","@CI,@BM,@SI",false};
@@ -853,15 +1019,6 @@ inline OME_SCALAR parent(Evaluable& caller)
 }
 
 
-//================= poidev( x ) ========================
-//FunctionSignatures["poidev"]={"poidev","@SI",false};
-inline OME_SCALAR poidev(const OME_SCALAR & arg)
-{
-		std::poisson_distribution<long> distrib(arg);
-		return distrib(sGen);
-}
-
-
 //================= pow( x, y ) ========================
 //FunctionSignatures["pow"]={"pow","@SI,@SI",false};
 inline OME_SCALAR pow(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
@@ -948,11 +1105,13 @@ inline OME_SCALAR prev(const SubIndexVal<ValueArchive&> & siv, const OME_SCALAR 
 }
 
 //================= pulse( x, y,z ) ====================
-inline OME_SCALAR pulse(const OME_SCALAR & mag, const OME_SCALAR & startTime, const OME_SCALAR & interval, BaseManager* pBm)
+inline OME_SCALAR pulse(const OME_SCALAR & mag, const OME_SCALAR & startTime, const OME_SCALAR & periodWidth, BaseManager* pBm)
 {
 	OME_SCALAR time = pBm->GetPresentTime();
-	if (time == startTime || (interval && time> startTime && OMEFMOD(time - startTime, interval) == 0))
-		return mag / pBm->GetStepSize();
+	if (time >= startTime && time < (startTime + periodWidth))
+		return 1.0;
+	//if (interval && time>= startTime && OMEFMOD(time - startTime, interval) == 0)
+	//	return mag / pBm->GetStepSize();
 	
 	return 0.0;
 }

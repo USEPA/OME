@@ -648,7 +648,7 @@ public:
 				switch(lua_type(pState,3))
 				{
 				case LUA_TNUMBER:
-					m_sdp->SetData(rec,col,lua_tonumber(pState,3));
+					m_sdp->SetData(rec,col,(OME_SCALAR)lua_tonumber(pState,3));
 					break;
 				case LUA_TSTRING:
 					m_sdp->SetData(rec,col,lua_tostring(pState,3));

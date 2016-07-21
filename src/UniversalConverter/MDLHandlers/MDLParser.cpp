@@ -827,7 +827,7 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"net_present_value",			"@unimplemented"                    },
         {"power",						"pow"								},
         {"prod",						"product"							},
-        {"pulse",						"pulse($2,$1)"						}, //arguments need to be flipped
+        {"pulse",						"pulse(1.0,$1,$2)"					}, //arguments need to be flipped
         {"pulse_train",					""	/* implement ?? */				},
         {"quantum",						""	/* implement */					},
         {"queue_age_average",			"@unimplemented"					},
@@ -841,17 +841,18 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"queue_fifo",					"@unimplemented"					},
         {"queue_fifo_attrib",			"@unimplemented"					},
         {"ramp",						"" /* implement similar to step*/	},
-        {"random_beta",					"" /* implement */					},
-        {"random_binomial",				"" /* implement */					},
-        {"random_exponential",			"" /* implement */					},
-        {"random_gamma",				"" /* implement */					},
+		{"random_0_1",                  "rand_var(0,1)"                     },
+        {"random_beta",					"beta_ran($3,$4,$1,$2,$5,$6)"		},
+        {"random_binomial",				"binome($3,$4,$1,$2,$5,$6)"			},
+        {"random_exponential",			"exponent_ran($1,$2,$3,$4)"			},
+		{"random_gamma",				"gamma_ran($3,$5,$1,$2,$4)"		    },
         {"random_lookup",				"" /* implement */					},
-        {"random_negative_binomal",		"" /* implement */					},
+        {"random_negative_binomal",		"negBinome_ran($3,$4,$1,$2,$5,$6)"  },
         {"random_normal",				"gaussian_var($3,$4,$1,$2)"			},
-        {"random_poisson",				""	/* implement */					},
-        {"random_triangular",			""	/* implement */					},
-        {"random_uniform",				""	/* implement */					},
-        {"random_weibull",				""	/* implement */					},
+        {"random_poisson",				"poidev($3,$1,$2,$4,$5)"         	},
+		{"random_triangular",			"triangle_ran($3,$5,$4,$1,$2)"		},
+        {"random_uniform",				"rand_var($1,$2)"					},
+        {"random_weibull",				"weib_ran($3,$5,$1,$2,$4)"			},
         {"rc_compare",					"@unimplemented"					},
         {"rc_compare_check",			"@unimplemented"					},
         {"rc_decay",					"@unimplemented"					},
@@ -912,6 +913,10 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
 		//check for simple substitution
 		if (funcPattern[0] != '@' && funcPattern.find('$') == STLString::npos)
 		{
+			//if predefined argument list, just return
+			if (funcPattern.find('(') != STLString::npos)
+				return funcPattern;
+
 			//simple substitution
 			return funcPattern + "(" + args + ")";
 		}
