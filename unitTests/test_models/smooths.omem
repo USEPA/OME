@@ -5,9 +5,9 @@
         <variable id='v_0' name='Input 1' expr='1.0' origin='0,0' extents='0,0' />
         <variable id='v_1' name='Input 2' expr='1.0' origin='0,0' extents='0,0' />
         <variable id='v_2' name='Input 3' expr='4.0' origin='0,0' extents='0,0' />
-        <variable id='v_3' name='smooth3 test' expr='smth3(root.Input_value_1, root.Input_value_2)' origin='0,0' extents='0,0' />
-        <variable id='v_4' name='smooth test' expr='smth1(root.Input_value_1, root.Input_value_2)' origin='0,0' extents='0,0' />
-        <variable id='v_5' name='smoothN test_disabled' expr='smthn(root.Input_value_1, root.Input_value_2, 1.0 , root.Input_value_3)' origin='0,0' extents='0,0' />
+        <variable id='v_3' name='smooth3 test' expr='smth3(root.Input_1, root.Input_2)' origin='0,0' extents='0,0' />
+        <variable id='v_4' name='smooth test' expr='smth1(root.Input_1, root.Input_2)' origin='0,0' extents='0,0' />
+        <variable id='v_5' name='smoothN test_disabled' expr='smthn(root.Input_1, root.Input_2, 1.0 , root.Input_3)' origin='0,0' extents='0,0' />
     </variables>
     <influences>
         <influence id='i_6' name='i_6' expr='' use_curr_val='0' source='v_0' target='v_3' ctrl_pt1='0,0' ctrl_pt2='0,0' />

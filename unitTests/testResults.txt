@@ -1,4 +1,4 @@
-Unit Testing begun on July 20, 2016 at 04:24PM
+Unit Testing begun on July 21, 2016 at 09:11AM
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -971,9 +971,9 @@ Test Results:
 >>>>> Smooth functions - Compiled <<<<<
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=4.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=4.0
 
 ================================
 Test Results:
@@ -986,9 +986,9 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=1.0
-	Input_value_3=5.0
+	Input_1=1.0
+	Input_2=1.0
+	Input_3=5.0
 
 ================================
 Test Results:
@@ -1001,9 +1001,9 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=2.0
-	Input_value_3=4.0
+	Input_1=1.0
+	Input_2=2.0
+	Input_3=4.0
 
 ================================
 Test Results:
@@ -1016,9 +1016,9 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=1.0
-	Input_value_2=2.0
-	Input_value_3=5.0
+	Input_1=1.0
+	Input_2=2.0
+	Input_3=5.0
 
 ================================
 Test Results:
@@ -1031,57 +1031,57 @@ Test Results:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=1.0
-	Input_value_3=4.0
+	Input_1=2.0
+	Input_2=1.0
+	Input_3=4.0
 
 ================================
 Test Results:
-	smooth3      : False
+	smooth3      : True
 	smoothN      : Disabled
-	smooth       : False
+	smooth       : True
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=1.0
-	Input_value_3=5.0
+	Input_1=2.0
+	Input_2=1.0
+	Input_3=5.0
 
 ================================
 Test Results:
-	smooth3      : False
+	smooth3      : True
 	smoothN      : Disabled
-	smooth       : False
+	smooth       : True
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=2.0
-	Input_value_3=4.0
+	Input_1=2.0
+	Input_2=2.0
+	Input_3=4.0
 
 ================================
 Test Results:
-	smooth3      : False
+	smooth3      : True
 	smoothN      : Disabled
-	smooth       : False
+	smooth       : True
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Input values:
-	Input_value_1=2.0
-	Input_value_2=2.0
-	Input_value_3=5.0
+	Input_1=2.0
+	Input_2=2.0
+	Input_3=5.0
 
 ================================
 Test Results:
-	smooth3      : False
+	smooth3      : True
 	smoothN      : Disabled
-	smooth       : False
+	smooth       : True
