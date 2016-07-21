@@ -337,6 +337,38 @@ inline OME_SCALAR exponent_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal,
 }
 
 
+//================= triangle_ran(st, nd, ht) ======================
+//Produce random number using the triangular distribution. 
+//min st, max nd, peak ht.  
+inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht)
+{
+	if (nd > st || ht < st || ht > nd)
+	{
+		cout << "Incorrect parameters. Peak must be between min and max";
+		return -1;
+	}
+
+
+	double num = rand() / (double)RAND_MAX;
+	double Func = (ht - st) / (nd - st);
+	if (num > Func)
+		return nd - sqrt((1 - num) * (nd - st) * (nd - ht));
+	else
+		return st + sqrt(num * (nd - st) * (ht - st));
+	//return distrib(sGen);
+
+	//Generating Triangular-distributed random variates	
+	//https://en.wikipedia.org/wiki/Triangular_distribution  
+}
+
+inline OME_SCALAR triangle_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht)
+{
+	OME_SCALAR rannum = triangle_ran(st, nd, ht);
+	transform_val(rannum, minVal, maxVal, 0, 1);
+	return rannum
+}
+
+
 //================= gaussian_var( x, y ) ===============
 //FunctionSignatures["gaussian_var"]={"gaussian_var","@SI,@SI",false};
 inline OME_SCALAR gaussian_var(const OME_SCALAR & arg1, const OME_SCALAR & arg2)
