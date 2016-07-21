@@ -47,5 +47,7 @@ Open the project_files/OS_X/OME_OSX.xcworkspace in XCode. Select the "Build All"
 
 ##Build Linux
 
+**NOTE:** Clang or g++ >= 4.7 with either libstdc++ or libc++ required.
+
 Install [CMake](https://cmake.org/) if it isn't already. `cd` to the desired build directory and run cmake on project_files/Linux/.
 To build lua: `cd` to exern_support/lua which should contain the files from step 2 of the _Source Installation_ section above; run `make linux`.
