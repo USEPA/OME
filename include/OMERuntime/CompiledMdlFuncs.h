@@ -303,6 +303,43 @@ inline Listable& atan2(Listable& arg)
 	
 }
 
+//================= gamma_ran(Order) ======================
+//NEEDS FUNCTION SIGNATURE
+//Produce random number using the gamma distribution.
+//Order: Order (alpha value) of the gamma distribution 
+inline OME_SCALAR gamma_ran(const OME_SCALAR alpha, const OME_SCALAR beta)
+{
+	std::gamma_distribution<double> distrib(alpha, beta);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR gamma_ran(const OME_SCALAR order, const OME_SCALAR stretchVal, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal)
+{
+	OME_SCALAR rannum = gamma_ran(order, stretchVal);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
+//================= beta_ran(Order) ======================
+//sigs["beta_ran"] = FuncSig("beta_ran", "@SI,@SI,@SI,@SI,@SI,@SI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+//Produce random number using the beta distribution.
+//alpha:		beta:
+inline OME_SCALAR beta_ran(const OME_SCALAR alpha, const OME_SCALAR beta, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR X = gamma_ran(alpha, stretchVal);
+	OME_SCALAR Y = gamma_ran(beta, stretchVal);
+
+	OME_SCALAR rannum = X / (X + Y);
+
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+
+	//Generating beta-distributed random variates
+	//https://en.wikipedia.org/wiki/Beta_distribution#Generating_beta-distributed_random_variates
+}
+
+
 //================= binome( prob, maxdata ) ======================
 //FunctionSignatures["binome"]={"binome","@SI,@SI",false};
 //Produce random number using the binomial distribution. 
@@ -312,12 +349,31 @@ inline OME_SCALAR binome(const int & prob, const OME_SCALAR & maxdata)
 	return distrib(sGen);
 }
 
-inline OME_SCALAR binome(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR prblty, const OME_SCALAR & dataPts, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+inline OME_SCALAR binome(const OME_SCALAR prblty, const OME_SCALAR & dataPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
 {
 	OME_SCALAR rannum = binome(prblty, dataPts);
 	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
 	return rannum;
 }
+
+
+
+//================= negBinome_ran( prob, maxdata ) ======================
+//Produce random number using the binomial distribution. 
+inline OME_SCALAR negBinome_ran(const int & prob, const OME_SCALAR & maxdata)
+{
+	std::negative_binomial_distribution<int> distrib(prob, maxdata);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR negBinome_ran(const OME_SCALAR prblty, const OME_SCALAR & reqPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = negBinome_ran(prblty, reqPts);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
 
 //================= exponent_ran(lambda) ======================
 //NEEDS FUNCTION SIGNATURE, MIGHT NOT WORK VENSIM DESCRIPTION NO LAMBDA
@@ -337,7 +393,25 @@ inline OME_SCALAR exponent_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal,
 }
 
 
+//================= poidev( x ) ========================
+//Produce random number using the poisson distribution. 
+//FunctionSignatures["poidev"]={"poidev","@SI",false};
+inline OME_SCALAR poidev(const OME_SCALAR & mean)
+{
+	std::poisson_distribution<long> distrib(mean);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR poidev(const OME_SCALAR & mean, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+{
+	OME_SCALAR rannum = poidev(mean);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
+}
+
+
 //================= triangle_ran(st, nd, ht) ======================
+//NEEDS FUNCTION SIGNATURE
 //Produce random number using the triangular distribution. 
 //min st, max nd, peak ht.  
 inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht)
@@ -361,11 +435,32 @@ inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const O
 	//https://en.wikipedia.org/wiki/Triangular_distribution  
 }
 
-inline OME_SCALAR triangle_ran(const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht)
+
+
+inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const OME_SCALAR ht, const OME_SCALAR minVal, const OME_SCALAR maxVal)
 {
 	OME_SCALAR rannum = triangle_ran(st, nd, ht);
 	transform_val(rannum, minVal, maxVal, 0, 1);
-	return rannum
+	return rannum;
+}
+
+
+
+//================= weib_ran(Order) ======================
+//NEEDS FUNCTION SIGNATURE
+//Produce random number using the weibull distribution.
+//Vensim fixes eventRate = 1 while Simile allows for own input
+inline OME_SCALAR weib_ran(const OME_SCALAR a, const OME_SCALAR b)
+{
+	std::weibull_distribution<double> distrib(a, b);
+	return distrib(sGen);
+}
+
+inline OME_SCALAR weib_ran(const OME_SCALAR shape, const OME_SCALAR stretchVal, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal)
+{
+	OME_SCALAR rannum = weib_ran(shape, stretchVal);
+	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
+	return rannum;
 }
 
 
@@ -923,21 +1018,6 @@ inline OME_SCALAR parent(Evaluable& caller)
 	return ret;
 }
 
-//================= poidev( x ) ========================
-//Produce random number using the poisson distribution. 
-//FunctionSignatures["poidev"]={"poidev","@SI",false};
-inline OME_SCALAR poidev(const OME_SCALAR & mean)
-{
-		std::poisson_distribution<long> distrib(mean);
-		return distrib(sGen);
-}
-
-inline OME_SCALAR poidev(const OME_SCALAR & mean, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
-{
-	OME_SCALAR rannum = poidev(mean);
-	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
-	return rannum;
-}
 
 //================= pow( x, y ) ========================
 //FunctionSignatures["pow"]={"pow","@SI,@SI",false};
