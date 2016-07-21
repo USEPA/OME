@@ -422,7 +422,17 @@ void OMECFuncs::LoadSigs(std::map<STLString,FuncSig> & sigs)
     sigs["at_init"] = FuncSig::MultiFuncSig("at_init", "@EI", "@sO");
     sigs["atan"] = FuncSig::MultiFuncSig("OMECFuncs::atan", "@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
     sigs["atan2"] = FuncSig::MultiFuncSig("OMECFuncs::atan2", "@SI,@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
-    sigs["binome"] = FuncSig("binome", "@SI,@SI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	
+	sigs["beta_ran"] = FuncSig("beta_ran", "@SI,@SI,@S?,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["binome"] = FuncSig("binome", "@SI,@SI,@S?,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["exponent_ran"] = FuncSig("exponent_ran", "@S?,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["gamma_ran"] = FuncSig("gamma_ran", "@SI,@SI,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["negBinomial_ran"] = FuncSig("negBinomial_ran", "@SI,@SI,@S?,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["poidev"] = FuncSig("poidev", "@SI,@S?,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["gaussian_var"] = FuncSig("gaussian_var", "@SI,@S?,@SI,@SI,@SI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["triangle_ran"] = FuncSig("triangle_ran", "@SI,@SI,@SI,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+	sigs["weib_ran"] = FuncSig("weib_ran", "@SI,@SI,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+
     sigs["ceil"] = FuncSig::MultiFuncSig("ceil", "@SI", "@SO", FuncSig::NO_ARGS, MultiArgFunc);
     sigs["channel_is"]=FuncSig("channel_is","@EC,@SP","@bO",FuncSig::NO_FLAGS,IntOnlyFunc);
     sigs["const_delay"] = FuncSig("const_delay", "@EI,@SI", "@sO", FuncSig::PAST_LOOKUP,SclrOnlyFunc);

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Unit Testing begun on July 21, 2016 at 09:11AM
+=======
+Unit Testing begun on July 21, 2016 at 09:15AM
+>>>>>>> update_randoms
 
 >>>>> Basic Math operations - Compiled <<<<<
 
@@ -850,7 +854,11 @@ Test Results:
 	step         : True
 	pulse        : True
 	trend        : True
+<<<<<<< HEAD
 	forecast     : True
+=======
+	forecast     : False
+>>>>>>> update_randoms
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -865,8 +873,13 @@ Input values:
 Test Results:
 	step         : True
 	pulse        : True
+<<<<<<< HEAD
 	trend        : True
 	forecast     : True
+=======
+	trend        : False
+	forecast     : False
+>>>>>>> update_randoms
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -879,10 +892,17 @@ Input values:
 
 ================================
 Test Results:
+<<<<<<< HEAD
 	step         : True
 	pulse        : True
 	trend        : True
 	forecast     : True
+=======
+	step         : False
+	pulse        : False
+	trend        : False
+	forecast     : False
+>>>>>>> update_randoms
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -895,10 +915,17 @@ Input values:
 
 ================================
 Test Results:
+<<<<<<< HEAD
 	step         : True
 	pulse        : True
 	trend        : True
 	forecast     : True
+=======
+	step         : False
+	pulse        : False
+	trend        : False
+	forecast     : False
+>>>>>>> update_randoms
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
