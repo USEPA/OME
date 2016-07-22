@@ -847,7 +847,7 @@ STLString MDLParser::ProcessFunction(Evaluable* pCaller, const STLString & funcN
         {"random_exponential",			"exponent_ran($1,$2,$3,$4)"			},
 		{"random_gamma",				"gamma_ran($3,$5,$1,$2,$4)"		    },
         {"random_lookup",				"" /* implement */					},
-        {"random_negative_binomal",		"negBinome_ran($3,$4,$1,$2,$5,$6)"  },
+        {"random_negative_binomial",	"negBinome_ran($3,$4,$1,$2,$5,$6)"  },
         {"random_normal",				"gaussian_var($3,$4,$1,$2)"			},
         {"random_poisson",				"poidev($3,$1,$2,$4,$5)"         	},
 		{"random_triangular",			"triangle_ran($3,$5,$4,$1,$2)"		},
