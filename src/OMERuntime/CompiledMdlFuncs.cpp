@@ -416,7 +416,7 @@ void OMECFuncs::LoadSigs(std::map<STLString,FuncSig> & sigs)
     
     
     //entries
-    sigs["abs"] = FuncSig::MultiFuncSig("OMECFuncs::abs", "@SI", "@SO", FuncSig::NO_ARGS, MultiArgFunc);
+    sigs["abs"] = FuncSig::MultiFuncSig("OMECFuncs::abs", "@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
     sigs["acos"] = FuncSig::MultiFuncSig("OMECFuncs::acos", "@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
     sigs["asin"] = FuncSig::MultiFuncSig("OMECFuncs::asin", "@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
     sigs["at_init"] = FuncSig::MultiFuncSig("at_init", "@EI", "@sO");
@@ -433,7 +433,7 @@ void OMECFuncs::LoadSigs(std::map<STLString,FuncSig> & sigs)
 	sigs["triangle_ran"] = FuncSig("triangle_ran", "@SI,@SI,@SI,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
 	sigs["weib_ran"] = FuncSig("weib_ran", "@SI,@SI,@S?,@S?,@S?", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
 
-    sigs["ceil"] = FuncSig::MultiFuncSig("ceil", "@SI", "@SO", FuncSig::NO_ARGS, MultiArgFunc);
+    sigs["ceil"] = FuncSig::MultiFuncSig("ceil", "@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
     sigs["channel_is"]=FuncSig("channel_is","@EC,@SP","@bO",FuncSig::NO_FLAGS,IntOnlyFunc);
     sigs["const_delay"] = FuncSig("const_delay", "@EI,@SI", "@sO", FuncSig::PAST_LOOKUP,SclrOnlyFunc);
     sigs["cos"] = FuncSig::MultiFuncSig("OMECFuncs::cos", "@SI", "@sO", FuncSig::NO_ARGS, MultiArgFunc);
@@ -452,8 +452,9 @@ void OMECFuncs::LoadSigs(std::map<STLString,FuncSig> & sigs)
     sigs["hypergeom"]=FuncSig("hypergeom","@SI,@SI,@SI","@iO", FuncSig::NO_FLAGS, IntOnlyFunc);
     sigs["hypot"]=FuncSig("hypot","@SI,@SI","@sO");
     sigs["init_time"] = FuncSig::MultiFuncSig("init_time", "@CI", "@sO", FuncSig::NO_FLAGS, MultiArgFunc);
-    sigs["in_preceding"]=FuncSig::MultiFuncSig("in_preceding","@CI,@TI","@MO");
-    sigs["in_progenitor"]=FuncSig::MultiFuncSig("in_progenitor","@CI,@TI","@MO");
+    // The following functions need to be properly re-implemented; this is simile behavior
+	//sigs["in_preceding"]=FuncSig::MultiFuncSig("in_preceding","@CI,@TI","@MO");
+    //sigs["in_progenitor"]=FuncSig::MultiFuncSig("in_progenitor","@CI,@TI","@MO");
     sigs["index"] = FuncSig::CustomFuncSig("index", GenIndex, FuncSig::NO_FLAGS, MultiArgFunc);
     sigs["inf"] = FuncSig("OME_SCALAR_INF", "@NI", "@sO");
 	sigs["initOnly"] = FuncSig::CustomFuncSig("initOnly", GenInitOnly, FuncSig::NO_FLAGS, SclrOnlyFunc);
@@ -501,7 +502,7 @@ void OMECFuncs::LoadSigs(std::map<STLString,FuncSig> & sigs)
     sigs["posleast"] = FuncSig("posleast", "@LI", "@sO", FuncSig::LOCAL_ACCUM, IntOnlyFunc);
     sigs["product"] = FuncSig("product", "@LI", "@?OsL", FuncSig::LOCAL_ACCUM, SclrVariantArgFunc);
     sigs["rankings"]=FuncSig::MultiRetSig("rankings","@LI","@LO");
-    sigs["size"] = FuncSig("size", "@MI,@SI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
+    //sigs["size"] = FuncSig("size", "@MI,@SI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
     sigs["subtotals"] = FuncSig::MultiRetSig("subtotals", "@LI", "@LO", FuncSig::LOCAL_ACCUM);	//  FuncSig::LOCAL_ACCUM ?
     sigs["sum"] = FuncSig("sum", "@LI", "@?OsL", FuncSig::LOCAL_ACCUM, SclrVariantArgFunc);
     sigs["with_colin"] = FuncSig("with_colin", "@LI,@LI", "@sO", FuncSig::NO_FLAGS, SclrOnlyFunc);
@@ -560,7 +561,7 @@ void OMECFuncs::LoadAccumPatterns(std::map<STLString, std::pair<STLString, STLSt
      @vs	- value statement (function argument).
      @ii	- loop increment variable.
      @li	- loop increment limit.
-     @la - initialization statement for @al.
+     @la    - initialization statement for @al.
      
      */
     patterns["all"] = { "@ai=1;", "@ai=@ai && @vs;" };

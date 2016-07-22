@@ -127,7 +127,7 @@ int main(int argc, const char* argv[])
 		//try
 		//{
 		DBG_PRINTBIGDIV();
-		DBG_LOGFILE("OME Test log.txt");
+		//DBG_LOGFILE("OME Test log.txt");
 		DBG_TIMESTAMP();
 
 		//grab model here

@@ -826,28 +826,28 @@ inline OME_SCALAR init_time(Evaluable& caller)
 
 //================= in_preceding( x ) ==================
 //FunctionSignatures["in_preceding"]={"in_preceding","@CI,@TI",true};
-inline BaseWrap& in_preceding(Evaluable& caller, const STLString & varName)
-{
-	/// @todo update so second argument is function, not string
-	/// @todo update to use wrappers
-
-	Model* pMdl=caller.GetParentModel();
-	size_t actInst=pMdl->GetCurrentInstance();
-	SclrWrap ret(0.0);
-	//if(actInst>0)
-	//{
-	//		ModelInstance* trg=pMdl->GetInstance((unsigned int)actInst-1);
-	//		if(trg)
-	//		{
-
-	//			Evaluable* eval=dynamic_cast<Evaluable*>(pMdl->ObjectForKey(varName));
-	//			if(eval)
-	//				ret=trg->ValForQuery(eval);
-	//		}
-	//}
-	//return ret;
-    return Wrap(0.0);
-}
+//inline BaseWrap& in_preceding(Evaluable& caller, const STLString & varName)
+//{
+//	/// @todo update so second argument is function, not string
+//	/// @todo update to use wrappers
+//
+//	Model* pMdl=caller.GetParentModel();
+//	size_t actInst=pMdl->GetCurrentInstance();
+//	SclrWrap ret(0.0);
+//	//if(actInst>0)
+//	//{
+//	//		ModelInstance* trg=pMdl->GetInstance((unsigned int)actInst-1);
+//	//		if(trg)
+//	//		{
+//
+//	//			Evaluable* eval=dynamic_cast<Evaluable*>(pMdl->ObjectForKey(varName));
+//	//			if(eval)
+//	//				ret=trg->ValForQuery(eval);
+//	//		}
+//	//}
+//	//return ret;
+//    return Wrap(0.0);
+//}
 
 //inline Listable& in_preceding(Evaluable & caller, Listable& & wa)
 //{
@@ -861,32 +861,32 @@ inline BaseWrap& in_preceding(Evaluable& caller, const STLString & varName)
 
 //================= in_progenitor( x ) =================
 //FunctionSignatures["in_progenitor"]={"in_progenitor","@CI,@TI",true};
-inline BaseWrap& in_progenitor(Evaluable & caller, const STLString & varName)
-{	
-		Model* pMdl=caller.GetParentModel();
-	 
-		/// @todo update so second argument is function, not string
-		/// @todo update to use wrappers
-
-		/*size_t actInst=pMdl->GetCurrentInstance();
-		if(actInst>0)
-		{
-			ModelCollection* pCollection=dynamic_cast<ModelCollection*>(pMdl->GetSpawningParent());
-			if(pCollection)
-			{
-				Model* trg=pCollection->GetInstance(pMdl->m_instanceParent);
-				
-				if(pMdl)
-				{
-					Evaluable* eval=dynamic_cast<Evaluable*>(trg->ObjectForKey(varName));
-					if(eval)
-						ret=eval->GetValue();
-				}
-			}
-		}*/
-		
-		return Wrap(0.0);
-}
+//inline BaseWrap& in_progenitor(Evaluable & caller, const STLString & varName)
+//{	
+//		Model* pMdl=caller.GetParentModel();
+//	 
+//		/// @todo update so second argument is function, not string
+//		/// @todo update to use wrappers
+//
+//		/*size_t actInst=pMdl->GetCurrentInstance();
+//		if(actInst>0)
+//		{
+//			ModelCollection* pCollection=dynamic_cast<ModelCollection*>(pMdl->GetSpawningParent());
+//			if(pCollection)
+//			{
+//				Model* trg=pCollection->GetInstance(pMdl->m_instanceParent);
+//				
+//				if(pMdl)
+//				{
+//					Evaluable* eval=dynamic_cast<Evaluable*>(trg->ObjectForKey(varName));
+//					if(eval)
+//						ret=eval->GetValue();
+//				}
+//			}
+//		}*/
+//		
+//		return Wrap(0.0);
+//}
 
 //inline Listable& in_progenitor(Evaluable & caller, Listable& & wa)
 //{
