@@ -343,9 +343,11 @@ inline OME_SCALAR beta_ran(const OME_SCALAR alpha, const OME_SCALAR beta, const 
 //================= binome( prob, maxdata ) ======================
 //FunctionSignatures["binome"]={"binome","@SI,@SI",false};
 //Produce random number using the binomial distribution. 
-inline OME_SCALAR binome(const int & prob, const OME_SCALAR & maxdata)
+inline OME_SCALAR binome(int prob, const OME_SCALAR & maxdata)
 {
-	std::binomial_distribution<int> distrib(prob, maxdata);
+	if (prob > 1){ prob = 1; }
+	if (prob < 0){ prob = 0; }
+	std::binomial_distribution<int> distrib(maxdata, prob);
 	return distrib(sGen);
 }
 
@@ -360,9 +362,11 @@ inline OME_SCALAR binome(const OME_SCALAR prblty, const OME_SCALAR & dataPts, co
 
 //================= negBinome_ran( prob, maxdata ) ======================
 //Produce random number using the binomial distribution. 
-inline OME_SCALAR negBinome_ran(const int & prob, const OME_SCALAR & maxdata)
+inline OME_SCALAR negBinome_ran(OME_SCALAR prob, const OME_SCALAR & maxdata)
 {
-	std::negative_binomial_distribution<int> distrib(prob, maxdata);
+	if (prob > 1){ prob = 1; }
+	if (prob < 0){ prob = 0; }
+	std::negative_binomial_distribution<int> distrib(maxdata, .5);
 	return distrib(sGen);
 }
 
