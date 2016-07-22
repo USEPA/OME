@@ -343,15 +343,17 @@ inline OME_SCALAR beta_ran(const OME_SCALAR alpha, const OME_SCALAR beta, const 
 //================= binome( prob, maxdata ) ======================
 //FunctionSignatures["binome"]={"binome","@SI,@SI",false};
 //Produce random number using the binomial distribution. 
-inline OME_SCALAR binome(int prob, const OME_SCALAR & maxdata)
+inline OME_SCALAR binome(const OME_SCALAR & prob, const int & maxdata)
 {
-	if (prob > 1){ prob = 1; }
-	if (prob < 0){ prob = 0; }
+	if (prob <= 0.0 || prob >= 1.0)
+		throw OMEFuncOpException("binome","probability must be in the range of (0,1).");
+	if (maxdata<=0.0)
+		throw OMEFuncOpException("binome","maxdata must be greater than 0.");
 	std::binomial_distribution<int> distrib(maxdata, prob);
 	return distrib(sGen);
 }
 
-inline OME_SCALAR binome(const OME_SCALAR prblty, const OME_SCALAR & dataPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+inline OME_SCALAR binome(const OME_SCALAR & prblty, const int & dataPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
 {
 	OME_SCALAR rannum = binome(prblty, dataPts);
 	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
@@ -362,15 +364,17 @@ inline OME_SCALAR binome(const OME_SCALAR prblty, const OME_SCALAR & dataPts, co
 
 //================= negBinome_ran( prob, maxdata ) ======================
 //Produce random number using the binomial distribution. 
-inline OME_SCALAR negBinome_ran(OME_SCALAR prob, const OME_SCALAR & maxdata)
+inline OME_SCALAR negBinome_ran(const OME_SCALAR & prob, const int & maxdata)
 {
-	if (prob > 1){ prob = 1; }
-	if (prob < 0){ prob = 0; }
-	std::negative_binomial_distribution<int> distrib(maxdata, .5);
+	if (prob <= 0.0 || prob >= 1.0)
+		throw OMEFuncOpException("negBinome_ran","probability must be in the range of (0,1).");
+	if (maxdata <= 0.0)
+		throw OMEFuncOpException("negBinome_ran","maxdata must be greater than 0.");
+	std::negative_binomial_distribution<int> distrib(maxdata, prob);
 	return distrib(sGen);
 }
 
-inline OME_SCALAR negBinome_ran(const OME_SCALAR prblty, const OME_SCALAR & reqPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
+inline OME_SCALAR negBinome_ran(const OME_SCALAR & prblty, const int & reqPts, const OME_SCALAR minVal, const OME_SCALAR maxVal, const OME_SCALAR shiftVal, const OME_SCALAR stretchVal)
 {
 	OME_SCALAR rannum = negBinome_ran(prblty, reqPts);
 	transform_val(rannum, minVal, maxVal, shiftVal, stretchVal);
@@ -422,8 +426,7 @@ inline OME_SCALAR triangle_ran(const OME_SCALAR st, const OME_SCALAR nd, const O
 {
 	if (nd > st || ht < st || ht > nd)
 	{
-		cout << "Incorrect parameters. Peak must be between min and max";
-		return -1;
+		throw OMEFuncOpException("triangle_ran","Incorrect parameters. Peak must be between min and max");
 	}
 
 

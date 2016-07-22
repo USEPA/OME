@@ -483,25 +483,34 @@ bool SimManager::PrepSimulation()
 /** Run the model simulation between the previously set start and end times. */
 void SimManager::RunSimulation()
 {
-   bool goCode=m_eventDispatcher->GetLastRunCode()== CentralEventDispatcher::CEDR_PAUSE;
-
-	if(!goCode && m_pRootModel)
+	bool goCode = m_eventDispatcher->GetLastRunCode() == CentralEventDispatcher::CEDR_PAUSE;
+	try
 	{
-		InitIntegrator();
-		goCode=InitSim();
-	}
 
-	if(!m_prioritized)
-	{
-		goCode=false;
-		DBG_PRINT_FLAGGED("Objects not prioritized",DBG_ERR);
+		if (!goCode && m_pRootModel)
+		{
+			InitIntegrator();
+			goCode = InitSim();
+		}
+
+		if (!m_prioritized)
+		{
+			goCode = false;
+			DBG_PRINT_FLAGGED("Objects not prioritized", DBG_ERR);
+		}
+		//if the previous run was paused, or the simulation has been initialized, run simulation.
+		if (goCode)
+		{
+			//m_isRunning=true; //should be set in init sim
+			m_eventDispatcher->RunDispatcher(m_startTime, m_stopTime, m_interval);
+		}
+
 	}
-   //if the previous run was paused, or the simulation has been initialized, run simulation.
-   if(goCode)
-   {
-	   //m_isRunning=true; //should be set in init sim
-	  m_eventDispatcher->RunDispatcher(m_startTime, m_stopTime,m_interval);
-   }
+	catch (OMEException & e)
+	{
+		ReportError(STLString("Error during Model update: ") + e.what());
+		FlushErrors(m_errors,GetPresentTime());
+	}
 }
 
 void SimManager::RegisterModel(Model* pMdl)
