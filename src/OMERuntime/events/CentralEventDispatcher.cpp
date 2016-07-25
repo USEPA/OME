@@ -83,8 +83,8 @@ void CentralEventDispatcher::PostEvent(const CentralEvent & ev)
 */
 void CentralEventDispatcher::DispatchEvent(CentralEvent & ev)
 {
-	DBG_PRINT("Processing Event " + ev.GetEventType() + " for time: " + std::to_string(ev.GetEventTime()));
-	/// \todo: add filter support
+//	DBG_PRINT("Processing Event " + ev.GetEventType() + " for time: " + std::to_string(ev.GetEventTime()));
+
 	Eventable* receiver=ev.GetReceiver();
 
 	//if event has a specified receiver, send it only to that object. Otherwise, broadcast event to all

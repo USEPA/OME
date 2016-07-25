@@ -977,7 +977,7 @@ void SimManager::FlushErrors(ErrCollection & errs,const OME_SCALAR time)
 	if(errs.GetCount())
 	{
 		const OMEChar* buff=errs.ToString();
-		DBG_COLOR(DBG_PRINT(buff),DBG_RED);
+		DBG_PRINTC(buff,DBG_RED);
 
 		delete[] buff;
 		if(errs.GetCriticalCount())
