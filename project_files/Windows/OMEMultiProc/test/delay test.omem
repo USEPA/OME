@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ome>
+<model init_instances='1' id='root' name='root' step_size='-6.27744e+066' int_method='1' origin='0,0' extents='0,0' inner_box='0,0,0,0' >
+    <variables>
+        <variable id='v_12' name='order N' expr='7.0' origin='0,0' extents='0,0' />
+        <variable id='v_13' name='receiving' expr='root.shipments_in_transit/root.shipping_time' origin='0,0' extents='0,0' />
+        <variable id='v_14' name='receiving 1' expr='delay1(root.shipping, root.shipping_time)' origin='0,0' extents='0,0' />
+        <variable id='v_15' name='receiving 3' expr='delay3(root.shipping, root.shipping_time)' origin='0,0' extents='0,0' />
+        <variable id='v_16' name='receiving N' expr='delayn(root.shipping,root.shipping_time, root.order_N,root.shipping)' origin='0,0' extents='0,0' />
+        <variable id='v_17' name='shipping' expr='step(1.0,10.0)-step(1.0,50.0)' origin='0,0' extents='0,0' />
+        <variable id='v_18' name='shipping time' expr='5.0' origin='0,0' extents='0,0' />
+    </variables>
+    <states>
+        <state id='sv_0' name='shipments in transit' expr='  root.shipping*root.shipping_time' origin='0,0' extents='0,0' />
+        <state id='sv_1' name='shipments in transit 1' expr='  root.shipping*root.shipping_time' origin='0,0' extents='0,0' />
+        <state id='sv_2' name='shipments in transit 3' expr='  root.shipping*root.shipping_time' origin='0,0' extents='0,0' />
+        <state id='sv_3' name='shipments in transit N' expr='  root.shipping*root.shipping_time' origin='0,0' extents='0,0' />
+    </states>
+    <flows>
+        <flow id='f_4' name='sv_0_inflow' expr='root.shipping' target='sv_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_5' name='sv_0_outflow' expr='root.receiving' source='sv_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_6' name='sv_1_inflow' expr='root.shipping' target='sv_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_7' name='sv_1_outflow' expr='root.receiving_1' source='sv_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_8' name='sv_2_inflow' expr='root.shipping' target='sv_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_9' name='sv_2_outflow' expr='root.receiving_3' source='sv_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_10' name='sv_3_inflow' expr='root.shipping' target='sv_3' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <flow id='f_11' name='sv_3_outflow' expr='root.receiving_N' source='sv_3' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </flows>
+    <influences>
+        <influence id='i_19' name='i_19' expr='' use_curr_val='0' source='sv_0' target='v_13' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_20' name='i_20' expr='' use_curr_val='0' source='v_12' target='v_16' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_21' name='i_21' expr='' use_curr_val='0' source='v_13' target='f_5' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_22' name='i_22' expr='' use_curr_val='0' source='v_14' target='f_7' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_23' name='i_23' expr='' use_curr_val='0' source='v_15' target='f_9' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_24' name='i_24' expr='' use_curr_val='0' source='v_16' target='f_11' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_25' name='i_25' expr='' use_curr_val='0' source='v_17' target='f_10' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_26' name='i_26' expr='' use_curr_val='0' source='v_17' target='f_4' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_27' name='i_27' expr='' use_curr_val='0' source='v_17' target='f_6' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_28' name='i_28' expr='' use_curr_val='0' source='v_17' target='f_8' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_29' name='i_29' expr='' use_curr_val='0' source='v_17' target='sv_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_30' name='i_30' expr='' use_curr_val='0' source='v_17' target='sv_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_31' name='i_31' expr='' use_curr_val='0' source='v_17' target='sv_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_32' name='i_32' expr='' use_curr_val='0' source='v_17' target='sv_3' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_33' name='i_33' expr='' use_curr_val='0' source='v_17' target='v_14' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_34' name='i_34' expr='' use_curr_val='0' source='v_17' target='v_15' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_35' name='i_35' expr='' use_curr_val='0' source='v_17' target='v_16' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_36' name='i_36' expr='' use_curr_val='0' source='v_18' target='sv_0' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_37' name='i_37' expr='' use_curr_val='0' source='v_18' target='sv_1' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_38' name='i_38' expr='' use_curr_val='0' source='v_18' target='sv_2' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_39' name='i_39' expr='' use_curr_val='0' source='v_18' target='sv_3' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_40' name='i_40' expr='' use_curr_val='0' source='v_18' target='v_13' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_41' name='i_41' expr='' use_curr_val='0' source='v_18' target='v_14' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_42' name='i_42' expr='' use_curr_val='0' source='v_18' target='v_15' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+        <influence id='i_43' name='i_43' expr='' use_curr_val='0' source='v_18' target='v_16' ctrl_pt1='0,0' ctrl_pt2='0,0' />
+    </influences>
+</model>
+</ome>
