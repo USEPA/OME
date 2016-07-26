@@ -22,7 +22,8 @@ public:
 		NO_PARSING=0x20,		///< If set, do not perform any model logic parsing.
 		NO_SERIALIZING=0x40,	///< If set, do not perform model serialization processing.
 		NO_COMPILED=0x80,		///< If set, do not link to any compiled model code, even if directed to by a control file.
-		NO_FULL_RECORD=0x100	///< If set, all RecordMgrs use minimum record keeping.
+		NO_FULL_RECORD=0x100,	///< If set, all RecordMgrs use minimum record keeping.
+		NO_PRINT=0x200			///< If set, do not print any output messages.
 	};
 
 	/** Identifiers for default solver options.*/

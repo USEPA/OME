@@ -146,7 +146,7 @@ int main(int argc, const char* argv[])
 		const float stepsize = 1.0;
 		unsigned int smFlags = SimManager::IS_SINGLETON;
 		if (mode == QUIET)
-			smFlags |= SimManager::NO_DEBUG;
+			smFlags |= SimManager::NO_DEBUG | SimManager::NO_PRINT;
 		SimManager sMngr(filename, start, stop, interval, stepsize);
 		//try
 		//{
