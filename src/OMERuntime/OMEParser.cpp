@@ -57,7 +57,7 @@ OMEParser::~OMEParser(void)
 */
 void OMEParser::PerformPack(Evaluable* pEval)
 {
-
+	//unimplemented
 }
 
 /** Expansion and inject any model components needed for a specific family of functions
@@ -149,6 +149,8 @@ STLString OMEParser::UnpackDelay1(Evaluable* pCaller, const STLString & call)
 	//
 	//
 
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Delay_builtins.htm#delay
+
 	STLString inStr, delDur, init;
 	UnpackArgs1(call, inStr, delDur, init);
 
@@ -172,6 +174,8 @@ STLString OMEParser::UnpackDelay3(Evaluable* pCaller, const STLString & call)
 	//
 	//
 
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Delay_builtins.htm#DELAY3
+
 	STLString inStr, delDur, init;
 	UnpackArgs1(call, inStr, delDur, init);
 	//call helper
@@ -194,6 +198,7 @@ STLString OMEParser::UnpackDelayN(Evaluable* pCaller, const STLString & call)
 	//
 	//
 
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Delay_builtins.htm#DELAYN
 
 	STLString inStr, delDur, orderStr, init;
 	UnpackArgs2(call,inStr, delDur, orderStr, init);
@@ -228,6 +233,8 @@ STLString OMEParser::UnpackDelayN(Evaluable* pCaller, const STLString & call)
 */
 STLString OMEParser::UnpackForcst(Evaluable* pCaller, const STLString & call)
 {
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Miscellaneous_builtins.htm#forcst
+
 	STLString input, time, horizon, init;
 	UnpackArgs2(call,input, time, horizon, init,false);
 
@@ -340,6 +347,8 @@ STLString OMEParser::UnpackForcst(Evaluable* pCaller, const STLString & call)
 */
 STLString OMEParser::UnpackSmth1(Evaluable* pCaller, const STLString & call)
 {
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Delay_builtins.htm#smth1
+
 	STLString inStr, avgTime, init;
 	UnpackArgs1(call, inStr, avgTime, init);
 
@@ -354,6 +363,8 @@ STLString OMEParser::UnpackSmth1(Evaluable* pCaller, const STLString & call)
 */
 STLString OMEParser::UnpackSmth3(Evaluable* pCaller, const STLString & call)
 {
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Delay_builtins.htm#smth3
+
 	STLString inStr, avgTime, init;
 	UnpackArgs1(call, inStr, avgTime, init);
 	//call helper
@@ -367,6 +378,8 @@ STLString OMEParser::UnpackSmth3(Evaluable* pCaller, const STLString & call)
 */
 STLString OMEParser::UnpackSmthN(Evaluable* pCaller, const STLString & call)
 {
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Delay_builtins.htm#smthn
+
 	STLString input, avgTime, orderStr, init;
 	UnpackArgs2(call,input, avgTime, orderStr, init);
 	
@@ -401,6 +414,7 @@ STLString OMEParser::UnpackSmthN(Evaluable* pCaller, const STLString & call)
 */
 STLString OMEParser::UnpackTrend(Evaluable* pCaller, const STLString & call)
 {
+	//http://www.iseesystems.com/resources/help/v1-1/#08-Reference/07-Builtins/Miscellaneous_builtins.htm#trend
 	STLString input, time, init;
 	UnpackArgs1(call, input, time, init,true);
 
