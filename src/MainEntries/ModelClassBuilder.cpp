@@ -123,6 +123,8 @@ int main(int argc, const char* argv[])
 			SimManager::NO_SERIALIZING | SimManager::NO_COMPILED;
 		if (inPath.substr(inPath.find('.')) != STLString(OME_EXT_CTL))
 			flags |= SimManager::NO_SDP | SimManager::NO_COVERAGE;
+		if (mode == QUIET)
+			flags |= SimManager::NO_PRINT;
 		SimManager sMngr(inPath, start, stop, interval, stepsize, flags);
 		//try
 		//{

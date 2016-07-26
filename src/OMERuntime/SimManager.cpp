@@ -42,6 +42,8 @@ SimManager::SimManager(STLString modelPath,OME_SCALAR start, OME_SCALAR stop, OM
 :BaseManager(flags & IS_SINGLETON), m_extra(NULL), m_writeInitBatch(false), m_writeEvalBatch(false), m_useFileCache(false), m_serializer(NULL),
 m_varParamFunc(DefaultInitParamFn), m_varParamExtra(NULL), m_reInitIntegrator(false), m_noRecord(flags & NO_FULL_RECORD), m_incToBounds(false),m_solveType(DEFAULT)
 {
+	if (flags & NO_PRINT)
+		DBG_DISABLE();
 	m_pIntegrator = new OMEIntegrationBlock();
 	m_svDependents=EvalSet(CompareEvalObject);
 	RegisterDefaultListeners();
@@ -100,6 +102,8 @@ SimManager::SimManager(CompiledInterface* pInterface, const STLString & cachePat
 :BaseManager(flags & IS_SINGLETON), m_extra(NULL), m_writeInitBatch(false), m_writeEvalBatch(false), m_useFileCache(false), m_serializer(NULL),
 m_varParamFunc(DefaultInitParamFn), m_varParamExtra(NULL), m_reInitIntegrator(false), m_noRecord(flags & NO_FULL_RECORD), m_incToBounds(false),m_solveType(DEFAULT)
 {
+	if (flags & NO_PRINT)
+		DBG_DISABLE();
 	m_pIntegrator = new OMEIntegrationBlock();
 	m_svDependents = EvalSet(CompareEvalObject);
 	RegisterDefaultListeners();
