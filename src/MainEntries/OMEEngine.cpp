@@ -235,7 +235,8 @@ void PrintHelp()
 		"    -o:  Override an internal variable with a user supplied value; flag can appear\n"
 		"         multiple times. The for <assign> is <full_model_var_path>=<number>\n"
 		"\nArguments:\n"
-		" <infile>    Name of the model to process; can be either a .omem or .omec file.\n";
+		" <infile>    Name of the model to process; can be either a .omem or .omec file. The .omec (control) file"
+		"			  is used to map DLL's  \n";
 
 	cout << desc << endl;
 }
