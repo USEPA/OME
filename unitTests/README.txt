@@ -148,9 +148,9 @@ Input Generators:
 	
 	note*: IF in the wizard remember to click on the ModelClassBuilder tab
 	example: 
-		Input Model File: trunk\unitTests\test_models\conditionals.omem
+		Input Model File: unitTests\test_models\conditionals.omem
 
-		Output Directory: trunk\project_files\Windows\ModelProject
+		Output Directory: project_files\Windows\ModelProject
 		
 		Class Name: TestModel   (Always set the class name as TestModel)
 
@@ -160,11 +160,11 @@ Input Generators:
 2. Build the ModelProject. This will use the files TestModel.cpp/.h to in the Output Directory to generate the dll. 
 	After building ModelProject, the path for the dll necessary for testing should appear as follows.
 
-	trunk\project_files\Windows\x64\Debug\ModelProject.dll
+	project_files\Windows\x64\Debug\ModelProject.dll
 
 	Put the file in the following subdirectory and change the name to that of the test being ran, ending with _dbg. In this case
 	it is conditionals_dbg.dll
 
-	trunk\unitTests\test_models\conditionals_dbg.dll
+	unitTests\test_models\conditionals_dbg.dll
 
 3. runTests.cmd
