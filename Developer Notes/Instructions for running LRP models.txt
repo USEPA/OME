@@ -1,0 +1,8 @@
+Steps to run new LRP model:
+
+1. Use UniversalConverter to convert to .omem file.
+2. Use ModelClassBuilder to generate source code (recommended to use release build).
+3. Compile output from ModelClassBuilder (recommended debug build).
+4. Update testControl.omec to match new model.
+5. Run Model using default settings in testControl.omec. Export values using -f flag or Appropriate export option in Wizard.
+
