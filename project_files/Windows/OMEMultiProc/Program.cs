@@ -24,6 +24,8 @@ namespace MultiProc
         /// <param name="args">The executable path for OMEENGINE and flags passed to it.</param>
         public static void LaunchOMEMultiProc(string eng_args)
         {
+            string startTime = DateTime.Now.ToString("h:mm:ss tt");
+            Console.WriteLine("Time started: {0}\r\n", startTime);
             Queue model_queue = new Queue();
             int proc_cntr = 0;
 
@@ -34,7 +36,7 @@ namespace MultiProc
             string[] file_name_arr = Directory.GetFiles(test_path, "*.omec");
             string[] out_files = new string[file_name_arr.Length];
 
-            for (int j = 0; j < file_name_arr.Length * 1024; j++)
+            for (int j = 0; j < file_name_arr.Length * 128; j++)
             {
                 for (int i = 0; i < file_name_arr.Length; i++)
                 {
@@ -42,43 +44,50 @@ namespace MultiProc
                 }
             }
 
-          
+
 
             while (model_queue.Count > 0)
-            {   //build argument list 
+            {   
+                
+                //build argument list 
                 Guid g = Guid.NewGuid();
                 string input_path = (string)model_queue.Dequeue();
                 int idx = input_path.LastIndexOf('\\');
-                int len = input_path.LastIndexOf('.') - idx;
-               
+                int len = input_path.LastIndexOf('.') - idx;              
                 string out_file = input_path.Substring(idx + 1, len-1);
                 string out_path = input_path.Substring(0, idx) + "\\results\\" + out_file + g + ".csv";
                
-                
-                int elapsedTime = 0;
-                bool eventHandled = false;
-
-
-                //start a process on the new file
+               
+                //Prepare a process to start up OMEengine with the proper filepaths and flags
                 Process proc_engine = new Process();
                 proc_engine.StartInfo.FileName = ".\\OMEEngine.exe"; ;
                 proc_engine.StartInfo.Arguments = eng_args + " -c\"" + out_path + "\" \"" + input_path + "\"";
                 proc_engine.EnableRaisingEvents = true;
-                proc_engine.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                proc_engine.StartInfo.CreateNoWindow = true;
+                proc_engine.StartInfo.UseShellExecute = false;
+                //proc_engine.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+
+                //Only run as many processes as we have cores
+                while (proc_cntr > Environment.ProcessorCount * 2 - 2)
+               {
+                   System.Threading.Thread.Sleep(2000);
+                   Console.WriteLine("Waiting for process to exit....Sleeping for 2 seconds");
+               }
+
                 proc_engine.Exited += (sender, EventArgs) =>
                     {
-                        Console.WriteLine(model_queue.Count);
-                        if (model_queue.Count == 0)
+                        proc_cntr -= 1;
+                        Console.WriteLine("Current count at process exit: {0}\r\n", proc_cntr);
+
+                        if (proc_cntr == 0)
                         {
+                            Console.WriteLine("Time started: {0}\r\n", startTime);
                             Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
                             Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
                         }
 
-                        eventHandled = true;
-                        //Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
-                        //Console.WriteLine("Exit time:    {0}\r\n" +
-                            //"Exit code:    {1}\r\nElapsed time: {2}", proc_engine.ExitTime, proc_engine.ExitCode,proc_engine.ExitTime - proc_engine.StartTime);
-                        
+
                         if (proc_engine.ExitCode != 0)
                             Console.Write("Error occured");
 
@@ -86,9 +95,13 @@ namespace MultiProc
                         //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
 
                     };
+
+                //Start the subprocess
                 proc_engine.Start();
-                //proc_cntr += 1;
                 //proc_engine.WaitForExit();
+                proc_cntr += 1;
+                Console.WriteLine("Current count at process start: {0}\r\n", proc_cntr);
+
 
 
                   
@@ -96,7 +109,7 @@ namespace MultiProc
 
 
 
-            Console.WriteLine("Finished. Press any key to exit");
+            Console.WriteLine("Finished starting last set of processes. Please wait for these to complete, then press any button to exit");
             Console.ReadLine(); 
 
 
@@ -115,10 +128,10 @@ namespace MultiProc
 
             Console.Write(Environment.NewLine + Environment.NewLine);
             Console.WriteLine("Enter any flags separated only be spaces: ");
-            string startTime = DateTime.Now.ToString("h:mm:ss tt");
-            string engine_args = "-q";
 
-            Console.WriteLine("Time started: {0}\r\n", startTime);
+            string engine_args = " -q";
+
+
 
             LaunchOMEMultiProc(engine_args);
 
