@@ -1,0 +1,33 @@
+#Preliminary info for the LRP model:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#If LR = 1, then only the CD base scenario modification is in effect, 
+#if RD = 1, then LRD, RDD, and GreenRD (also just a switch) can be used. 
+#If LR and RD = 1, then CD, LRD, RDD, and GreenRD can be used
+#For the variables which are switches, only numeric param that matters is default. It has to be flagged. 
+#
+#
+#
+#Light Rail + Redevelopment  
+**LR+RD
+<var name in OME Engine>,			    			    <dscrptr>,<deflt>, <min>, <max>, <intrvl>, <iter>
+#
+#switches
+#
+light rail scenario switch,							LR,	1,	1,	1,	0,	0
+redevelopment scenario switch,							RD,	1,	1,	1,	0,      0
+#
+#Base Scenario Modifications
+#
+percent increase in demand for commercial floor space Tier 1 due to LRT slider,	CD,	10,	0,	15,	5,	4
+overall target percent of land redeveloped Tier 1 slider,			LRD,	20,	5,	20,	5,	4
+redeveloped density Tier 1 multiplier slider,					RDD	3,	2,	4,	1,	3
+green redevelopment switch,							GreenRD,0,	0,	1,	1,	2
+#
+#Additional Policies for future trends
+#
+public transit fare price multiplier slider,					PTF,	1,	0,	2,	1,	3
+parking price hike amount Tier 1 slider,					PPH,	0,	0,	2,	1,	3
+nonmotorized facilities Tier 1 multiplier slider,				NMF,	1,	1,	2,	0.5,	3
+hourly retail wage increase amount slider,					RWI,	0,	0,	10,	5,	3
+new lane miles added multiplier slider,						LMA,	1,	0,	2,	1,	3
+price of gasoline multiplier slider,						PofG,	1,	0.8,	1.2,	0.2,	3
+MPG projection multiplier slider,						MPG,	1,	0.8,	1.2,	0.2,	3

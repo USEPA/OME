@@ -16,9 +16,9 @@
     </debug>
     <!--param_file can go here -->
     <solver method="euler" />
-    <!-- compiled_name="../Windows/x64/Debug/ModelProject"-->
-	<!--  compiled_name="../project_files/Windows/x64/Debug/ModelProject"-->
-    <ome_model filepath="..\LRP v3-54 20160722.omem" compiled_name="..\LRP v3-54 20160722" start_time="2000.0" stop_time="2040.0" report_interval="1.0" relative_step_size="0.0625"/>
+    <!-- compiled_name="../Windows/x64/Release/ModelProject"-->
+	<!--  compiled_name="../project_files/Windows/x64/Release/ModelProject"-->
+    <ome_model filepath="..\LRP v3-54 20160722.omem" compiled_name="..\LRP v3-54 20160722r" start_time="2000.0" stop_time="2040.0" report_interval="1.0" relative_step_size="0.0625"/>
     <!-- <ome_model filepath="delay test.omem" start_time="0.0" stop_time="100.0	" report_interval="1.0" relative_step_size="1.0"/> -->
     <results_views selected="0">
         <tree_view name="trouble fields (time 0)" sort_dir="1" sort_mode="0">
