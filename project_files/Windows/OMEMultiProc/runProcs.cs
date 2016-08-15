@@ -16,69 +16,110 @@ using System.IO;
 
 namespace MultiProc
 {
-    
-    public class profileCollection
-    {
-        
-        //
-        public List<a_profile> profile_prints { get; set; }
-
-
-        //parse each of the profiles in the given subfolder path
-        //Create a new profile given the path to the file
-        public void BaseProfileFactory(string directory_path)
-        {
-
-            string[] file_paths = Directory.GetFiles(directory_path, "profile*");
-
-            //We get each file path, need to open it and parse it, filling in all the values in the a_profile
-            foreach(string each in file_paths)
-            {
-                a_profile prof = new a_profile();
-                prof.fill_profile(each);
-
-
-                profile_prints.Add(prof);
-            }
-
-
-        }
-    }
-
-
-    public class a_profile
-    {
-        string file_name_base;
-        //Dictionary<key,val>;
-
-        public void fill_profile(string path)
-        {
-            //Open file and fill the profile up using the dictionary.
-        }
-    }
 
 
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     class runProcs
     {
 
-        /// </summary>
-        /// <param name="args">The executable path for OMEENGINE and flags passed to it.</param>
+
+        public class profileCollection
+        {
+        
+            //Constructor, pass in the directory
+            public profileCollection(string dir_path)
+            {
+                try 
+                { 
+                    BaseProfileFactory(dir_path); 
+                }
+                catch (Exception e)
+                {  
+                    throw e;
+                }
+            }
+
+
+            //List that will hold the profiles
+            public List<modelProfile> profile_prints = new List<modelProfile>();
+
+
+            //parse each of the profiles in the given subfolder path
+            //Create a new profile given the path to the file
+            public void BaseProfileFactory(string directory_path)
+            {
+
+                string[] file_paths = Directory.GetFiles(directory_path, "profile*");
+
+                //We get each file path, need to open it and parse it, filling in all the values in the modelProfile
+                foreach(string each in file_paths)
+                {
+                    modelProfile prof = new modelProfile();
+                    prof.fill_profile(each);
+                    profile_prints.Add(prof);
+                }
+
+
+            }
+        }
+
+        //Parses the text profiles to creat the different models
+        //Parameters: base_name -> base model type
+        //plist -> list of all variables and their possible range of setting
+        public class modelProfile
+        {
+            string base_name;
+            public List<paramLRP> plist = new List<paramLRP>();
+            //Dictionary<key,val>;
+
+            public void fill_profile(string path)
+            {
+                try
+                {
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        string line;       
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if ( line[0] != '#')
+                            {
+                                if (line.Substring(0, 2) == "**")
+                                    base_name = line.Replace("*","");
+                            }
+                        }
+                        Console.WriteLine(base_name);
+                        Console.WriteLine("##############End of File");
+
+
+                        Console.WriteLine(path);
+
+                    }
+                }
+                catch
+                {
+
+                }
+                
+            }
+        }
+
+        //LRP model parameter ranges
+        public class paramLRP
+        {
+            string ome_name { get; set; }
+            string descriptor { get; set; }
+            float default_val { get; set; }
+            float min { get; set; }
+            float max { get; set; }
+            float intrvl { get; set; }
+            int iter { get; set; }
+
+        }
+
+ 
+    
+
+
         public static void LaunchOMEMultiProc(string eng_args)
         {
             string startTime = DateTime.Now.ToString("h:mm:ss tt");
@@ -89,7 +130,7 @@ namespace MultiProc
             //List of models to be ran with complete path
             //Add this list to Queue
             string exec_path=AppDomain.CurrentDomain.BaseDirectory;
-            string test_path = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\test\compiled_tests"));
+            string test_path = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\compiled_tests"));
             string[] file_name_arr = Directory.GetFiles(test_path, "*.omec");
             string[] out_files = new string[file_name_arr.Length];
 
@@ -171,6 +212,9 @@ namespace MultiProc
 
         }
 
+
+
+
         static void Main(string[] args)
         {
             Console.Write(Environment.NewLine + Environment.NewLine);
@@ -180,7 +224,14 @@ namespace MultiProc
             //Hardcode for testing purposes.
             string engine_args = " -q";
 
-            LaunchOMEMultiProc(engine_args);
+            string exec_path=AppDomain.CurrentDomain.BaseDirectory;
+            string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\profiles"));
+
+            profileCollection modelList = new profileCollection(profile_dir);
+
+
+            //LaunchOMEMultiProc(engine_args);
+            Console.ReadLine();
         }
     }
 }
