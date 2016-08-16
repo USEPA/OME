@@ -8,7 +8,7 @@
 #
 #Business As Usual
 **BAU
-<var name in OME Engine>,			    			    <dscrptr>,<deflt>, <min>, <max>, <intrvl>, <iter>
+#<var name in OME Engine>,			    			    <dscrptr>,<deflt>, <min>, <max>, <intrvl>, <iter>
 #
 #switches
 #
@@ -19,7 +19,7 @@ redevelopment scenario switch,							RD,	0,	0,	0,	0,      0
 #
 percent increase in demand for commercial floor space Tier 1 due to LRT slider,	CD,	10,	0,	15,	5,	0
 overall target percent of land redeveloped Tier 1 slider,			LRD,	20,	5,	20,	5,	0
-redeveloped density Tier 1 multiplier slider,					RDD	3,	2,	4,	1,	0
+redeveloped density Tier 1 multiplier slider,					RDD,	3,	2,	4,	1,	0
 green redevelopment switch,							GreenRD,0,	0,	1,	1,	0
 #
 #Additional Policies for future trends
