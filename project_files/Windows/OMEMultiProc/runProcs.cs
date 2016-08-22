@@ -18,11 +18,15 @@ namespace MultiProc
 {
 
 
-
+    
     class runProcs
     {
 
 
+        /** A single profileCollection holds a list of the profiles collected 
+         ** which consists of the default values and possible values 
+         ** of each variable. list: 'profile_prints'
+         */ 
         public class profileCollection
         {
         
@@ -30,7 +34,8 @@ namespace MultiProc
             public profileCollection(string dir_path)
             {
                 try 
-                { 
+                {
+                    profile_prints = new List<modelProfile>();
                     BaseProfileFactory(dir_path); 
                 }
                 catch (Exception e)
@@ -41,11 +46,11 @@ namespace MultiProc
 
 
             //List that will hold the profiles
-            public List<modelProfile> profile_prints = new List<modelProfile>();
+            public List<modelProfile> profile_prints;
 
 
             //parse each of the profiles in the given subfolder path
-            //Create a new profile given the path to the file
+            //Add the new modelProfile object to the list
             public void BaseProfileFactory(string directory_path)
             {
 
@@ -71,7 +76,11 @@ namespace MultiProc
             public string base_name;
             public List<paramLRP> plist = new List<paramLRP>();
             String[] temp_params;
-            //Dictionary<key,val>;
+
+            //This MEGAMAP is a monstrous creature used to speed up the process
+            //of creating output files from the input files. The dicts are built
+            //on a per profile basis to add flexibility in case of differing defaults
+            public Dictionary<string, string> name_map = new Dictionary<string, string>();
 
             public void fill_profile(string path)
             {
@@ -92,7 +101,7 @@ namespace MultiProc
                                 else
                                 {
                                     temp_params = line.Replace("\t", String.Empty).Split(',');
-                                    paramLRP new_entry = new paramLRP(temp_params);
+                                    paramLRP new_entry = new paramLRP(temp_params, name_map);
                                     plist.Add(new_entry);
                                 }
                             }
@@ -112,11 +121,17 @@ namespace MultiProc
             }
         }
 
-        //LRP model parameter ranges
+
+
+
+        /*LRP model parameter ranges
+         ** 
+         ** 
+         */
         public class paramLRP
         {
             //Structure of the profiles used is as follows
-            public paramLRP(string[] prams)
+            public paramLRP(string[] prams, Dictionary<string, string> OMEtoLRP_map)
             {
                 try
                 {
@@ -149,11 +164,43 @@ namespace MultiProc
             public string ome_name { get; set; }
             public string descriptor { get; set; }
             public float default_val { get; set; }
-            public float min { get; set; }
-            public float max { get; set; }
-            public float intrvl { get; set; }
+            float min { get; set; }
+            float max { get; set; }
+            float intrvl { get; set; }
             public int iter { get; set; }
 
+            //Returns a list of all the values the parameter can take
+            //In OME_input -o format (See OMEEngine.cpp PrintHelp())
+            //Also inserts naming scheme into the dictionary used for the profile
+            public List<string> enumVals(Dictionary<string, string> OMEtoLRP_map)
+            {
+                List<string> var_vals = new List<string>();
+                float varr;
+                string temp_name, temp_desc;
+
+                if (iter == 1)
+                {
+                    temp_name = String.Format("-o{0}={1} ", ome_name, default_val);
+                    temp_desc = String.Format("{0}", descriptor);
+                    OMEtoLRP_map.Add(temp_name, temp_desc);
+                    var_vals.Add(temp_name);
+                    return var_vals;
+                }    
+
+                for(int i = 0; i < iter; i++)
+                {
+                    varr = min + intrvl * i;
+                    temp_name = String.Format("-o{0}={1} ", ome_name, varr);
+                    temp_desc = String.Format("_{0}{1} ", varr, descriptor);
+                    OMEtoLRP_map.Add(temp_name, temp_desc);
+                    var_vals.Add(temp_name);
+                }
+                //var_vals.ForEach(i => Console.Write("{0}\t", i));
+                //Console.Write("\n\n\n");
+                return var_vals;
+            }
+
+            
         }
 
         
@@ -166,15 +213,22 @@ namespace MultiProc
         //Calculate all combinations, fill in output file names and input string to engine accordingly
         public static void nameCreator(modelProfile model_data, string[] build_input, string[] build_output)
         {
+            
             List<paramLRP> pd = model_data.plist;
+            List<List<string>> all = new List<List<string>>();
+            
+            //Create the list consisting of list's of values each paramater can take up
+            //In OME input format. Additionally hashes the corresponding output var name
+            foreach (var entry in pd)
+            {
+                //Console.WriteLine(entry.min + " " + entry.intrvl + " " + entry.iter);
+                all.Add(entry.enumVals(model_data.name_map));
+            }
 
-            var combinations = from a in pd[0].min.ToString()
-                               from b in pd[1].min.ToString()
-                               from c in pd[2].min.ToString()
-                               orderby a, b, c
-                               select new List<int> { a, b, c };
-
-            var x = combinations.ToList();
+            foreach (KeyValuePair<string, string> pair in model_data.name_map)
+            {
+                Console.WriteLine("{0}: {1} \n\n\n\n", pair.Key, pair.Value);
+            }
  
 
         }

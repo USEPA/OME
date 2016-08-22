@@ -1,8 +1,13 @@
 Steps to run new LRP model:
 
 1. Use UniversalConverter to convert to .omem file.
-2. Use ModelClassBuilder to generate source code (recommended to use release build).
+2. Use ModelClassBuilder to generate source code (Use release build.).
+--> Input: testControl.omec    ,  Make sure to change the filepath inside to that of the given omem file.
+--> Output Directory: OME\project_files\Windows\ModelProject
+--> Class name: TestModel
+
 3. Compile output from ModelClassBuilder (recommended debug build).
-4. Update testControl.omec to match new model.
+...What that means is build ModelProject within VS, 
+4. Update testControl.omec to match the new model.
 5. Run Model using default settings in testControl.omec. Export values using -f flag or Appropriate export option in Wizard.
 
