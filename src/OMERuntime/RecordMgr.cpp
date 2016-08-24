@@ -1164,7 +1164,8 @@ void RecordMgr::CopyArchiveToCache(ValueArchive* pArch, const OME_SCALAR & timeS
 		}
 	}
 	m_lastTimeInd = IRIND(timeStamp);
-	DBG_PRINT("WRITING RECORD " + std::to_string(m_lastTimeInd));
+	//Commented out to increase performance over a large amount of simulations.
+	//DBG_PRINT("WRITING RECORD " + std::to_string(m_lastTimeInd));
 }
 
 /** Set the min record usage.

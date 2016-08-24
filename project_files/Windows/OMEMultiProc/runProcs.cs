@@ -19,7 +19,7 @@ namespace MultiProc
 
 
     
-    class runProcs
+    public static class runProcs
     {
 
 
@@ -180,9 +180,8 @@ namespace MultiProc
 
                 if (iter == 1)
                 {
-                    temp_name = String.Format("-o{0}={1} ", ome_name, default_val);
-                    temp_desc = String.Format("{0}", descriptor);
-                    OMEtoLRP_map.Add(temp_name, temp_desc);
+                    temp_name = String.Format("-o\"{0}\"={1} ", ome_name, default_val);
+                    OMEtoLRP_map.Add(temp_name, ""); //When default, not in LRP name.
                     var_vals.Add(temp_name);
                     return var_vals;
                 }    
@@ -190,9 +189,12 @@ namespace MultiProc
                 for(int i = 0; i < iter; i++)
                 {
                     varr = min + intrvl * i;
-                    temp_name = String.Format("-o{0}={1} ", ome_name, varr);
-                    temp_desc = String.Format("_{0}{1} ", varr, descriptor);
-                    OMEtoLRP_map.Add(temp_name, temp_desc);
+                    temp_name = String.Format("-o\"{0}\"={1} ", ome_name, varr);
+                    if (varr == default_val)
+                        temp_desc = ""; //When default, not in name.
+                    else
+                        temp_desc = String.Format("_{0}{1} ", varr, descriptor);
+                    OMEtoLRP_map.Add(temp_name, temp_desc.Trim());
                     var_vals.Add(temp_name);
                 }
                 //var_vals.ForEach(i => Console.Write("{0}\t", i));
@@ -211,27 +213,85 @@ namespace MultiProc
         
         
         //Calculate all combinations, fill in output file names and input string to engine accordingly
-        public static void nameCreator(modelProfile model_data, string[] build_input, string[] build_output)
+        public static void nameCreator(modelProfile model_data, List<string> build_input, List<string> build_output)
         {
             
             List<paramLRP> pd = model_data.plist;
-            List<List<string>> all = new List<List<string>>();
-            
+            List<List<string>> all_combos = new List<List<string>>();
+            List<List<string>> combo_result = new List<List<string>>();
             //Create the list consisting of list's of values each paramater can take up
             //In OME input format. Additionally hashes the corresponding output var name
             foreach (var entry in pd)
             {
-                //Console.WriteLine(entry.min + " " + entry.intrvl + " " + entry.iter);
-                all.Add(entry.enumVals(model_data.name_map));
+                all_combos.Add(entry.enumVals(model_data.name_map));
             }
 
-            foreach (KeyValuePair<string, string> pair in model_data.name_map)
+            //Now develop each combination and add it to the build inputs and outputs.
+            combo_result = AllCombinationsOf(all_combos);
+
+            //Merge each list of strings into the command for OME Engine
+            //and the output string for the csv files
+            foreach (var string_list in combo_result)
             {
-                Console.WriteLine("{0}: {1} \n\n\n\n", pair.Key, pair.Value);
+                build_input.Add(Concat(string_list, null));
+                build_output.Add(Concat(string_list, model_data.name_map));
             }
- 
-
         }
+
+        public static List<List<T>> AllCombinationsOf<T>(List<List<T>> sets)
+        {
+            // need array bounds checking etc for production
+            var combinations = new List<List<T>>();
+
+            // prime the data
+            foreach (var value in sets[0])
+                combinations.Add(new List<T> { value });
+
+            foreach (var set in sets.Skip(1))
+                combinations = AddExtraSet(combinations, set);
+
+            return combinations;
+            //Thanks to Garry Shutler for the combinations algorithm, edited for list<list> use:
+            //http://stackoverflow.com/questions/545703/combination-of-listlistint
+        }
+
+
+        private static List<List<T>> AddExtraSet<T> (List<List<T>> combinations, List<T> set)
+        {
+            var newCombinations = from value in set
+                                  from combination in combinations
+                                  select new List<T>(combination) { value };
+
+            return newCombinations.ToList();
+        }
+
+        //Concatenate the OME_Input and corresponding output using the dictionary
+        //This keyword extends IEnumerable with 'string' properties
+        public static string Concat(this IEnumerable<string> source, Dictionary<string,string> map_csv)
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            if (map_csv == null)
+            {
+                foreach (string s in source)
+                {
+                    sb.Append(s);
+                }
+                return sb.ToString();
+            }
+
+            foreach (string s in source)
+            {
+                sb.Append(map_csv[s]);
+            }
+            return sb.ToString();
+        }
+
+
+
+
+
+
 
         //The engine arguments and each base model along with its parameters are passed in
         public static void LaunchOMEMultiProc(string eng_args, modelProfile model)
@@ -250,87 +310,97 @@ namespace MultiProc
             //Add this list to Queue
             string exec_path=AppDomain.CurrentDomain.BaseDirectory;
             string test_path = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\compiled_tests"));
-            string[] file_name_arr = Directory.GetFiles(test_path, "*.omec");
-            string[] out_files = new string[file_count];
-            string[] input_params = new string[file_count];
+            string main_path = Directory.GetFiles(test_path, "*.omec")[0];
+            List<string> out_fnames = new List<string>();
+            List<string> input_params = new List<string>();
+
+            //Fill all the input/output names. 
+            nameCreator(model, input_params, out_fnames);
 
 
-            //Call a function to fill all the input/output names. 
-            nameCreator(model, input_params, out_files);
-
-
-
-                //CHANGE AMT OF FILES HERE
-                for (int j = 0; j < file_name_arr.Length * 1024; j++)
-                {
-                    for (int i = 0; i < file_name_arr.Length; i++)
-                    {
-                        model_queue.Enqueue(file_name_arr[i]);
-                    }
-                }
-
-            Console.WriteLine("Finished processing files, starting Engines...");
             /*
+            foreach (var merp in out_files)
+            {
+                Console.WriteLine(merp);
+                Console.WriteLine("\n\n\n");
+            }
+            foreach (var derp in input_params)
+            {
+                Console.WriteLine(derp);
+                Console.WriteLine("\n\n\n");
+            }*/
+
+
+            // Merge both lists into a list of tuples and chuck it into a queue
+            IEnumerable<Tuple<string, string>> in_out = input_params.Zip(out_fnames, (a, b) => Tuple.Create(a, b));
+            foreach (var atuple in in_out)
+                model_queue.Enqueue(atuple);
+       
+ 
+            Console.WriteLine("Finished processing files, starting the Engines...");
+
+            int idx = main_path.LastIndexOf('\\'); 
             while (model_queue.Count > 0)
             {   
                 
-                //build argument list 
-                Guid g = Guid.NewGuid();
-                string input_path = (string)model_queue.Dequeue();
-                int idx = input_path.LastIndexOf('\\');
-                int len = input_path.LastIndexOf('.') - idx;              
-                string out_file = input_path.Substring(idx + 1, len-1);
-                string out_path = input_path.Substring(0, idx) + "\\results\\" + out_file + g + ".csv";
-               
-               
-                //Prepare a process to start up OMEengine with the proper filepaths and flags
-                Process proc_engine = new Process();
-                proc_engine.StartInfo.FileName = ".\\OMEEngine.exe"; ;
-                //Console.WriteLine(eng_args + " -c\"" + out_path + "\" \"" + input_path + "\"");
-                //Console.ReadLine();
-                proc_engine.StartInfo.Arguments = eng_args + " -c\"" + out_path + "\" \"" + input_path + "\"";
-                proc_engine.EnableRaisingEvents = true;
-                proc_engine.StartInfo.CreateNoWindow = true;
-                proc_engine.StartInfo.UseShellExecute = false;
-                //proc_engine.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                //Retrieve the next item and build the output string 
+                Tuple<string, string> int_out = (Tuple<string, string>)model_queue.Dequeue();
+                string out_path = main_path.Substring(0, idx) + "\\..\\LRP_results\\" + model.base_name + int_out.Item2 + ".csv";
+                Console.WriteLine(model_queue.Count);
+                
+                 //Prepare a process to start up OMEengine with the proper filepaths and flags
+                 Process proc_engine = new Process();
+                 proc_engine.StartInfo.FileName = ".\\OMEEngine.exe"; ;
+                 //Console.WriteLine(eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"");
 
+                 proc_engine.StartInfo.Arguments = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
+                 proc_engine.EnableRaisingEvents = true;
+                 proc_engine.StartInfo.CreateNoWindow = true;
+                 proc_engine.StartInfo.UseShellExecute = false;
+                 //proc_engine.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                 //proc_engine.StartInfo.RedirectStandardOutput = true;
+                 proc_engine.StartInfo.RedirectStandardError = true;
 
-                //Manage the amount of processes running at once to maximize performace
-                while (proc_cntr > Environment.ProcessorCount)
-               {
-                   System.Threading.Thread.Sleep(500);
-                   //Console.WriteLine("Waiting for process to exit....Sleeping for 2 seconds");
-               }
+                 //Manage the amount of processes running at once to maximize performace
+                 while (proc_cntr > Environment.ProcessorCount)
+                {
+                    System.Threading.Thread.Sleep(2000);
+                    //Console.WriteLine("Waiting for process to exit....Sleeping for 2 seconds");
+                }
 
-                //listener for each process, signals when they exit
-                proc_engine.Exited += (sender, EventArgs) =>
-                    {
-                        proc_cntr -= 1;
-                        //Console.WriteLine("Current count at process exit: {0}\r\n", proc_cntr);
+                 //listener for each process, signals when they exit
+                 proc_engine.Exited += (sender, EventArgs) =>
+                     {
+                         proc_cntr -= 1;
+                         //Console.WriteLine("Current count at process exit: {0}\r\n", proc_cntr);
 
-                        if (proc_cntr == 0)
-                        {
-                            Console.WriteLine("Time started: {0}\r\n", startTime);
-                            Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
-                            Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
-                        }
+                         if (proc_cntr == 0)
+                         {
+                             Console.WriteLine("Time started: {0}\r\n", startTime);
+                             Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
+                             Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
+                         }
+                         //Console.WriteLine(proc_engine.StandardOutput.ReadToEnd());
+                         Console.WriteLine(proc_engine.StandardError.ReadToEnd());
 
+                         if (proc_engine.ExitCode != 0)
+                         {
+                             Console.Write("Error occured");
+                             
+                         }
 
-                        if (proc_engine.ExitCode != 0)
-                            Console.Write("Error occured");
+                         //Source:
+                         //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
 
-                        //Source:
-                        //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
+                     };
+                 System.Threading.Thread.Sleep(2000);
+                 //Start up the given subprocess consisting of a call to OMEENGINE
+                 proc_engine.Start();
+                 //proc_engine.WaitForExit();
+                 proc_cntr += 1;
+                 //Console.WriteLine("Current count at process start: {0}\r\n", proc_cntr);
 
-                    };
-
-                //Start up the given subprocess consisting of a call to OMEENGINE
-                proc_engine.Start();
-                //proc_engine.WaitForExit();
-                proc_cntr += 1;
-                //Console.WriteLine("Current count at process start: {0}\r\n", proc_cntr);
-                  
-            }*/
+            }
 
             Console.WriteLine("Finished starting last set of processes. Please wait for these to complete, then press any button to exit");
             Console.WriteLine("Time started: {0}\r\n", startTime);
@@ -349,7 +419,7 @@ namespace MultiProc
 
             //Run quietly to improve performance
             //Hardcode for testing purposes.
-            string engine_args = " -q";
+            string engine_args = " -q ";
 
             string exec_path=AppDomain.CurrentDomain.BaseDirectory;
             string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\profiles"));
@@ -399,10 +469,7 @@ namespace MultiProc
             //CHANGE AMT OF FILES HERE
             for (int j = 0; j < file_name_arr.Length * 1024; j++)
             {
-                for (int i = 0; i < file_name_arr.Length; i++)
-                {
                     model_queue.Enqueue(file_name_arr[i]);
-                }
             }
 
 
