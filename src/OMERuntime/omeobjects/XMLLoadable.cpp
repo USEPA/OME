@@ -273,7 +273,8 @@ STLString XMLLoadable::ErrDescription(const tinyxml2::XMLError & err)
 	STLString ret;
 	switch(err)
 	{
-	case XML_NO_ERROR:
+	//case XML_NO_ERROR:  was causing error..
+	case XML_SUCCESS:
 		ret="No error";
 		break;
 	case XML_NO_ATTRIBUTE:
