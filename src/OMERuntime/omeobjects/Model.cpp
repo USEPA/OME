@@ -1979,7 +1979,7 @@ OMEObject* Model::NestedObjectForName(StrArray::const_iterator sItr,StrArray::co
 		else
 		{
 			//tail entry; must be object
-			out=ObjectForExprName(*sItr,false);
+			out=ObjectForExprName(ScrubName(*sItr),false);
 		}
 	}
 	return out;
