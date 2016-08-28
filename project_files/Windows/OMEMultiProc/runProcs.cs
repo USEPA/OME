@@ -301,7 +301,7 @@ namespace MultiProc
             Queue model_queue = new Queue();
             short proc_cntr = 0;
             int file_count = 1;
-
+            Console.WriteLine("Amount of Processers: {0}", Environment.ProcessorCount);
             //First get the amount of combinations to get the file count
             foreach(paramLRP var in model.plist )
                 file_count *= var.iter;
@@ -346,21 +346,21 @@ namespace MultiProc
                 //Retrieve the next item and build the output string 
                 Tuple<string, string> int_out = (Tuple<string, string>)model_queue.Dequeue();
                 string out_path = main_path.Substring(0, idx) + "\\..\\LRP_results\\" + model.base_name + int_out.Item2 + ".csv";
-                Console.WriteLine(model_queue.Count);
+                //Console.WriteLine(model_queue.Count);
                 
                  //Prepare a process to start up OMEengine with the proper filepaths and flags
                  Process proc_engine = new Process();
                  proc_engine.StartInfo.FileName = ".\\OMEEngine.exe"; ;
-                 //Console.WriteLine(eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"");
-                 string error = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
-                 error += Environment.NewLine + int_out.Item1;
-                 System.IO.File.WriteAllText(@"C:\Users\vpredovi\Desktop\WriteLines.txt", error);
-                   
-                 Console.WriteLine(int_out.Item1);
+                //Console.WriteLine(eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"");
+                //string error = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
+               // error += Environment.NewLine + int_out.Item1;
+                //System.IO.File.WriteAllText(@"C:\Users\User\Desktop\WriteLines.txt", error);
+
+                //Console.WriteLine(int_out.Item1);
                  proc_engine.StartInfo.Arguments = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
                  proc_engine.EnableRaisingEvents = true;
-                 //proc_engine.StartInfo.CreateNoWindow = true;
-                 //proc_engine.StartInfo.UseShellExecute = false;
+                 proc_engine.StartInfo.CreateNoWindow = true;
+                 proc_engine.StartInfo.UseShellExecute = false;
                  //proc_engine.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                  //proc_engine.StartInfo.RedirectStandardOutput = true;
                  //proc_engine.StartInfo.RedirectStandardError = true;
@@ -369,7 +369,7 @@ namespace MultiProc
                  while (proc_cntr > Environment.ProcessorCount)
                 {
                     System.Threading.Thread.Sleep(2000);
-                    //Console.WriteLine("Waiting for process to exit....Sleeping for 2 seconds");
+                    Console.WriteLine("Waiting for process to exit....Sleeping for 2 seconds");
                 }
 
                  //listener for each process, signals when they exit
@@ -399,8 +399,8 @@ namespace MultiProc
                          //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
 
                      };
-                 System.Threading.Thread.Sleep(2000);
-                 Console.ReadLine();
+                 //System.Threading.Thread.Sleep(2000);
+                 //Console.ReadLine();
                  //Start up the given subprocess consisting of a call to OMEENGINE
                  proc_engine.Start();
                  //proc_engine.WaitForExit();
@@ -426,7 +426,7 @@ namespace MultiProc
 
             //Run quietly to improve performance
             //Hardcode for testing purposes.
-            string engine_args = " ";
+            string engine_args = "-q ";
 
             string exec_path=AppDomain.CurrentDomain.BaseDirectory;
             string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\profiles"));
