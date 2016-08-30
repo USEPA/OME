@@ -294,7 +294,7 @@ namespace MultiProc
 
 
         //The engine arguments and each base model along with its parameters are passed in
-        public static void LaunchOMEMultiProc(string eng_args, modelProfile model)
+        public static void LaunchOMEMultiProc(string result_Path, string eng_args, modelProfile model)
         {
             string startTime = DateTime.Now.ToString("h:mm:ss tt");
             Console.WriteLine("Time started: {0}\r\n", startTime);
@@ -352,7 +352,7 @@ namespace MultiProc
                 
                 //Retrieve the next item and build the output string 
                 Tuple<string, string> int_out = (Tuple<string, string>)model_queue.Dequeue();
-                string out_path = main_path.Substring(0, idx) + "\\..\\LRP_results\\" + model.base_name + int_out.Item2 + ".csv";
+                string out_path = result_Path + "\\..\\LRP_results\\" + model.base_name + int_out.Item2 + ".csv";
                 //Console.WriteLine(model_queue.Count);
                 
                  //Prepare a process to start up OMEengine with the proper filepaths and flags
@@ -437,14 +437,14 @@ namespace MultiProc
             string engine_args = "-q ";
 
             string exec_path=AppDomain.CurrentDomain.BaseDirectory;
-            string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\profiles"));
+            string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\..\..\..\..\LRP\MultiRun\profiles"));
 
             profileCollection model_lst = new profileCollection(profile_dir);
             //model_lst.profile_prints.ForEach(item => Console.WriteLine(item.base_name));
 
             //Iterate through each profile, launching the program
             for (int i = 0; i < model_lst.profile_prints.Count; i++)
-                LaunchOMEMultiProc(engine_args, model_lst.profile_prints[i]);
+                LaunchOMEMultiProc(profile_dir, engine_args, model_lst.profile_prints[i]);
     
 
             Console.ReadLine();
