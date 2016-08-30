@@ -726,6 +726,7 @@ bool RecordMgr::LoadDeltasForTime(const STLString & path)
 			ret = ReadMinRecord(inFile);
 			break;
 		default:
+			//ret = ReadFullRecord(inFile);
 			throw OMEIOException("LoadDeltasForTime","Unknown read mode");
 			//ret = false;
 		};

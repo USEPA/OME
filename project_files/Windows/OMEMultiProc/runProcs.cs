@@ -334,11 +334,18 @@ namespace MultiProc
             // Merge both lists into a list of tuples and chuck it into a queue
             IEnumerable<Tuple<string, string>> in_out = input_params.Zip(out_fnames, (a, b) => Tuple.Create(a, b));
             foreach (var atuple in in_out)
+            {
                 model_queue.Enqueue(atuple);
-       
- 
+                /*
+                if (atuple.Item2 == "_0CD_4RDD_1GreenRD_0PTF_0LMA_0.8PofG_0.8MPG")
+                {
+                    string error = atuple.Item1;
+                    System.IO.File.WriteAllText(@"C:\Users\vpredovi\Desktop\error_cause.txt", error);
+                    Environment.Exit(0);
+                }*/
+            }
             Console.WriteLine("Finished processing files, starting the Engines...");
-
+            //Console.ReadLine();
             int idx = main_path.LastIndexOf('\\'); 
             while (model_queue.Count > 0)
             {   
@@ -366,6 +373,7 @@ namespace MultiProc
                  //proc_engine.StartInfo.RedirectStandardError = true;
 
                  //Manage the amount of processes running at once to maximize performace
+                 Console.Write(proc_cntr);
                  while (proc_cntr > Environment.ProcessorCount)
                 {
                     System.Threading.Thread.Sleep(2000);
@@ -376,7 +384,7 @@ namespace MultiProc
                  proc_engine.Exited += (sender, EventArgs) =>
                      {
                          proc_cntr -= 1;
-                         //Console.WriteLine("Current count at process exit: {0}\r\n", proc_cntr);
+                         Console.WriteLine("Current count at process exit: {0}\r\n", proc_cntr);
 
                          if (proc_cntr == 0)
                          {
@@ -400,12 +408,12 @@ namespace MultiProc
 
                      };
                  //System.Threading.Thread.Sleep(2000);
-                 //Console.ReadLine();
+
                  //Start up the given subprocess consisting of a call to OMEENGINE
                  proc_engine.Start();
                  //proc_engine.WaitForExit();
                  proc_cntr += 1;
-                 //Console.WriteLine("Current count at process start: {0}\r\n", proc_cntr);
+                Console.ReadLine();
 
             }
 
