@@ -35,6 +35,7 @@ bool LoadReportList(StrList & sl, STLString & path);
 void SimResults(const OME_SCALAR & iteration, BaseManager * mngr, void* extra);
 bool ParseParam(ParamArray & params, const OMEChar* assignment);
 
+
 int main(int argc, const char* argv[])
 {
 	using namespace MainUtils;
@@ -169,7 +170,12 @@ int main(int argc, const char* argv[])
 			if (intMethodArg)
 				sMngr.SetIntMethod(intMethodArg);
 
-			sMngr.EnableFileCache(); //<--------Insert 1 directory up, unique file for each process Dont forget to fux deletions
+			//string cacheFolder = filename.split
+			//int procID = ::getpid();
+
+
+			sMngr.EnableFileCache(); 
+
 			sMngr.SetMinimalRecords(!fullReport);
 			STLString sTypeStr;
 			switch (sMngr.GetSolverType())

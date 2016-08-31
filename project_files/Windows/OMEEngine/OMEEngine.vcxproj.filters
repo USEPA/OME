@@ -36,11 +36,9 @@
     <ClCompile Include="..\..\..\src\mainEntries\OMEEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\extern_support\tinyxml2\tinyxml2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Windows\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\extern_support\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
 </Project>

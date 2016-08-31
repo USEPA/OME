@@ -413,7 +413,7 @@ namespace MultiProc
                  proc_engine.Start();
                  //proc_engine.WaitForExit();
                  proc_cntr += 1;
-                Console.ReadLine();
+                // Console.ReadLine();
 
             }
 

@@ -12,7 +12,9 @@
 #define RM_KEYFRAME_INT		1
 #endif
 
-const OMEChar DIR_NAME[]="OMETmp/";
+const string procID = std::to_string(::getpid());
+const OMEChar DIR_NAM[]="OMETmp_";
+const string DIR_NAME = DIR_NAM + procID + "/";
 //#define IRIND(x) ((size_t)(((x)-m_startTime)/m_interval))
 #define IRTIME(x) ((OME_SCALAR)(((x)*m_interval)+m_startTime))
 
