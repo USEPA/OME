@@ -169,7 +169,7 @@ int main(int argc, const char* argv[])
 			if (intMethodArg)
 				sMngr.SetIntMethod(intMethodArg);
 
-			sMngr.EnableFileCache();
+			sMngr.EnableFileCache(); //<--------Insert 1 directory up, unique file for each process Dont forget to fux deletions
 			sMngr.SetMinimalRecords(!fullReport);
 			STLString sTypeStr;
 			switch (sMngr.GetSolverType())
