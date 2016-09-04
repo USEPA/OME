@@ -73,6 +73,14 @@ ValueArchive::~ValueArchive()
 		m_records.Clear();
 }
 
+
+void ValueArchive::ClearAll()
+{
+	if (!m_retainRecords)
+		m_records.Clear();
+}
+
+
 /** Expand memory space for a specific Evaluable object.
 	@param pEval Pointer to the Evaluable which needs more space.
 	@param numCopies The number of value slots to add.
