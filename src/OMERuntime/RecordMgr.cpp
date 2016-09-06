@@ -257,7 +257,18 @@ void RecordMgr::Clear()
 			std::remove(PathForInd(i).c_str());
 		}
 	}
-	m_totEntries = 0;
+	//Clear temp folder on cleanup
+	if (m_totEntries > 0)
+	{
+		m_totEntries = 0;
+		//Temporary WorkAround.. Check OS cross..Compatibility issues when removing folders.
+		static oSTLSStream pathStrm;
+		pathStrm.clear();
+		pathStrm.str(STLString());
+		m_dirPath.erase(std::prev(m_dirPath.end()));
+		pathStrm << m_dirPath;
+		rmdir(pathStrm.str().c_str());
+	}
 	ClearMinTrackList();
 }
 

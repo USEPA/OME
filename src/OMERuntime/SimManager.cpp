@@ -1468,7 +1468,7 @@ bool SimManager::ExportAllValuesToCSV(const STLString & path)
 				}
 				
 			}
-			m_dynamicValues.ClearAll();  //Need to call destructor
+			m_dynamicValues.ClearAll();  //Force 'destructor' call to get rid of temp files.
 			m_staticValues.ClearAll();
 			outFile << endl;
 		}
