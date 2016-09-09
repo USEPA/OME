@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -204,14 +205,7 @@ namespace MultiProc
 
             
         }
-
-        
-        
-        
-        
-        
-        
-        
+      
         //Calculate all combinations, fill in output file names and input string to engine accordingly
         public static void nameCreator(modelProfile model_data, List<string> build_input, List<string> build_output)
         {
@@ -255,7 +249,6 @@ namespace MultiProc
             //http://stackoverflow.com/questions/545703/combination-of-listlistint
         }
 
-
         private static List<List<T>> AddExtraSet<T> (List<List<T>> combinations, List<T> set)
         {
             var newCombinations = from value in set
@@ -289,7 +282,31 @@ namespace MultiProc
 
 
 
+        public class Logger
+        {
+            public Logger(string log_dir_path)
+            {
+                log_file = Path.GetFullPath(Path.Combine(log_dir_path, @"log.txt"));
+                if (!File.Exists(log_file))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(log_file))
+                    {
+                        sw.WriteLine("Log Begin:");
+                    }
+                }
+            }
 
+            string log_file { get; set; }
+
+            public void appendLog(string message)
+            {
+                using (StreamWriter sw = File.AppendText(log_file))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+        }
 
 
 
@@ -313,22 +330,9 @@ namespace MultiProc
             string main_path = Directory.GetFiles(test_path, "*.omec")[0];
             List<string> out_fnames = new List<string>();
             List<string> input_params = new List<string>();
-
+            Logger log_file = new Logger(test_path);
             //Fill all the input/output names. 
             nameCreator(model, input_params, out_fnames);
-
-
-            /*
-            foreach (var merp in out_files)
-            {
-                Console.WriteLine(merp);
-                Console.WriteLine("\n\n\n");
-            }
-            foreach (var derp in input_params)
-            {
-                Console.WriteLine(derp);
-                Console.WriteLine("\n\n\n");
-            }*/
 
 
             // Merge both lists into a list of tuples and chuck it into a queue
@@ -336,16 +340,8 @@ namespace MultiProc
             foreach (var atuple in in_out)
             {
                 model_queue.Enqueue(atuple);
-                /*
-                if (atuple.Item2 == "_0CD_4RDD_1GreenRD_0PTF_0LMA_0.8PofG_0.8MPG")
-                {
-                    string error = atuple.Item1;
-                    System.IO.File.WriteAllText(@"C:\Users\vpredovi\Desktop\error_cause.txt", error);
-                    Environment.Exit(0);
-                }*/
             }
             Console.WriteLine("Finished processing files, starting the Engines...");
-            //Console.ReadLine();
             int idx = main_path.LastIndexOf('\\'); 
             while (model_queue.Count > 0)
             {   
@@ -353,17 +349,11 @@ namespace MultiProc
                 //Retrieve the next item and build the output string 
                 Tuple<string, string> int_out = (Tuple<string, string>)model_queue.Dequeue();
                 string out_path = result_Path + "\\..\\LRP_results\\" + model.base_name + int_out.Item2 + ".csv";
-                //Console.WriteLine(model_queue.Count);
                 
                  //Prepare a process to start up OMEengine with the proper filepaths and flags
                  Process proc_engine = new Process();
                  proc_engine.StartInfo.FileName = ".\\OMEEngine.exe"; ;
-                //Console.WriteLine(eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"");
-                //string error = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
-               // error += Environment.NewLine + int_out.Item1;
-                //System.IO.File.WriteAllText(@"C:\Users\User\Desktop\WriteLines.txt", error);
 
-                //Console.WriteLine(int_out.Item1);
                  proc_engine.StartInfo.Arguments = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
                  proc_engine.EnableRaisingEvents = true;
                  proc_engine.StartInfo.CreateNoWindow = true;
@@ -377,7 +367,6 @@ namespace MultiProc
                  while (proc_cntr > Environment.ProcessorCount)
                 {
                     System.Threading.Thread.Sleep(2000);
-                    Console.WriteLine("Waiting for process to exit....Sleeping for 2 seconds");
                 }
 
                  //listener for each process, signals when they exit
@@ -392,28 +381,20 @@ namespace MultiProc
                              Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
                              Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
                          }
-
-                         //Console.WriteLine(proc_engine.StandardError.ReadToEnd());
-                         //Console.WriteLine(proc_engine.StandardOutput.ReadToEnd());
-
-                         
+                
                          if (proc_engine.ExitCode != 0)
                          {
                              Console.Write("Error occured");
+                             log_file.appendLog(proc_engine.StandardError.ReadToEnd());
                              
                          }
-
                          //Source:
                          //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
-
                      };
-                 //System.Threading.Thread.Sleep(2000);
 
                  //Start up the given subprocess consisting of a call to OMEENGINE
                  proc_engine.Start();
-                 //proc_engine.WaitForExit();
                  proc_cntr += 1;
-                 //Console.ReadLine();
 
             }
 
@@ -426,11 +407,10 @@ namespace MultiProc
 
 
 
-
+        [STAThread]
         static void Main(string[] args)
         {
             Console.Write(Environment.NewLine + Environment.NewLine);
-            Console.WriteLine("Enter any flags separated only be spaces: ");
 
             //Run quietly to improve performance
             //Hardcode for testing purposes.
