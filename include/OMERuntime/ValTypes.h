@@ -45,7 +45,7 @@
 	#define OME_SCLR_STR	"double"
 	#define OME_SCLR_TAG	""
 	#define OME_SCLR_READSTR(x)	std::stod(x)
-	#define OME_WRITE_PRECISION 15
+	#define OME_WRITE_PRECISION 3
 
 	#define OMEABS(x)	std::abs(x)
 	#define OMEACOS(x)	std::acos(x)
