@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 //Developer: Vlad Predovic
 //Description: Used for testing/optimizing the amount of instances of OMEEngine to run on a system at once. 
@@ -19,28 +20,27 @@ namespace MultiProc
 {
 
 
-    
+
     public static class runProcs
     {
-
 
         /** A single profileCollection holds a list of the profiles collected 
          ** which consists of the default values and possible values 
          ** of each variable. list: 'profile_prints'
-         */ 
+         */
         public class profileCollection
         {
-        
+
             //Constructor, pass in the directory
             public profileCollection(string dir_path)
             {
-                try 
+                try
                 {
                     profile_prints = new List<modelProfile>();
-                    BaseProfileFactory(dir_path); 
+                    BaseProfileFactory(dir_path);
                 }
                 catch (Exception e)
-                {  
+                {
                     throw e;
                 }
             }
@@ -58,7 +58,7 @@ namespace MultiProc
                 string[] file_paths = Directory.GetFiles(directory_path, "profile*");
 
                 //We get each file path, need to open it and parse it, filling in all the values in the modelProfile
-                foreach(string each in file_paths)
+                foreach (string each in file_paths)
                 {
                     modelProfile prof = new modelProfile();
                     prof.fill_profile(each);
@@ -75,10 +75,16 @@ namespace MultiProc
         public class modelProfile
         {
             public string base_name;
+            private int _proc_cntr;
+            public int ProcCounter { get { return _proc_cntr; } }
+            public void IncrementProcCounter() { Interlocked.Increment(ref _proc_cntr); }
+            public void DecrementProcCounter() { Interlocked.Decrement(ref _proc_cntr); }
+
+
             public List<paramLRP> plist = new List<paramLRP>();
             String[] temp_params;
 
-            //This MEGAMAP is a monstrous creature used to speed up the process
+            //This MEGAMAP is used to speed up the process
             //of creating output files from the input files. The dicts are built
             //on a per profile basis to add flexibility in case of differing defaults
             public Dictionary<string, string> name_map = new Dictionary<string, string>();
@@ -89,10 +95,10 @@ namespace MultiProc
                 {
                     using (StreamReader sr = new StreamReader(path))
                     {
-                        string line;       
+                        string line;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            if ( line[0] != '#')
+                            if (line[0] != '#')
                             {
                                 if (line.Substring(0, 2) == "**")
                                 {
@@ -110,7 +116,7 @@ namespace MultiProc
                         Console.WriteLine("Load Complete");
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.GetType().FullName);
                     Console.WriteLine(e.Message);
@@ -118,20 +124,41 @@ namespace MultiProc
                     Console.ReadLine();
                     Environment.Exit(1);
                 }
-                
+
             }
         }
 
+        //Base Class for setting up the profile structure for your outputs
+        public abstract class paramCreator
+        {
 
+            public virtual string ome_name { get; set; }
+            public virtual string descriptor { get; set; }
+            public virtual float default_val { get; set; }
+            protected virtual float min { get; set; }
+            protected virtual float max { get; set; }
+            protected virtual float intrvl { get; set; }
+            public virtual int iter { get; set; }
 
+            //Returns a list of all the values the parameter can take
+            //In OME_input -o format (See OMEEngine.cpp PrintHelp())
+            //Also inserts naming scheme into the dictionary used for the profile
+            //Representation will vary for any implementation, hence abstract
+            public abstract List<string> enumVals(Dictionary<string, string> OMEtoLRP_map);
+
+            //Define output file format based on implementation needed in the derived class. 
+            //Cannot inherit static members
+            //abstract public string outputStr();
+
+        }
 
         /*LRP model parameter ranges
          ** 
          ** 
          */
-        public class paramLRP
+        public sealed class paramLRP : paramCreator
         {
-            //Structure of the profiles used is as follows
+            //Structure of the profiles used is as follows for the LRP PROGRAM.
             public paramLRP(string[] prams, Dictionary<string, string> OMEtoLRP_map)
             {
                 try
@@ -142,17 +169,18 @@ namespace MultiProc
                     min = float.Parse(prams[3]);
                     max = float.Parse(prams[4]);
                     intrvl = float.Parse(prams[5]);
+                    if (intrvl == 0) { intrvl = 1; }
                     iter = int.Parse(prams[6]);
                     if (iter == 0) { iter = 1; }
                 }
-                catch(IndexOutOfRangeException)
+                catch (IndexOutOfRangeException)
                 {
-                    Console.WriteLine("Index was out of range, check the commas for variable {0}", ome_name );
+                    Console.WriteLine("Index was out of range, check the commas for variable {0}", ome_name);
                     Console.WriteLine("\n\n Program will now exit, press any button");
                     Console.ReadLine();
                     Environment.Exit(1);
                 }
-                catch(InvalidCastException)
+                catch (InvalidCastException)
                 {
                     Console.WriteLine("Invalid cast, check the fields in the profile for variable {0}", ome_name);
                     Console.WriteLine("\n\n Program will now exit, press any button");
@@ -162,23 +190,39 @@ namespace MultiProc
 
             }
 
-            public string ome_name { get; set; }
-            public string descriptor { get; set; }
-            public float default_val { get; set; }
-            float min { get; set; }
-            float max { get; set; }
-            float intrvl { get; set; }
-            public int iter { get; set; }
-
             //Returns a list of all the values the parameter can take
             //In OME_input -o format (See OMEEngine.cpp PrintHelp())
             //Also inserts naming scheme into the dictionary used for the profile
-            public List<string> enumVals(Dictionary<string, string> OMEtoLRP_map)
+            public override List<string> enumVals(Dictionary<string, string> OMEtoLRP_map)
             {
                 List<string> var_vals = new List<string>();
                 float varr;
+                int deflt_index;
                 string temp_name, temp_desc;
 
+                if (iter == 1)
+                {
+                    deflt_index = (int)(default_val / intrvl - min / intrvl);
+                    temp_name = String.Format("-o\"{0}\"={1} ", ome_name, default_val);
+                    temp_desc = String.Format("{0}", deflt_index);
+                    OMEtoLRP_map.Add(temp_name, temp_desc.Trim()); //When default, not in LRP name.
+                    var_vals.Add(temp_name);
+                    return var_vals;
+                }
+                else
+                {
+                    for (int i = 0; i < iter; i++)
+                    {
+                        varr = min + intrvl * i;
+                        temp_name = String.Format("-o\"{0}\"={1} ", ome_name, varr);
+                        temp_desc = String.Format("{0}", i);
+                        OMEtoLRP_map.Add(temp_name, temp_desc.Trim());
+                        var_vals.Add(temp_name);
+                    }
+                }
+                return var_vals;
+
+                /*
                 if (iter == 1)
                 {
                     temp_name = String.Format("-o\"{0}\"={1} ", ome_name, default_val);
@@ -186,7 +230,6 @@ namespace MultiProc
                     var_vals.Add(temp_name);
                     return var_vals;
                 }    
-
                 for(int i = 0; i < iter; i++)
                 {
                     varr = min + intrvl * i;
@@ -198,18 +241,27 @@ namespace MultiProc
                     OMEtoLRP_map.Add(temp_name, temp_desc.Trim());
                     var_vals.Add(temp_name);
                 }
-                //var_vals.ForEach(i => Console.Write("{0}\t", i));
-                //Console.Write("\n\n\n");
-                return var_vals;
+                */
             }
 
-            
+            //LRP implementation for file output scheme
+            public static string outputStr(string output_path, string model_base, string file_name)
+            {
+                string shaved_base = file_name.Substring(2);
+                string final_outpath = output_path + model_base + "_" + shaved_base.Substring(0, 4);
+                Directory.CreateDirectory(final_outpath);
+                string result_path = final_outpath + "//" + model_base + "_" + shaved_base + ".csv";
+                return result_path;
+            }
+
+
         }
-      
+
+
         //Calculate all combinations, fill in output file names and input string to engine accordingly
         public static void nameCreator(modelProfile model_data, List<string> build_input, List<string> build_output)
         {
-            
+
             List<paramLRP> pd = model_data.plist;
             List<List<string>> all_combos = new List<List<string>>();
             List<List<string>> combo_result = new List<List<string>>();
@@ -249,7 +301,7 @@ namespace MultiProc
             //http://stackoverflow.com/questions/545703/combination-of-listlistint
         }
 
-        private static List<List<T>> AddExtraSet<T> (List<List<T>> combinations, List<T> set)
+        private static List<List<T>> AddExtraSet<T>(List<List<T>> combinations, List<T> set)
         {
             var newCombinations = from value in set
                                   from combination in combinations
@@ -260,10 +312,10 @@ namespace MultiProc
 
         //Concatenate the OME_Input and corresponding output using the dictionary
         //This keyword extends IEnumerable with 'string' properties
-        public static string Concat(this IEnumerable<string> source, Dictionary<string,string> map_csv)
+        public static string Concat(this IEnumerable<string> source, Dictionary<string, string> map_csv)
         {
             StringBuilder sb = new StringBuilder();
-            
+
             if (map_csv == null)
             {
                 foreach (string s in source)
@@ -282,32 +334,118 @@ namespace MultiProc
 
 
 
+        /*Interface for logging the results of all simulations.
+            **Primarily used for identifying simulations that failed resulting in possibly corrupted files. 
+            */
         public class Logger
         {
-            public Logger(string log_dir_path)
+            public Logger(string log_dir_path, int init_count)
             {
-                log_file = Path.GetFullPath(Path.Combine(log_dir_path, @"log.txt"));
+                alert_time = st_time = DateTime.Now;
+                this.start_count = init_count;
+
+                string temp = "log" + DateTime.Now.ToShortTimeString() + ".txt";
+                log_file = Path.GetFullPath(Path.Combine(log_dir_path, temp.Replace(":", "_")));
                 if (!File.Exists(log_file))
                 {
                     // Create a file to write to.
                     using (StreamWriter sw = File.CreateText(log_file))
                     {
-                        sw.WriteLine("Log Begin:");
+                        sw.WriteLine("Log Begin: " + DateTime.Now.ToShortDateString() + "   " + DateTime.Now.ToShortTimeString());
                     }
                 }
             }
 
+            int start_count;
+            DateTime alert_time;
+            DateTime st_time;
             string log_file { get; set; }
+
+            Queue<string> q_log = new Queue<string>();
 
             public void appendLog(string message)
             {
-                using (StreamWriter sw = File.AppendText(log_file))
+                while (true)
                 {
-                    sw.WriteLine(message);
+                    try
+                    {
+                        q_log.Enqueue(message + '\n');
+                        break;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+            }
+
+            public void printLog(int counter, int queue_size, string profile_name)
+            {
+                if (DateTime.Now.Subtract(alert_time).TotalMinutes > 5)
+                {
+                    this.alert_time = DateTime.Now;
+                    Console.WriteLine("\n\n\n\nThe time is: {0}, I started at: {1}", this.alert_time.ToShortTimeString(), this.st_time.ToShortTimeString());
+                    Console.WriteLine("Currently running results for the profile {0}. Next update in 5 minutes.", profile_name);
+                    Console.WriteLine("At this moment in time {0} processes are currently running", counter);
+                    Console.WriteLine("Your overall rate since the last checkup is {0} files per minute", (this.start_count - queue_size) / 5);
+                }
+                while (q_log.Count > 0)
+                {
+                    using (StreamWriter sw = File.AppendText(log_file))
+                        sw.WriteLine(q_log.Dequeue());
                 }
             }
         }
 
+        //Launching and monitoring an instance of OME ENGINE.
+        public static void launchEngines(string args, string output_fp, string startTime, modelProfile model_base, Logger log_file)
+        {
+            //Prepare a process to start up OMEengine with the proper filepaths and flags
+            Process proc_engine = new Process();
+            proc_engine.StartInfo.FileName = "OMEEngine.exe"; ;
+
+            proc_engine.StartInfo.Arguments = args;
+            proc_engine.EnableRaisingEvents = true;
+            proc_engine.StartInfo.CreateNoWindow = true;
+            proc_engine.StartInfo.UseShellExecute = false;
+            //proc_engine.StartInfo.RedirectStandardOutput = true;
+            //proc_engine.StartInfo.RedirectStandardError = true;
+
+            //Manage the amount of processes running at once to maximize performace
+            //Console.Write(process_cntr);
+            while (model_base.ProcCounter > Environment.ProcessorCount)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            //listener for each process, signals when they exit
+            proc_engine.Exited += (sender, EventArgs) =>
+            {
+                model_base.DecrementProcCounter();
+
+                /*
+                if (model_base.ProcCounter == 0)
+                {
+                    Console.WriteLine("Time started: {0}\r\n", startTime);
+                    Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
+                    Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
+                }
+                */
+                if (proc_engine.ExitCode != 0)
+                {
+                    Console.WriteLine("Error occured, check log for details.");
+                    //log_file.appendLog(proc_engine.StandardError.ReadToEnd());
+                    //log_file.appendLog(proc_engine.StandardOutput.ReadToEnd());
+                    log_file.appendLog(Environment.NewLine + "Error occured with the following input: \n\n " + proc_engine.StartInfo.Arguments
+                    + Environment.NewLine + Environment.NewLine + "The file in question is: " + output_fp.Split('\\').Last());
+                }
+                //Source:
+                //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
+            };
+            //Start up the given subprocess consisting of a call to OMEENGINE
+            proc_engine.Start();
+            //Console.ReadLine();
+        }
 
 
         //The engine arguments and each base model along with its parameters are passed in
@@ -316,21 +454,17 @@ namespace MultiProc
             string startTime = DateTime.Now.ToString("h:mm:ss tt");
             Console.WriteLine("Time started: {0}\r\n", startTime);
             Queue model_queue = new Queue();
-            short proc_cntr = 0;
-            int file_count = 1;
             Console.WriteLine("Amount of Processers: {0}", Environment.ProcessorCount);
             //First get the amount of combinations to get the file count
-            foreach(paramLRP var in model.plist )
-                file_count *= var.iter;
 
             //List of models to be ran with complete path
             //Add this list to Queue
-            string exec_path=AppDomain.CurrentDomain.BaseDirectory;
+            string exec_path = AppDomain.CurrentDomain.BaseDirectory;
             string test_path = Path.GetFullPath(Path.Combine(exec_path, @"..\..\OMEMultiProc\items\compiled_tests"));
             string main_path = Directory.GetFiles(test_path, "*.omec")[0];
             List<string> out_fnames = new List<string>();
             List<string> input_params = new List<string>();
-            Logger log_file = new Logger(test_path);
+            Logger log_file = new Logger(test_path, model_queue.Count);
             //Fill all the input/output names. 
             nameCreator(model, input_params, out_fnames);
 
@@ -342,67 +476,24 @@ namespace MultiProc
                 model_queue.Enqueue(atuple);
             }
             Console.WriteLine("Finished processing files, starting the Engines...");
-            int idx = main_path.LastIndexOf('\\'); 
+            int idx = main_path.LastIndexOf('\\');
             while (model_queue.Count > 0)
-            {   
-                
+            {
+
                 //Retrieve the next item and build the output string 
                 Tuple<string, string> int_out = (Tuple<string, string>)model_queue.Dequeue();
-                string out_path = result_Path + "\\..\\LRP_results\\" + model.base_name + int_out.Item2 + ".csv";
-                
-                 //Prepare a process to start up OMEengine with the proper filepaths and flags
-                 Process proc_engine = new Process();
-                 proc_engine.StartInfo.FileName = ".\\OMEEngine.exe"; ;
+                string out_path = paramLRP.outputStr(result_Path + "\\..\\LRP_results\\", model.base_name, int_out.Item2);
 
-                 proc_engine.StartInfo.Arguments = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
-                 proc_engine.EnableRaisingEvents = true;
-                 proc_engine.StartInfo.CreateNoWindow = true;
-                 proc_engine.StartInfo.UseShellExecute = false;
-                 //proc_engine.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                 //proc_engine.StartInfo.RedirectStandardOutput = true;
-                 //proc_engine.StartInfo.RedirectStandardError = true;
+                string in_path = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
 
-                 //Manage the amount of processes running at once to maximize performace
-                 Console.Write(proc_cntr);
-                 while (proc_cntr > Environment.ProcessorCount)
-                {
-                    System.Threading.Thread.Sleep(2000);
-                }
-
-                 //listener for each process, signals when they exit
-                 proc_engine.Exited += (sender, EventArgs) =>
-                     {
-                         proc_cntr -= 1;
-                         Console.WriteLine("Current count at process exit: {0}\r\n", proc_cntr);
-
-                         if (proc_cntr == 0)
-                         {
-                             Console.WriteLine("Time started: {0}\r\n", startTime);
-                             Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
-                             Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
-                         }
-                
-                         if (proc_engine.ExitCode != 0)
-                         {
-                             Console.Write("Error occured");
-                             log_file.appendLog(proc_engine.StandardError.ReadToEnd());
-                             
-                         }
-                         //Source:
-                         //https://msdn.microsoft.com/en-us/library/system.diagnostics.process.enableraisingevents(v=vs.110).aspx
-                     };
-
-                 //Start up the given subprocess consisting of a call to OMEENGINE
-                 proc_engine.Start();
-                 proc_cntr += 1;
-
+                launchEngines(in_path, out_path, startTime, model, log_file);
+                model.IncrementProcCounter();
+                log_file.printLog(model.ProcCounter, model_queue.Count, model.base_name);
             }
 
             Console.WriteLine("Finished starting last set of processes. Please wait for these to complete, then press any button to exit");
             Console.WriteLine("Time started: {0}\r\n", startTime);
             Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
-
-
         }
 
 
@@ -410,24 +501,45 @@ namespace MultiProc
         [STAThread]
         static void Main(string[] args)
         {
-            Console.Write(Environment.NewLine + Environment.NewLine);
+
+
+            Console.WriteLine("Welcome to OME MultiProc. Please enter the folder to save all the results to.");
+
+            // Prepare a dummy string, thos would appear in the dialog
+            string dummyFileName = "Save Here";
+            string savePath;        //Path set by user for saving results
+
+            SaveFileDialog sf = new SaveFileDialog();
+            // Feed the dummy name to the save dialog
+            sf.FileName = dummyFileName;
+
+            if (sf.ShowDialog() != DialogResult.OK)
+            {
+                Console.Write("Must select a save folder, press any button to exit");
+                Console.ReadLine();
+                return;                 //end program
+            }
+
+            // Now here's our save folder
+            savePath = Path.GetDirectoryName(sf.FileName) + "\\";
 
             //Run quietly to improve performance
-            //Hardcode for testing purposes.
             string engine_args = "-q ";
 
-            string exec_path=AppDomain.CurrentDomain.BaseDirectory;
-            string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\..\..\..\..\LRP\MultiRun\profiles"));
+            string exec_path = AppDomain.CurrentDomain.BaseDirectory;
 
+            Console.WriteLine("\n\nCreating all combinations for each profile given...");
+            string profile_dir = Path.GetFullPath(Path.Combine(exec_path, @"..\..\..\..\..\..\LRP\MultiRun\profiles"));
             profileCollection model_lst = new profileCollection(profile_dir);
-            //model_lst.profile_prints.ForEach(item => Console.WriteLine(item.base_name));
 
             //Iterate through each profile, launching the program
+            Console.WriteLine("Creating input and output lists...\n\n ");
             for (int i = 0; i < model_lst.profile_prints.Count; i++)
-                LaunchOMEMultiProc(profile_dir, engine_args, model_lst.profile_prints[i]);
-    
+                LaunchOMEMultiProc(savePath, engine_args, model_lst.profile_prints[i]);
+
 
             Console.ReadLine();
+
         }
     }
 }
