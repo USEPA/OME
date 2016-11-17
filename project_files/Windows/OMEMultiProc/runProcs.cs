@@ -46,11 +46,11 @@ namespace MultiProc
             }
 
 
-            //List that will hold the profiles
+            //! List that will hold the profiles
             public List<modelProfile> profile_prints;
 
 
-            //parse each of the profiles in the given subfolder path
+            //! A void member taking in path as string
             //Add the new modelProfile object to the list
             public void BaseProfileFactory(string directory_path)
             {
@@ -89,10 +89,14 @@ namespace MultiProc
             //on a per profile basis to add flexibility in case of differing defaults
             public Dictionary<string, string> name_map = new Dictionary<string, string>();
 
+            //! A void member taking one argument 
+            /*!
+              \param path String argument to the profile.
+            */
             public void fill_profile(string path)
             {
                 try
-                {
+                {   // scraping paramaters form the profile text file
                     using (StreamReader sr = new StreamReader(path))
                     {
                         string line;
@@ -128,7 +132,11 @@ namespace MultiProc
             }
         }
 
-        //Base Class for setting up the profile structure for your outputs
+        //
+        //! Base Class for parameter profiles. 
+        /*!
+            Used in setting up the structure for your outputs. Variables get populated from profile text file 
+        */
         public abstract class paramCreator
         {
 
@@ -152,13 +160,18 @@ namespace MultiProc
 
         }
 
-        /*LRP model parameter ranges
-         ** 
-         ** 
-         */
+        //! LRP model Class. 
+        /*!
+            Functionality provided is based on output naming schemes and 
+         * variables provided by the LRP team.
+         \see paramCreator()
+        */
         public sealed class paramLRP : paramCreator
         {
-            //Structure of the profiles used is as follows for the LRP PROGRAM.
+            //! A constructor.
+            /*!
+              Initializes current parameter in the profile with all the info provided.
+            */
             public paramLRP(string[] prams, Dictionary<string, string> OMEtoLRP_map)
             {
                 try
@@ -193,6 +206,13 @@ namespace MultiProc
             //Returns a list of all the values the parameter can take
             //In OME_input -o format (See OMEEngine.cpp PrintHelp())
             //Also inserts naming scheme into the dictionary used for the profile
+
+            //! A normal member taking a map <string, string> and returning a list <string>.
+            /*!
+              \param OMEtoLRP_map a map connecting the OME input variable names to the desired LRP output names.
+              \return var_vals
+              \see paramLRP()
+            */
             public override List<string> enumVals(Dictionary<string, string> OMEtoLRP_map)
             {
                 List<string> var_vals = new List<string>();
@@ -222,26 +242,6 @@ namespace MultiProc
                 }
                 return var_vals;
 
-                /*
-                if (iter == 1)
-                {
-                    temp_name = String.Format("-o\"{0}\"={1} ", ome_name, default_val);
-                    OMEtoLRP_map.Add(temp_name, ""); //When default, not in LRP name.
-                    var_vals.Add(temp_name);
-                    return var_vals;
-                }    
-                for(int i = 0; i < iter; i++)
-                {
-                    varr = min + intrvl * i;
-                    temp_name = String.Format("-o\"{0}\"={1} ", ome_name, varr);
-                    if (varr == default_val)
-                        temp_desc = ""; //When default, not in name.
-                    else
-                        temp_desc = String.Format("_{0}{1} ", varr, descriptor);
-                    OMEtoLRP_map.Add(temp_name, temp_desc.Trim());
-                    var_vals.Add(temp_name);
-                }
-                */
             }
 
             //LRP implementation for file output scheme
@@ -258,13 +258,20 @@ namespace MultiProc
         }
 
 
-        //Calculate all combinations, fill in output file names and input string to engine accordingly
+
+        //! A top-level function taking in a complete profile and two lists <string>.
+        /*!
+          \param model_data Object representing the model and all it's possible parameter values.
+          \param build_input List<string> List of the OME input overrides written in OME format
+          \param build_output List<string> List of LRP output strings.
+        */
         public static void nameCreator(modelProfile model_data, List<string> build_input, List<string> build_output)
         {
-
+            //Calculate all combinations, fill in output file names and input string to engine accordingly
             List<paramLRP> pd = model_data.plist;
             List<List<string>> all_combos = new List<List<string>>();
             List<List<string>> combo_result = new List<List<string>>();
+           
             //Create the list consisting of list's of values each paramater can take up
             //In OME input format. Additionally hashes the corresponding output var name
             foreach (var entry in pd)
@@ -284,6 +291,13 @@ namespace MultiProc
             }
         }
 
+
+        //! A top-level function taking in a List of lists <T> and returning the permuation of these lists.
+        /*!
+          \param sets A list containing lists of all the parameter combinations available in OME format.
+          \param build_input List<string> List of the permuted OME input overrides written in OME format
+          \param build_output List<string> List of permuted LRP output strings.
+        */
         public static List<List<T>> AllCombinationsOf<T>(List<List<T>> sets)
         {
             // need array bounds checking etc for production
@@ -301,6 +315,8 @@ namespace MultiProc
             //http://stackoverflow.com/questions/545703/combination-of-listlistint
         }
 
+
+
         private static List<List<T>> AddExtraSet<T>(List<List<T>> combinations, List<T> set)
         {
             var newCombinations = from value in set
@@ -312,6 +328,12 @@ namespace MultiProc
 
         //Concatenate the OME_Input and corresponding output using the dictionary
         //This keyword extends IEnumerable with 'string' properties
+        //! A top-level function taking in a string and a dictionary <string, string>
+        /*!
+          \param source key LRP-OME connection list to be parsed and fed into map or retured post concatenation.
+          \param map_csv <string,string> OME input mapped to LRP output strings.
+          \return sb concatenated string to be fed into OME engine as variable overrides or as LRP file names
+        */
         public static string Concat(this IEnumerable<string> source, Dictionary<string, string> map_csv)
         {
             StringBuilder sb = new StringBuilder();
@@ -334,11 +356,23 @@ namespace MultiProc
 
 
 
-        /*Interface for logging the results of all simulations.
-            **Primarily used for identifying simulations that failed resulting in possibly corrupted files. 
-            */
+
+        /**
+
+         */
+        //!  A class for a logfile . 
+        /*!
+           Interface that is primarily used to identify simulations that may have failed.
+           All results that appear in the log file should be checked for errors and re-entered 
+           manually into OME Engine if any are found.
+        */
         public class Logger
         {
+
+            //! A constructor.
+            /*!
+              Initializes log file /w time stamp .
+            */
             public Logger(string log_dir_path, int init_count)
             {
                 alert_time = st_time = DateTime.Now;
@@ -356,6 +390,7 @@ namespace MultiProc
                 }
             }
 
+
             int start_count;
             DateTime alert_time;
             DateTime st_time;
@@ -363,6 +398,11 @@ namespace MultiProc
 
             Queue<string> q_log = new Queue<string>();
 
+            //! A void member taking one argument.
+            /*!
+              \param message string containing OME combination that caused error.
+              \sa Logger(), printLog()
+            */
             public void appendLog(string message)
             {
                 while (true)
@@ -379,6 +419,13 @@ namespace MultiProc
                 }
             }
 
+            //! A void member taking three arguments.
+            /*!
+              \param counter Amount of OMEEngine processes currently running.
+              \param queue_size Integer defining error messages in queue.
+              \param profile_name The name given in the profile text file.
+              \sa Logger(), appendLog()
+            */
             public void printLog(int counter, int queue_size, string profile_name)
             {
                 if (DateTime.Now.Subtract(alert_time).TotalMinutes > 5)
@@ -397,8 +444,14 @@ namespace MultiProc
             }
         }
 
-        //Launching and monitoring an instance of OME ENGINE.
-        public static void launchEngines(string args, string output_fp, string startTime, modelProfile model_base, Logger log_file)
+        //! A top level function taking in 5 arguments.
+        /*!
+          \param args Input parameters for OMEEngine (see OMEEngine.cpp).
+          \param output_fp File path for output data as a csv.
+          \param model_base Profile object, used primarily for keeping track of running processes.
+          \param log_file Log file in case of an error occuring.
+        */
+        public static void launchEngines(string args, string output_fp, modelProfile model_base, Logger log_file)
         {
             //Prepare a process to start up OMEengine with the proper filepaths and flags
             Process proc_engine = new Process();
@@ -423,14 +476,7 @@ namespace MultiProc
             {
                 model_base.DecrementProcCounter();
 
-                /*
-                if (model_base.ProcCounter == 0)
-                {
-                    Console.WriteLine("Time started: {0}\r\n", startTime);
-                    Console.WriteLine("Time ended: {0}\r\n", DateTime.Now.ToString("h:mm:ss tt"));
-                    Console.WriteLine("Exit time:    {0}\r\n", proc_engine.ExitTime);
-                }
-                */
+
                 if (proc_engine.ExitCode != 0)
                 {
                     Console.WriteLine("Error occured, check log for details.");
@@ -447,7 +493,13 @@ namespace MultiProc
             //Console.ReadLine();
         }
 
-
+        //! A top level function taking in 5 arguments.
+        /*!
+          \param args Input parameters for OMEEngine (see OMEEngine.cpp).
+          \param output_fp File path for output data as a csv.
+          \param model_base Profile object, used primarily for keeping track of running processes.
+          \param log_file Log file in case of an error occuring.
+        */
         //The engine arguments and each base model along with its parameters are passed in
         public static void LaunchOMEMultiProc(string result_Path, string eng_args, modelProfile model)
         {
@@ -475,6 +527,7 @@ namespace MultiProc
             {
                 model_queue.Enqueue(atuple);
             }
+
             Console.WriteLine("Finished processing files, starting the Engines...");
             int idx = main_path.LastIndexOf('\\');
             while (model_queue.Count > 0)
@@ -486,7 +539,7 @@ namespace MultiProc
 
                 string in_path = eng_args + "-f\"" + out_path + "\" " + int_out.Item1 + "\"" + main_path + "\"";
 
-                launchEngines(in_path, out_path, startTime, model, log_file);
+                launchEngines(in_path, out_path, model, log_file);
                 model.IncrementProcCounter();
                 log_file.printLog(model.ProcCounter, model_queue.Count, model.base_name);
             }
@@ -558,7 +611,7 @@ namespace MultiProc
 
 
 
-/*    OLD VERSION FOR TESTING, MAYBE REIMPLEMENT AS TESTING/SINGULAR OPTION
+/*    OLD VERSION, COULD REIMPLEMENT AS TESTING/SINGULAR OPTION
       public static void LaunchOMEMultiProc(string eng_args)
         {
             string startTime = DateTime.Now.ToString("h:mm:ss tt");
