@@ -17,7 +17,6 @@
 				1715919E1D2C8B70009CB4CF /* PBXTargetDependency */,
 				171591A01D2C8B74009CB4CF /* PBXTargetDependency */,
 				171591A21D2C8B78009CB4CF /* PBXTargetDependency */,
-				171591A41D2C8B79009CB4CF /* PBXTargetDependency */,
 				171591AA1D2C8B80009CB4CF /* PBXTargetDependency */,
 				171591A61D2C8B7C009CB4CF /* PBXTargetDependency */,
 				171591A81D2C8B7E009CB4CF /* PBXTargetDependency */,
@@ -332,7 +331,6 @@
 		17E7C2BA1C7A8CF40044FD64 /* libLuaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E7C0791C7A7D100044FD64 /* libLuaLib.a */; };
 		17E7C2BB1C7A8CF40044FD64 /* libOMERuntime.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E7C0D61C7A7EA10044FD64 /* libOMERuntime.dylib */; };
 		17E7C2BC1C7A8D270044FD64 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17E7C1691C7A7EC80044FD64 /* tinyxml2.cpp */; };
-		17E7C2BE1C7A8D6B0044FD64 /* CompiledHeaderTemplate.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17E7C2BD1C7A8D650044FD64 /* CompiledHeaderTemplate.txt */; };
 		17E7C30D1C7ACFE10044FD64 /* libOMEDraw.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E7C2261C7A812C0044FD64 /* libOMEDraw.dylib */; };
 		17E7C30E1C7ACFE10044FD64 /* libOMERuntime.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E7C0D61C7A7EA10044FD64 /* libOMERuntime.dylib */; };
 		17E7C33E1C7AD3180044FD64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E7C3371C7AD3180044FD64 /* AppDelegate.m */; };
@@ -486,13 +484,6 @@
 			remoteGlobalIDString = 17E7C24B1C7A83A30044FD64;
 			remoteInfo = OMEEngine;
 		};
-		171591A31D2C8B79009CB4CF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 17E7C2B21C7A8C490044FD64;
-			remoteInfo = ModelClassBuilder;
-		};
 		171591A51D2C8B7C009CB4CF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 17E7C0271C7A7C620044FD64 /* Project object */;
@@ -618,7 +609,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				17E7C2BE1C7A8D6B0044FD64 /* CompiledHeaderTemplate.txt in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,7 +1119,7 @@
 		17E7C24C1C7A83A30044FD64 /* OMEEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OMEEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		17E7C2581C7A83F50044FD64 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		17E7C2B31C7A8C490044FD64 /* ModelClassBuilder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ModelClassBuilder; sourceTree = BUILT_PRODUCTS_DIR; };
-		17E7C2BD1C7A8D650044FD64 /* CompiledHeaderTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CompiledHeaderTemplate.txt; path = "/Users/pwingo/Programming Projects/ome-unstable/OS_X/ModelClassBuilder/../../CompiledHeaderTemplate.txt"; sourceTree = "<absolute>"; };
+		17E7C2BD1C7A8D650044FD64 /* CompiledHeaderTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CompiledHeaderTemplate.txt; path = "../../../../ome-unstable/CompiledHeaderTemplate.txt"; sourceTree = SOURCE_ROOT; };
 		17E7C2C71C7ACF6A0044FD64 /* OMESimRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OMESimRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17E7C3251C7AD2F50044FD64 /* OMEWizard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OMEWizard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17E7C3361C7AD3180044FD64 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2582,11 +2572,6 @@
 			target = 17E7C24B1C7A83A30044FD64 /* OMEEngine */;
 			targetProxy = 171591A11D2C8B78009CB4CF /* PBXContainerItemProxy */;
 		};
-		171591A41D2C8B79009CB4CF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 17E7C2B21C7A8C490044FD64 /* ModelClassBuilder */;
-			targetProxy = 171591A31D2C8B79009CB4CF /* PBXContainerItemProxy */;
-		};
 		171591A61D2C8B7C009CB4CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 17E7C2C61C7ACF6A0044FD64 /* OMESimRunner */;
@@ -3046,6 +3031,7 @@
 				171591991D2C8B5C009CB4CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		17E7C02A1C7A7C620044FD64 /* Build configuration list for PBXProject "OME" */ = {
 			isa = XCConfigurationList;
