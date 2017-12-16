@@ -41,7 +41,7 @@ public:
 	ValueArchive(const ValueArchive & archive);
 	~ValueArchive();
 
-	void ValueArchive::ClearAll();
+    void ClearAll();
 
 	void AllocSpaceForRegisteredModels();
 	void AllocSpaceForModel(Model* root, const MODELPARSE & mode = ALL);
